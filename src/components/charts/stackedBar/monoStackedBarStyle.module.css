@@ -1,0 +1,24 @@
+.stackedBar {
+    display: flex;
+    color: white;
+}
+
+.stackedBar div:not(:first-child):not(:last-child) {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.sectionLabel {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.caption {
+    display: flex;
+/*    color: black;*/
+    text-align: center;
+    font-size: 12px;
+}
