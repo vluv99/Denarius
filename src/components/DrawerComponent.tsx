@@ -54,16 +54,16 @@ export const DrawerComponent = ({
         />
 
         <DrawerButton
-          icon={<ViewListIcon />}
-          label={routeAddresses.listTransactions.label}
-          to={routeAddresses.listTransactions.to}
+          icon={<PlaylistAddIcon />}
+          label={routeAddresses.addTransaction.label}
+          to={routeAddresses.addTransaction.to}
           onClick={onClick}
         />
 
         <DrawerButton
-          icon={<PlaylistAddIcon />}
-          label={routeAddresses.addTransaction.label}
-          to={routeAddresses.addTransaction.to}
+          icon={<ViewListIcon />}
+          label={routeAddresses.listTransactions.label}
+          to={routeAddresses.listTransactions.to}
           onClick={onClick}
         />
       </List>

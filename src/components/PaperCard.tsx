@@ -2,6 +2,7 @@ import { Container, /*createTheme,*/ Paper, Typography } from "@mui/material";
 import { ReactElement } from "react";
 
 import "../App.css";
+import { Padding } from "@mui/icons-material";
 
 interface DashboardCardProps {
   label: string;
@@ -11,7 +12,7 @@ interface DashboardCardProps {
 export const PaperCard = ({ label, children }: DashboardCardProps) => {
   return (
     <>
-      <Paper elevation={4} className="paper-card">
+      <Paper elevation={4} sx={{ padding: "20px" }}>
         <Container>
           <Typography
             className="card-label"

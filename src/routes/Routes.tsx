@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { Home } from "../pages/HomePage/Home";
+import { AddTransaction } from "../pages/AddTransactionPage/AddTransaction";
 //import { ListTransactions } from "../pages/ListTransactionsPage/ListTransactions";
-//import { AddTransaction } from "../pages/AddTransactionPage/AddTransaction";
 
 export const routeAddresses = {
   home: {
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
         path: routeAddresses.listTransactions.to,
         element: <Home />,
       },
-      { path: routeAddresses.addTransaction.to, element: <Home /> },
+      { path: routeAddresses.addTransaction.to, element: <AddTransaction /> },
     ],
   },
 ]);
