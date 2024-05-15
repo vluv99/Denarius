@@ -1,5 +1,5 @@
 import { Transaction } from "../../models/Transaction";
-import { categories } from "../../models/CategoryModel";
+import { categories_test as categories } from "../../models/CategoryModel";
 import { users } from "../../models/UserModel";
 
 // interface Transactions {

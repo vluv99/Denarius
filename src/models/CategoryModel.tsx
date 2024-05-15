@@ -13,7 +13,7 @@ export class CategoryModel {
   // }
 }
 
-export const categories = {
+export const categories_test = {
   Groceries: "Groceries",
   Food: "Food",
   FoodDelivery: "Food Delivery",

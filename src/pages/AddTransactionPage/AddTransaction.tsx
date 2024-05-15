@@ -17,13 +17,13 @@ import {
 } from "@mui/material";
 import { Transaction } from "../../models/Transaction";
 import { PaperCard } from "../../components/PaperCard";
-import { categories } from "../../models/CategoryModel";
 import { DatePicker } from "@mui/x-date-pickers";
 import { users } from "../../models/UserModel";
 import { AccountCircle, AddCircleOutline } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { cardTypes } from "../ListTransactionsPage/TestTransactions";
 import { isMobile } from "react-device-detect";
+import { useCategoryData } from "../../hooks/categoryHooks";
 
 export function AddTransaction() {
   const [payee, setPayee] = useState("");
@@ -35,6 +35,8 @@ export function AddTransaction() {
   const [card, setCard] = React.useState("");
   const [isCommon, setIsCommon] = useState(true);
   const [cleared, setCleared] = React.useState<boolean>(false);
+
+  const categories = useCategoryData();
 
   const handleCategoryChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
@@ -149,12 +151,9 @@ export function AddTransaction() {
                 label="Category"
                 onChange={handleCategoryChange}
               >
-                {Object.entries(categories).map((value) => (
-                  <MenuItem
-                    key={"category-select-" + value[0]}
-                    value={value[0]}
-                  >
-                    {value[1]}
+                {categories.map((cat, index) => (
+                  <MenuItem key={"category-select-" + index} value={index}>
+                    {cat.name}
                   </MenuItem>
                 ))}
               </Select>
