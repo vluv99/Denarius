@@ -33,8 +33,7 @@ export function Navbar() {
           </IconButton>
           <Typography variant="h6" color="inherit" component="div">
             <Typography variant="h6">
-              {/*<Link to={routeAddresses.home.to}>{websiteName}</Link>*/}
-              <a href={routeAddresses.home.to}>{websiteName}</a>
+              <Link to={routeAddresses.home.to}>{websiteName}</Link>
             </Typography>
             <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
               <DrawerComponent setOpenDrawer={setOpenDrawer}></DrawerComponent>
