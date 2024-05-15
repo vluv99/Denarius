@@ -27,6 +27,7 @@ import { useGetCategoryData } from "../../hooks/categoryHooks";
 //import { useAddTransactionData } from "../../hooks/transactionHooks";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../utils/firebase";
+import { useGetCardData } from "../../hooks/cardHooks";
 
 export function AddTransaction() {
   const [payee, setPayee] = useState("");
@@ -40,6 +41,7 @@ export function AddTransaction() {
   const [cleared, setCleared] = React.useState<boolean>(false);
 
   const categories = useGetCategoryData();
+  const cards = useGetCardData();
 
   const handleCategoryChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
@@ -222,9 +224,9 @@ export function AddTransaction() {
                 label="Card type"
                 onChange={handleCardChange}
               >
-                {Object.entries(cardTypes).map((value) => (
-                  <MenuItem key={"card-select-" + value[0]} value={value[0]}>
-                    {value[1]}
+                {cards.map((card, index) => (
+                  <MenuItem key={"card-select-" + index} value={card.id}>
+                    {card.name}
                   </MenuItem>
                 ))}
               </Select>
