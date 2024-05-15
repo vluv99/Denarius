@@ -29,6 +29,7 @@ export const DrawerComponent = ({
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              padding: "18px 10px 8px 10px",
             }}
           >
             <AccountBalanceIcon sx={{ fontSize: 100 }} />
