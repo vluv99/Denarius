@@ -23,7 +23,10 @@ import { AccountCircle, AddCircleOutline } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { cardTypes } from "../ListTransactionsPage/TestTransactions";
 import { isMobile } from "react-device-detect";
-import { useCategoryData } from "../../hooks/categoryHooks";
+import { useGetCategoryData } from "../../hooks/categoryHooks";
+//import { useAddTransactionData } from "../../hooks/transactionHooks";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../utils/firebase";
 
 export function AddTransaction() {
   const [payee, setPayee] = useState("");
@@ -36,7 +39,7 @@ export function AddTransaction() {
   const [isCommon, setIsCommon] = useState(true);
   const [cleared, setCleared] = React.useState<boolean>(false);
 
-  const categories = useCategoryData();
+  const categories = useGetCategoryData();
 
   const handleCategoryChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
@@ -110,13 +113,14 @@ export function AddTransaction() {
       cardType: card,
     };
 
-    // try {
-    //     addTransaction(newTransaction).then(() => {
-    //         alert("Transaction added!");
-    //     });
-    // } catch (err) {
-    //     console.error(err);
-    // }
+    //await useAddTransactionData(newTransaction, handleClear);
+    try {
+      await addDoc(collection(db, "transaction"), newTransaction);
+      handleClear();
+      console.log("Transaction successfully added");
+    } catch (e) {
+      console.error("Unsuccessful", e);
+    }
   };
 
   return (
@@ -152,7 +156,7 @@ export function AddTransaction() {
                 onChange={handleCategoryChange}
               >
                 {categories.map((cat, index) => (
-                  <MenuItem key={"category-select-" + index} value={index}>
+                  <MenuItem key={"category-select-" + index} value={cat.id}>
                     {cat.name}
                   </MenuItem>
                 ))}

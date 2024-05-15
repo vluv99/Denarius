@@ -11,8 +11,8 @@ export function BarChartWithData() {
   //const { transactions } = useContext(TransactionContext);
   const transactions = testTransactions;
 
-  const a = summTransactionDataPerUser(transactions, users.Peter);
-  const b = summTransactionDataPerUser(transactions, users.Lau);
+  const a = summTransactionDataPerUser(transactions, users.user2);
+  const b = summTransactionDataPerUser(transactions, users.user1);
 
   const sum = a.number + b.number;
 

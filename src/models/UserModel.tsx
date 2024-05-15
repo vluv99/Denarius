@@ -14,6 +14,6 @@ export class UserModel {
 }
 
 export const users = {
-  Lau: "Lau",
-  Peter: "Peter",
+  user1: "user1",
+  user2: "user2",
 };
