@@ -1,10 +1,9 @@
-import { Box, Button, Container, FormControl, TextField } from "@mui/material";
-import { PaperCard } from "../../components/PaperCard";
+import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import React, { FormEvent, useState } from "react";
-import { Input } from "@mui/icons-material";
 
-export const Login = () => {
+export const Register = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -21,9 +20,18 @@ export const Login = () => {
         id="email-textField"
         label="Email"
         variant="outlined"
-        type="text"
+        type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        sx={{ marginBottom: "4%" }}
+      />
+      <TextField
+        id="username-textField"
+        label="Username"
+        variant="outlined"
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         sx={{ marginBottom: "4%" }}
       />
       <TextField
@@ -35,22 +43,13 @@ export const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
         sx={{ marginBottom: "8%" }}
       />
-      <FormControl
-        sx={{ flexDirection: "row", justifyContent: "space-between" }}
-      >
-        <Button
-          variant="contained"
-          /*startIcon={<Input />}*/ type="submit"
-          sx={{ flexGrow: "1", maxWidth: "45%" }}
-        >
-          Login
-        </Button>
+      <FormControl sx={{ marginBottom: "4%" }}>
         <Button
           variant="contained"
           color="secondary"
           // startIcon={<Input />}
           type="submit"
-          sx={{ flexGrow: "1", maxWidth: "45%" }}
+          sx={{ flexGrow: "1" }}
         >
           Register
         </Button>

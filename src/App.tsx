@@ -7,7 +7,7 @@ import { Navbar } from "./components/Navbar";
 import { Outlet, RouterProvider } from "react-router-dom";
 import { router } from "./routes/Routes";
 import { ContextProvider } from "./contexts/Context";
-import { Login } from "./pages/authPages/Login";
+import { AuthPage } from "./pages/authPages/AuthPage";
 
 export default function App() {
   const theme = useGetUserBrowserTheme();
@@ -17,7 +17,7 @@ export default function App() {
     <ContextProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {isLoggedIn ? <RouterProvider router={router} /> : <Login />}
+        {isLoggedIn ? <RouterProvider router={router} /> : <AuthPage />}
       </ThemeProvider>
     </ContextProvider>
   );
