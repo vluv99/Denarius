@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import moment, { Moment } from "moment";
 import {
   Box,
@@ -31,14 +31,14 @@ import { useGetCardData } from "../../hooks/cardHooks";
 
 export function AddTransaction() {
   const [payee, setPayee] = useState("");
-  const [category, setCategory] = React.useState("");
-  const [date, setDate] = React.useState<Moment | null>(null);
+  const [category, setCategory] = useState("");
+  const [date, setDate] = useState<Moment | null>(null);
   const [amount, setAmount] = useState<number | null>(null);
   const [description, setDescription] = useState("");
-  const [user, setUser] = React.useState("");
-  const [card, setCard] = React.useState("");
+  const [user, setUser] = useState("");
+  const [card, setCard] = useState("");
   const [isCommon, setIsCommon] = useState(true);
-  const [cleared, setCleared] = React.useState<boolean>(false);
+  const [cleared, setCleared] = useState<boolean>(false);
 
   const categories = useGetCategoryData();
   const cards = useGetCardData();
@@ -54,7 +54,8 @@ export function AddTransaction() {
     setCard(event.target.value as string);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
+    //TODO: ???
     if (cleared) {
       const timeout = setTimeout(() => {
         setCleared(false);
@@ -77,6 +78,7 @@ export function AddTransaction() {
   };
 
   const toNumberOptional = (value: string) => {
+    //TODO: fix this, unnecesssary
     if (Number.parseInt(value)) {
       return Number(value);
     }

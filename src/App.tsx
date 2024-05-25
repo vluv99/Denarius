@@ -4,14 +4,33 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Navbar } from "./components/Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, RouterProvider } from "react-router-dom";
+import { router } from "./routes/Routes";
+import { ContextProvider } from "./contexts/Context";
 
 export default function App() {
   const theme = useGetUserBrowserTheme();
+  const isLoggedIn = true; //this.state.isLoggedIn;
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <ContextProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {
+          isLoggedIn ? (
+            <RouterProvider router={router} />
+          ) : (
+            <div>not logged in :(</div>
+          ) /*TODO: create login page*/
+        }
+      </ThemeProvider>
+    </ContextProvider>
+  );
+}
+
+export function Shell() {
+  return (
+    <>
       <Navbar />
       <Box
         component="main"
@@ -29,6 +48,6 @@ export default function App() {
           <Outlet />
         </LocalizationProvider>
       </Box>
-    </ThemeProvider>
+    </>
   );
 }

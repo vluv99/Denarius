@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
+import App, { Shell } from "../App";
 import { Home } from "../pages/HomePage/Home";
 import { AddTransaction } from "../pages/AddTransactionPage/AddTransaction";
 import { ListTransactions } from "../pages/ListTransactionsPage/ListTransactions";
@@ -21,7 +21,7 @@ export const routeAddresses = {
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Shell />,
     children: [
       { path: routeAddresses.home.to, element: <Home /> },
       { path: routeAddresses.addTransaction.to, element: <AddTransaction /> },
