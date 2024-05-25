@@ -7,22 +7,17 @@ import { Navbar } from "./components/Navbar";
 import { Outlet, RouterProvider } from "react-router-dom";
 import { router } from "./routes/Routes";
 import { ContextProvider } from "./contexts/Context";
+import { Login } from "./pages/authPages/Login";
 
 export default function App() {
   const theme = useGetUserBrowserTheme();
-  const isLoggedIn = true; //this.state.isLoggedIn;
+  const isLoggedIn = false; //this.state.isLoggedIn;
 
   return (
     <ContextProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {
-          isLoggedIn ? (
-            <RouterProvider router={router} />
-          ) : (
-            <div>not logged in :(</div>
-          ) /*TODO: create login page*/
-        }
+        {isLoggedIn ? <RouterProvider router={router} /> : <Login />}
       </ThemeProvider>
     </ContextProvider>
   );
