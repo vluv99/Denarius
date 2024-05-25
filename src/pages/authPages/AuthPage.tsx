@@ -3,6 +3,7 @@ import { PaperCard } from "../../components/PaperCard";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import React, { useState } from "react";
+import { isMobile } from "react-device-detect";
 
 export const AuthPage = () => {
   const defaultState = authForms.login;
@@ -14,6 +15,7 @@ export const AuthPage = () => {
   const [navButtonLabel, setNavButtonLabel] = useState(
     defaultState.toOtherFormButtonLabel,
   );
+  //const [navButtonColor, setNavButtonColor] = useState(defaultState.color);
   const [subText, setSubText] = useState(defaultState.subText);
 
   function handleChangeAuthForms() {
@@ -28,6 +30,7 @@ export const AuthPage = () => {
     setLabel(pageType.title);
     setNavButtonLabel(pageType.toOtherFormButtonLabel);
     setSubText(pageType.subText);
+    //setNavButtonColor(pageType.color); // color prop isn't able to handle variable, only direct string, why??
 
     // set state setter at the end, because it doesn't change state immediately
     setShowLoginForms(newState);
@@ -38,7 +41,11 @@ export const AuthPage = () => {
       <Box sx={{ flexGrow: 1 }}>
         <PaperCard label={label}>
           <Box
-            sx={{ display: "flex", flexDirection: "column", maxWidth: "30%" }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              maxWidth: isMobile ? "100%" : "30%",
+            }}
           >
             {showLoginForms ? <Login /> : <Register />}
             <Box
@@ -52,7 +59,11 @@ export const AuthPage = () => {
               <Typography gutterBottom variant="body1" component="div" mt={0.6}>
                 {subText}
               </Typography>
-              <Button variant="text" onClick={handleChangeAuthForms}>
+              <Button
+                variant="text"
+                onClick={handleChangeAuthForms}
+                color={"secondary"}
+              >
                 {navButtonLabel}
               </Button>
             </Box>
@@ -68,10 +79,12 @@ const authForms = {
     title: "Sign In",
     toOtherFormButtonLabel: "Register",
     subText: "Don't have an account?",
+    color: "secondary",
   },
   register: {
     title: "Create Account",
     toOtherFormButtonLabel: "Login",
     subText: "Already have registered?",
+    color: "primary",
   },
 };

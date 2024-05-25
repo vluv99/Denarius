@@ -1,7 +1,16 @@
-import { Box, Button, Container, FormControl, TextField } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Snackbar,
+  TextField,
+} from "@mui/material";
 import { PaperCard } from "../../components/PaperCard";
 import React, { FormEvent, useState } from "react";
 import { Input } from "@mui/icons-material";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +18,19 @@ export const Login = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        window.alert(`Error during user login: ${errorCode}\n${errorMessage}`);
+      });
   };
 
   return (
@@ -49,10 +71,10 @@ export const Login = () => {
           variant="contained"
           color="secondary"
           // startIcon={<Input />}
-          type="submit"
+          //type="submit"
           sx={{ flexGrow: "1", maxWidth: "45%" }}
         >
-          Register
+          Google
         </Button>
       </FormControl>
     </Box>

@@ -1,5 +1,11 @@
 import { useGetUserBrowserTheme } from "./theme/consts";
-import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import {
+  Alert,
+  Box,
+  CssBaseline,
+  Snackbar,
+  ThemeProvider,
+} from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -8,16 +14,62 @@ import { Outlet, RouterProvider } from "react-router-dom";
 import { router } from "./routes/Routes";
 import { ContextProvider } from "./contexts/Context";
 import { AuthPage } from "./pages/authPages/AuthPage";
+import React, { useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function App() {
   const theme = useGetUserBrowserTheme();
-  const isLoggedIn = false; //this.state.isLoggedIn;
+  const auth = getAuth();
+
+  // const isLoggedIn = false; //this.state.isLoggedIn;
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  // const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  //
+  // const handleClose = (
+  //   event?: React.SyntheticEvent | Event,
+  //   reason?: string,
+  // ) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //
+  //   setSnackbarOpen(false);
+  // };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      setLoggedIn(true);
+      //setSnackbarOpen(true);
+    } else {
+      // User is signed out
+      setLoggedIn(false);
+      //setSnackbarOpen(true);
+    }
+  });
 
   return (
     <ContextProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {isLoggedIn ? <RouterProvider router={router} /> : <AuthPage />}
+        {loggedIn ? <RouterProvider router={router} /> : <AuthPage />}
+        {/*<Snackbar*/}
+        {/*  open={snackbarOpen}*/}
+        {/*  autoHideDuration={3000}*/}
+        {/*  onClose={handleClose}*/}
+        {/*>*/}
+        {/*  <Alert*/}
+        {/*    onClose={handleClose}*/}
+        {/*    severity="success"*/}
+        {/*    variant="filled"*/}
+        {/*    sx={{ width: "100%" }}*/}
+        {/*  >*/}
+        {/*    Successful event!*/}
+        {/*  </Alert>*/}
+        {/*</Snackbar>*/}
       </ThemeProvider>
     </ContextProvider>
   );
