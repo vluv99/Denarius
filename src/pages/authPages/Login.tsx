@@ -11,6 +11,7 @@ import { PaperCard } from "../../components/PaperCard";
 import React, { FormEvent, useState } from "react";
 import { Input } from "@mui/icons-material";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { CustomTextField } from "../../components/formComponents/CustomTextField";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -39,14 +40,12 @@ export const Login = () => {
       onSubmit={onSubmit}
       sx={{ display: "flex", flexDirection: "column" }}
     >
-      <TextField
+      <CustomTextField
         id="email-textField"
         label="Email"
-        variant="outlined"
         type="text"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        sx={{ marginBottom: "4%" }}
       />
       <TextField
         id="password-textField"

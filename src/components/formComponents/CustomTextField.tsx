@@ -1,23 +1,24 @@
 import { TextField } from "@mui/material";
 import React from "react";
-import firebase from "firebase/compat";
-import functions = firebase.functions;
 
-export const CustomTextField = (
-  id: string,
-  label: string,
-  type: string,
-  value: string,
-  setFunction: React.SetStateAction<any>,
-) => {
+type Params = {
+  id: string;
+  label: string;
+  type: React.HTMLInputTypeAttribute;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export const CustomTextField = (params: Params) => {
   return (
     <TextField
-      id={id + "-textField"}
-      label={label}
+      id={params.id + "-textField"}
+      label={params.label}
       variant="outlined"
-      type={type}
-      value={value}
-      onChange={(e) => setFunction(e.target.value)}
+      type={params.type}
+      value={params.value}
+      onChange={params.onChange}
+      sx={{ marginBottom: "4%" }}
     />
   );
 };
