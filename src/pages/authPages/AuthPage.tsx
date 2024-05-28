@@ -33,7 +33,7 @@ export const AuthPage = () => {
     //setNavButtonColor(pageType.color); // color prop isn't able to handle variable, only direct string, why??
 
     // set state setter at the end, because it doesn't change state immediately
-    setShowLoginForms(newState);
+    setShowLoginForms(newState); //TODO: Question: why is the state thing only set after the function? Possibly?
   }
 
   return (
@@ -62,7 +62,7 @@ export const AuthPage = () => {
               <Button
                 variant="text"
                 onClick={handleChangeAuthForms}
-                color={"secondary"}
+                color={"secondary"} //TODO: Question: Why can't you add a variable for this item?
               >
                 {navButtonLabel}
               </Button>

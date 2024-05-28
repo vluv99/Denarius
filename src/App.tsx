@@ -35,10 +35,12 @@ export default function App() {
   //   }
   //
   //   setSnackbarOpen(false);
-  // };
+  // }; // TODO: Question: figure out how to give back statuses of successful logins etc actions
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      //TODO: Question: set context data fro user info to be available everywhere or nah just call the func?
+
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
