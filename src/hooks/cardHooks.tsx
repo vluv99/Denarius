@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../utils/firebase";
+import { PaymentMethod } from "../models/PaymentMethodModel";
 
-type Card = {
-  id: string;
-  name: string;
-};
+const CARD_COLLECTION_NAME = "card"; //TODO: rename collection name to "paymentMethod"
 
-const CARD_COLLECTION_NAME = "card";
-
-export function useGetCardData() {
-  const [card, setCardData] = useState<Card[]>([]);
+export function useGetPaymentMethodData() {
+  const [card, setCardData] = useState<PaymentMethod[]>([]);
   const docRef = collection(db, CARD_COLLECTION_NAME);
 
   useEffect(() => {

@@ -12,10 +12,10 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Navbar } from "./components/Navbar";
 import { Outlet, RouterProvider } from "react-router-dom";
 import { router } from "./routes/Routes";
-import { ContextProvider } from "./contexts/Context";
 import { AuthPage } from "./pages/authPages/AuthPage";
 import React, { useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { AppContexts } from "./contexts/AppContexts";
 
 export default function App() {
   const theme = useGetUserBrowserTheme();
@@ -54,7 +54,7 @@ export default function App() {
   });
 
   return (
-    <ContextProvider>
+    <AppContexts>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {loggedIn ? <RouterProvider router={router} /> : <AuthPage />}
@@ -73,7 +73,7 @@ export default function App() {
         {/*  </Alert>*/}
         {/*</Snackbar>*/}
       </ThemeProvider>
-    </ContextProvider>
+    </AppContexts>
   );
 }
 

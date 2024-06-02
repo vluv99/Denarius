@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../utils/firebase";
-
-type Category = {
-  id: string;
-  name: string;
-  color: string;
-};
+import { Category } from "../models/CategoryModel";
 
 const CATEGORY_COLLECTION_NAME = "category";
 

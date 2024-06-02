@@ -104,7 +104,7 @@ const authForms: AuthForms = {
   register: {
     title: "Create Account",
     toOtherFormButtonLabel: "Login",
-    subText: "Already have registered?",
+    subText: "Already registered?",
     color: "primary",
   },
 };

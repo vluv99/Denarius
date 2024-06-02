@@ -21,13 +21,14 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { users } from "../../models/UserModel";
 import { AccountCircle, AddCircleOutline } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { cardTypes } from "../ListTransactionsPage/TestTransactions";
 import { isMobile } from "react-device-detect";
-import { useGetCategoryData } from "../../hooks/categoryHooks";
-//import { useAddTransactionData } from "../../hooks/transactionHooks";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../utils/firebase";
-import { useGetCardData } from "../../hooks/cardHooks";
+import { useGetPaymentMethodData } from "../../hooks/cardHooks";
+import {
+  useCategoryContext,
+  usePaymentMethodContext,
+} from "../../contexts/DBContexts";
 
 export function AddTransaction() {
   const [payee, setPayee] = useState("");
@@ -40,8 +41,8 @@ export function AddTransaction() {
   const [isCommon, setIsCommon] = useState(true);
   const [cleared, setCleared] = useState<boolean>(false);
 
-  const categories = useGetCategoryData();
-  const cards = useGetCardData();
+  const categories = useCategoryContext();
+  const paymentMethods = usePaymentMethodContext();
 
   const handleCategoryChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
@@ -218,7 +219,7 @@ export function AddTransaction() {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-              <InputLabel id="card-label">Card type</InputLabel>
+              <InputLabel id="card-label">Payment method</InputLabel>
               <Select
                 labelId="card-label"
                 id="card-select"
@@ -226,7 +227,7 @@ export function AddTransaction() {
                 label="Card type"
                 onChange={handleCardChange}
               >
-                {cards.map((card, index) => (
+                {paymentMethods.map((card, index) => (
                   <MenuItem key={"card-select-" + index} value={card.id}>
                     {card.name}
                   </MenuItem>

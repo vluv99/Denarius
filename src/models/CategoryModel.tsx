@@ -1,17 +1,10 @@
-export class CategoryModel {
-  categoryId?: number | undefined;
-  categoryName: string;
+export type Category = {
+  id: string;
+  name: string;
+  color: string;
+};
 
-  constructor(data: CategoryModel) {
-    this.categoryId = data.categoryId;
-    this.categoryName = data.categoryName;
-  }
-
-  // static toModel(u: User): UserModel {
-  //
-  //     return model;
-  // }
-}
+// ###################### TEST ######################
 
 export const categories_test = {
   Groceries: "Groceries",
