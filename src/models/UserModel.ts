@@ -18,20 +18,13 @@ export class User {
   }
 
   static toUserFormat(data: any) {
-    if (data) {
-      return new User(data.userId, data.username, data.email);
-    }
-    return undefined;
+    return new User(data.userId, data.username, data.email);
   }
 
   isDataValid(): boolean {
     return true;
   }
 
-  // static toModel(u: User): UserModel {
-  //
-  //     return model;
-  // }
 }
 
 // ###################### TEST ######################

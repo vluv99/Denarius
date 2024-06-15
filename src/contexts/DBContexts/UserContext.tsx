@@ -1,7 +1,8 @@
 import { User } from "../../models/UserModel";
-import { createContext, useContext } from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import { ChildrenProp } from "../../utils/types";
-import { getLoggedInUser } from "../../services/userService";
+import {getLoggedInUser, onUserStateChanged} from "../../services/userService";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 // create context
 const UserContext = createContext<User | undefined>(undefined);
@@ -14,11 +15,15 @@ const UserContext = createContext<User | undefined>(undefined);
  */
 export function UserContextProvider({
   children,
-  user,
-}: ChildrenProp & { user?: User }) {
-  //const user: User = await getLoggedInUser();
+}: ChildrenProp) {
 
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+  const [userLoggedIn, setUserLoggedIn] = useState<User | undefined>(undefined);
+
+  useEffect(() => {
+    onUserStateChanged(setUserLoggedIn);
+  }, []);
+
+  return <UserContext.Provider value={userLoggedIn}>{children}</UserContext.Provider>;
 }
 
 /**
