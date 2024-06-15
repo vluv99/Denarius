@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import React, { FormEvent, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { User } from "../../models/UserModel";
+import { registerUser } from "../../services/userService";
 
 export const Register = () => {
   const [email, setEmail] = useState("");
@@ -30,22 +32,14 @@ export const Register = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const auth = getAuth();
+    await registerUser(username, email, password).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        setSnackbarOpen(true);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+      window.alert(`Error during user creation: ${errorCode}\n${errorMessage}`);
+    });
 
-        window.alert(
-          `Error during user creation: ${errorCode}\n${errorMessage}`,
-        );
-      });
+    //setSnackbarOpen(true);
   };
 
   return (
@@ -92,20 +86,20 @@ export const Register = () => {
           Register
         </Button>
       </FormControl>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          Successful registration!
-        </Alert>
-      </Snackbar>
+      {/*<Snackbar*/}
+      {/*  open={snackbarOpen}*/}
+      {/*  autoHideDuration={3000}*/}
+      {/*  onClose={handleClose}*/}
+      {/*>*/}
+      {/*  <Alert*/}
+      {/*    onClose={handleClose}*/}
+      {/*    severity="success"*/}
+      {/*    variant="filled"*/}
+      {/*    sx={{ width: "100%" }}*/}
+      {/*  >*/}
+      {/*    Successful registration!*/}
+      {/*  </Alert>*/}
+      {/*</Snackbar>*/}
     </Box>
   );
 };

@@ -16,6 +16,9 @@ import { AuthPage } from "./pages/authPages/AuthPage";
 import React, { useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { AppContexts } from "./contexts/AppContexts";
+import { UserContextProvider } from "./contexts/DBContexts";
+import { User } from "./models/UserModel";
+import { getLoggedInUser } from "./services/userService";
 
 export default function App() {
   const theme = useGetUserBrowserTheme();
@@ -23,7 +26,7 @@ export default function App() {
 
   // const isLoggedIn = false; //this.state.isLoggedIn;
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState<User | undefined>(undefined);
   // const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   //
   // const handleClose = (
@@ -37,43 +40,27 @@ export default function App() {
   //   setSnackbarOpen(false);
   // }; // TODO: Question: figure out how to give back statuses of successful logins etc actions
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
-      //TODO: Question: set context data fro user info to be available everywhere or nah just call the func?
-
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      setLoggedIn(true);
-      //setSnackbarOpen(true);
+      let newVar = await getLoggedInUser();
+      if (userLoggedIn?.userId !== newVar?.userId) {
+        setUserLoggedIn(newVar);
+      }
     } else {
       // User is signed out
-      setLoggedIn(false);
-      //setSnackbarOpen(true);
+      setUserLoggedIn(undefined);
     }
   });
 
   return (
-    <AppContexts>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {loggedIn ? <RouterProvider router={router} /> : <AuthPage />}
-        {/*<Snackbar*/}
-        {/*  open={snackbarOpen}*/}
-        {/*  autoHideDuration={3000}*/}
-        {/*  onClose={handleClose}*/}
-        {/*>*/}
-        {/*  <Alert*/}
-        {/*    onClose={handleClose}*/}
-        {/*    severity="success"*/}
-        {/*    variant="filled"*/}
-        {/*    sx={{ width: "100%" }}*/}
-        {/*  >*/}
-        {/*    Successful event!*/}
-        {/*  </Alert>*/}
-        {/*</Snackbar>*/}
-      </ThemeProvider>
-    </AppContexts>
+    <UserContextProvider user={userLoggedIn}>
+      <AppContexts>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {userLoggedIn ? <RouterProvider router={router} /> : <AuthPage />}
+        </ThemeProvider>
+      </AppContexts>
+    </UserContextProvider>
   );
 }
 

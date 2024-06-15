@@ -1,6 +1,6 @@
 import React from "react";
 import { ChildrenProp } from "../utils/types";
-import { CategoryContextProvider } from "./DBContexts";
+import { CategoryContextProvider, UserContextProvider } from "./DBContexts";
 import { PaymentMethodContextProvider } from "./DBContexts";
 
 /**
