@@ -1,27 +1,35 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Container,
-  FormControl,
-  Snackbar,
-  TextField,
-} from "@mui/material";
-import { PaperCard } from "../../components/PaperCard";
+import { Box, Button, FormControl, TextField } from "@mui/material";
 import React, { FormEvent, useState } from "react";
-import { Input } from "@mui/icons-material";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { CustomTextField } from "../../components/formComponents/CustomTextField";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+
+// list inputs in form
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    //register,
+    control,
+    handleSubmit,
+    //watch,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -34,34 +42,61 @@ export const Login = () => {
       });
   };
 
+  const rules = {
+    required: {
+      value: true,
+      message: "The field is required",
+    },
+  };
   return (
     <Box
       component="form"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       sx={{ display: "flex", flexDirection: "column" }}
     >
-      <CustomTextField
-        id="email-textField"
-        label="Email"
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+      <Controller
+        name="email"
+        control={control}
+        rules={rules}
+        render={({ field: { value, onChange }, fieldState: { error } }) => (
+          <CustomTextField
+            //id="email-textField"
+            label="Email"
+            type="text"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error?.message}
+          />
+        )}
       />
-      <TextField
-        id="password-textField"
-        label="Password"
-        variant="outlined"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        sx={{ marginBottom: "8%" }}
+
+      <Controller
+        name="password"
+        control={control}
+        rules={rules}
+        render={({ field: { value, onChange }, fieldState: { error } }) => (
+          <CustomTextField
+            //id="password-textField"
+            label="Password"
+            type="password"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error?.message}
+          />
+        )}
       />
-      <FormControl
-        sx={{ flexDirection: "row", justifyContent: "space-between" }}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
       >
         <Button
           variant="contained"
-          /*startIcon={<Input />}*/ type="submit"
+          type="submit"
           sx={{ flexGrow: "1", maxWidth: "45%" }}
         >
           Login
@@ -69,13 +104,11 @@ export const Login = () => {
         <Button
           variant="contained"
           color="secondary"
-          // startIcon={<Input />}
-          //type="submit"
           sx={{ flexGrow: "1", maxWidth: "45%" }}
         >
           Google
         </Button>
-      </FormControl>
+      </Box>
     </Box>
   );
 };
