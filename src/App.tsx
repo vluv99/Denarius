@@ -1,11 +1,5 @@
 import { useGetUserBrowserTheme } from "./theme/consts";
-import {
-  Alert,
-  Box,
-  CssBaseline,
-  Snackbar,
-  ThemeProvider,
-} from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -13,12 +7,9 @@ import { Navbar } from "./components/Navbar";
 import { Outlet, RouterProvider } from "react-router-dom";
 import { router } from "./routes/Routes";
 import { AuthPage } from "./pages/authPages/AuthPage";
-import React, {useEffect, useState} from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React from "react";
 import { AppContexts } from "./contexts/AppContexts";
-import {UserContextProvider, useUserContext} from "./contexts/DBContexts";
-import { User } from "./models/UserModel";
-import { getLoggedInUser } from "./services/userService";
+import { UserContextProvider, useUserContext } from "./contexts/DBContexts";
 
 export default function App() {
   const theme = useGetUserBrowserTheme();
@@ -37,11 +28,7 @@ export default function App() {
 
 function InnerPage() {
   const user = useUserContext();
-  return(
-    <>
-      {user ? <RouterProvider router={router} /> : <AuthPage />}
-    </>
-  )
+  return <>{user ? <RouterProvider router={router} /> : <AuthPage />}</>;
 }
 
 export function Shell() {

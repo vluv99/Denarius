@@ -18,7 +18,7 @@ import {
 import { Transaction } from "../../models/Transaction";
 import { PaperCard } from "../../components/PaperCard";
 import { DatePicker } from "@mui/x-date-pickers";
-import { users } from "../../models/UserModel";
+//import { users } from "../../models/UserModel";
 import { AccountCircle, AddCircleOutline } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { isMobile } from "react-device-detect";
@@ -28,7 +28,9 @@ import { useGetPaymentMethodData } from "../../hooks/cardHooks";
 import {
   useCategoryContext,
   usePaymentMethodContext,
+  useUserContext,
 } from "../../contexts/DBContexts";
+import { User } from "../../models/UserModel";
 
 export function AddTransaction() {
   const [payee, setPayee] = useState("");
@@ -43,6 +45,8 @@ export function AddTransaction() {
 
   const categories = useCategoryContext();
   const paymentMethods = usePaymentMethodContext();
+  const currentUser = useUserContext();
+  const users: User[] = [currentUser!];
 
   const handleCategoryChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
@@ -210,10 +214,10 @@ export function AddTransaction() {
                 label="User"
                 onChange={handleUserChange}
               >
-                {Object.entries(users).map((value) => (
-                  <MenuItem key={"user-select-" + value[0]} value={value[0]}>
+                {users.map((value, i) => (
+                  <MenuItem key={"user-select-" + i} value={value.userId}>
                     <AccountCircle />
-                    {value[1]}
+                    {value.username}
                   </MenuItem>
                 ))}
               </Select>

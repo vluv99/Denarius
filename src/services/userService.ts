@@ -3,7 +3,8 @@ import { db } from "../utils/firebase";
 import { User } from "../models/UserModel";
 import {
   createUserWithEmailAndPassword,
-  getAuth, onAuthStateChanged,
+  getAuth,
+  onAuthStateChanged,
   signOut,
 } from "firebase/auth";
 
@@ -27,10 +28,7 @@ export async function registerUser(
   const u = new User(userID, username, email);
 
   try {
-    await setDoc(
-      doc(db, USER_COLLECTION_NAME, u.userId),
-      u.toDatabaseFormat(),
-    );
+    await setDoc(doc(db, USER_COLLECTION_NAME, u.userId), u.toDatabaseFormat());
   } catch (e) {
     console.error(e);
     await signOut(auth);
@@ -40,6 +38,9 @@ export async function registerUser(
   return u;
 }
 
+/**
+ * Return the currently logged-in user's all available data
+ */
 export async function getLoggedInUser(): Promise<User> {
   console.log("getLoggedInUser");
   const auth = getAuth();
@@ -65,5 +66,5 @@ export function onUserStateChanged(callback: (user: User | undefined) => void) {
       // User is signed out
       callback(undefined);
     }
-  })
+  });
 }
