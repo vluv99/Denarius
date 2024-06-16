@@ -3,6 +3,7 @@ import React, { FormEvent, useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { CustomTextField } from "../../components/formComponents/CustomTextField";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { loginUser, registerUser } from "../../services/userService";
 
 // list inputs in form
 type Inputs = {
@@ -11,14 +12,9 @@ type Inputs = {
 };
 
 export const Login = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
   const {
-    //register,
     control,
     handleSubmit,
-    //watch,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
@@ -28,18 +24,12 @@ export const Login = () => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+    await loginUser(data.email, data.password).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
 
-        window.alert(`Error during user login: ${errorCode}\n${errorMessage}`);
-      });
+      window.alert(`Error during user login: ${errorCode}\n${errorMessage}`);
+    });
   };
 
   const rules = {

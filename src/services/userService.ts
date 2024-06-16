@@ -5,7 +5,9 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signOut,
+  Auth,
 } from "firebase/auth";
 
 const USER_COLLECTION_NAME = "user";
@@ -25,10 +27,31 @@ export async function registerUser(
   );
   // firebase user id
   const userID = userCredential.user.uid;
-  const u = new User(userID, username, email);
+  const u = new User(userID, email, username);
 
   try {
     await setDoc(doc(db, USER_COLLECTION_NAME, u.userId), u.toDatabaseFormat());
+  } catch (e) {
+    console.error(e);
+    await signOut(auth);
+    throw e;
+  }
+
+  return u;
+}
+
+export async function loginUser(email: string, password: string) {
+  console.log("loginUser");
+  const auth = getAuth();
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password,
+  );
+
+  let u = undefined;
+  try {
+    u = await getLoggedInUser();
   } catch (e) {
     console.error(e);
     await signOut(auth);

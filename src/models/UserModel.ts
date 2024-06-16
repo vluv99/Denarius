@@ -1,30 +1,33 @@
 export class User {
   userId: string;
-  username: string;
   email: string;
+  username: string;
 
-  constructor(userId: string, username: string, email: string) {
+  constructor(userId: string, email: string, username?: string) {
     this.userId = userId;
-    this.username = username;
     this.email = email;
+    if (!username || username === "") {
+      this.username = email.substring(0, email.indexOf("@"));
+    } else {
+      this.username = username;
+    }
   }
 
   toDatabaseFormat() {
     return {
       userId: this.userId,
-      username: this.username,
       email: this.email,
+      username: this.username,
     };
   }
 
   static toUserFormat(data: any) {
-    return new User(data.userId, data.username, data.email);
+    return new User(data.userId, data.email, data.username);
   }
 
   isDataValid(): boolean {
     return true;
   }
-
 }
 
 // ###################### TEST ######################
