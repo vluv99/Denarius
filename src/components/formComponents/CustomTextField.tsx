@@ -9,6 +9,7 @@ type Params = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: boolean | undefined;
+  multiline?: boolean;
 };
 
 export const CustomTextField = (params: Params) => {
@@ -23,10 +24,7 @@ export const CustomTextField = (params: Params) => {
       onChange={params.onChange}
       sx={{ marginBottom: "4%" }}
       error={params.error}
+      multiline={params.multiline}
     />
   );
-};
-
-export const textfieldType = {
-  text: "text",
 };

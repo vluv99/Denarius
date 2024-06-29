@@ -24,10 +24,6 @@ export class User {
   static toUserFormat(data: any) {
     return new User(data.userId, data.email, data.username);
   }
-
-  isDataValid(): boolean {
-    return true;
-  }
 }
 
 // ###################### TEST ######################

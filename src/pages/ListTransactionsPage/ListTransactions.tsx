@@ -11,8 +11,6 @@ import { testTransactions } from "./TestTransactions";
 import { Box, Typography } from "@mui/material";
 
 export const ListTransactions = () => {
-  const _isMobile = isMobile;
-
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
     {
@@ -25,13 +23,13 @@ export const ListTransactions = () => {
       field: "payee",
       headerName: "Payee",
       flex: 0,
-      minWidth: _isMobile ? 110 : 180,
+      minWidth: isMobile ? 110 : 180,
     },
     {
       field: "category",
       headerName: "Category",
       flex: 0,
-      minWidth: _isMobile ? 130 : 160,
+      minWidth: isMobile ? 130 : 160,
       /*type: "Category",*/ /*width: 130,*/
     },
     {
@@ -39,7 +37,7 @@ export const ListTransactions = () => {
       headerName: "Desc.",
       sortable: false,
       flex: 0,
-      minWidth: _isMobile ? 110 : 220,
+      minWidth: isMobile ? 110 : 220,
       /*width: 130,*/
     },
     {
@@ -83,9 +81,9 @@ export const ListTransactions = () => {
   return (
     <Box
       sx={{
-        //width: _isMobile || window.screen.width < 1200 ? "95%" : "80%",
-        width: _isMobile ? "95%" : "80%",
-        margin: _isMobile ? "5% auto" : "3% auto",
+        //width: isMobile || window.screen.width < 1200 ? "95%" : "80%",
+        width: isMobile ? "95%" : "80%",
+        margin: isMobile ? "5% auto" : "3% auto",
         "& .plus": {
           color: theme.palette.success.main,
           fontWeight: "bold",
