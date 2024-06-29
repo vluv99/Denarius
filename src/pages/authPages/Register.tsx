@@ -1,9 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  TextField,
-} from "@mui/material";
+import { Box, Button, FormControl, TextField } from "@mui/material";
 import React, { FormEvent, useState } from "react";
 import { registerUser } from "../../services/userService";
 
@@ -56,7 +51,7 @@ export const Register = () => {
         onChange={(e) => setPassword(e.target.value)}
         sx={{ marginBottom: "8%" }}
       />
-      <FormControl sx={{ marginBottom: "4%" }}>
+      <FormControl>
         <Button
           variant="contained"
           color="secondary"

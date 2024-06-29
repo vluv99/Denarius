@@ -4,6 +4,9 @@ import { Login } from "./Login";
 import { Register } from "./Register";
 import React, { ReactElement, useState } from "react";
 import { isMobile } from "react-device-detect";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { projectName, websiteName } from "../../theme/consts";
+import Divider from "@mui/material/Divider";
 
 export const AuthPage = () => {
   const defaultState = authForms.login;
@@ -46,35 +49,94 @@ export const AuthPageLayout = ({
   handleNavigation: () => void;
 }) => {
   return (
-    <Container sx={{ margin: "5% 0" }}>
+    <Container maxWidth={"md"} sx={{ margin: "5% auto" }}>
       <Box sx={{ flexGrow: 1 }}>
         <PaperCard label={authForm.title}>
           <Box
+            display={"flex"}
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              maxWidth: isMobile ? "100%" : "30%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: isMobile ? "stretch" : "center",
+              flexFlow: isMobile ? "column wrap" : "unset",
+              maxWidth: isMobile ? "100%" : "unset",
             }}
           >
-            {children}
             <Box
+              component="section"
+              display={"flex"}
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                marginTop: "4%",
+                flexDirection: "column",
+                //flexGrow: 1,
+                margin: isMobile ? "5% 0 0 0" : "0",
+                width: isMobile ? "100%" : "40%",
+                alignSelf: "start",
               }}
             >
-              <Typography gutterBottom variant="body1" component="div" mt={0.6}>
-                {authForm.subText}
-              </Typography>
-              <Button
-                variant="text"
-                onClick={handleNavigation}
-                color={authForm.color}
+              {children}
+              <Box
+                display={"flex"}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  marginTop: "4%",
+                }}
               >
-                {authForm.toOtherFormButtonLabel}
-              </Button>
+                <Typography
+                  gutterBottom
+                  variant="body1"
+                  component="div"
+                  mt={0.6}
+                >
+                  {authForm.subText}
+                </Typography>
+                <Button
+                  variant="text"
+                  onClick={handleNavigation}
+                  color={authForm.color}
+                >
+                  {authForm.toOtherFormButtonLabel}
+                </Button>
+              </Box>
+            </Box>
+            <Divider
+              orientation={isMobile ? "horizontal" : "vertical"}
+              flexItem
+            />
+            <Box
+              component="section"
+              display={"flex"}
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                maxWidth: isMobile ? "100%" : "50%",
+                margin: isMobile ? "5% 0" : "0 0",
+                //flexGrow: 1,
+              }}
+            >
+              <AccountBalanceIcon sx={{ fontSize: 100 }} />
+              <Typography gutterBottom variant="h6" component="div">
+                {websiteName}
+              </Typography>
+
+              <Typography
+                gutterBottom
+                variant="caption"
+                component="i"
+                p={"1 0 0 0"}
+              >
+                of {projectName} Production
+              </Typography>
+              <Typography
+                gutterBottom
+                variant="body1"
+                sx={{ textAlign: "center" }}
+              >
+                Manage your finances easily and conveniently. Keep track and
+                share household expenses within your family.
+              </Typography>
             </Box>
           </Box>
         </PaperCard>
