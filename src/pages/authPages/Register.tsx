@@ -1,67 +1,112 @@
-import { Box, Button, FormControl, TextField } from "@mui/material";
-import React, { FormEvent, useState } from "react";
-import { registerUser } from "../../services/userService";
+import { Box, Button } from "@mui/material";
+import React from "react";
+import { loginUser, registerUser } from "../../services/userService";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { CustomTextField } from "../../components/formComponents/CustomTextField";
+
+// list inputs in form
+type Inputs = {
+  email: string;
+  username: string;
+  password: string;
+};
 
 export const Register = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      email: "",
+      username: "",
+      password: "",
+    },
+  });
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    await registerUser(data.email, data.username, data.password).catch(
+      (error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-    await registerUser(username, email, password).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+        window.alert(
+          `Error during user registration: ${errorCode}\n${errorMessage}`,
+        );
+      },
+    );
+  };
 
-      window.alert(`Error during user creation: ${errorCode}\n${errorMessage}`);
-    });
+  const rules = {
+    required: {
+      value: true,
+      message: "The field is required",
+    },
   };
 
   return (
     <Box
       component="form"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       sx={{ display: "flex", flexDirection: "column" }}
     >
-      <TextField
-        id="email-textField"
-        label="Email"
-        variant="outlined"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        sx={{ marginBottom: "4%" }}
+      <Controller
+        name="email"
+        control={control}
+        rules={rules}
+        render={({ field: { value, onChange }, fieldState: { error } }) => (
+          <CustomTextField
+            //id="email-textField"
+            label="Email"
+            type="email"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error?.message}
+          />
+        )}
       />
-      <TextField
-        id="username-textField"
-        label="Username"
-        variant="outlined"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        sx={{ marginBottom: "4%" }}
+      <Controller
+        name="username"
+        control={control}
+        rules={rules}
+        render={({ field: { value, onChange }, fieldState: { error } }) => (
+          <CustomTextField
+            //id="email-textField"
+            label="Username"
+            type="text"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error?.message}
+          />
+        )}
       />
-      <TextField
-        id="password-textField"
-        label="Password"
-        variant="outlined"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        sx={{ marginBottom: "8%" }}
+      <Controller
+        name="password"
+        control={control}
+        rules={rules}
+        render={({ field: { value, onChange }, fieldState: { error } }) => (
+          <CustomTextField
+            //id="password-textField"
+            label="Password"
+            type="password"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error?.message}
+          />
+        )}
       />
-      <FormControl>
-        <Button
-          variant="contained"
-          color="secondary"
-          // startIcon={<Input />}
-          type="submit"
-          sx={{ flexGrow: "1" }}
-        >
-          Register
-        </Button>
-      </FormControl>
+
+      <Button
+        variant="contained"
+        color="secondary"
+        type="submit"
+        sx={{ flexGrow: "1" }}
+      >
+        Register
+      </Button>
     </Box>
   );
 };

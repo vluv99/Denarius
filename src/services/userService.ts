@@ -13,8 +13,8 @@ import {
 const USER_COLLECTION_NAME = "user";
 
 export async function registerUser(
-  username: string,
   email: string,
+  username: string,
   password: string,
 ) {
   console.log("registerUser");

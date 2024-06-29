@@ -1,9 +1,8 @@
-import { Box, Button, FormControl, TextField } from "@mui/material";
-import React, { FormEvent, useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Box, Button } from "@mui/material";
+import React from "react";
 import { CustomTextField } from "../../components/formComponents/CustomTextField";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { loginUser, registerUser } from "../../services/userService";
+import { loginUser } from "../../services/userService";
 
 // list inputs in form
 type Inputs = {
@@ -52,7 +51,7 @@ export const Login = () => {
           <CustomTextField
             //id="email-textField"
             label="Email"
-            type="text"
+            type="email"
             value={value}
             onChange={onChange}
             error={!!error}
