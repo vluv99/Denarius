@@ -7,7 +7,7 @@ import { Transaction } from "../../models/Transaction";
 import { users } from "../../models/UserModel";
 import { testTransactions } from "../../pages/ListTransactionsPage/TestTransactions";
 
-export function BarChartWithData() {
+export function MultiUserBarChartWithData() {
   //const { transactions } = useContext(TransactionContext);
   const transactions = testTransactions;
 

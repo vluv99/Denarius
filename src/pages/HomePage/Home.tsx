@@ -1,21 +1,78 @@
-import { Container, Box } from "@mui/material";
+import { Container, Box, Grid, styled, Paper } from "@mui/material";
 
-import "./Home.css";
 import { PaperCard } from "../../components/PaperCard";
-import { BarChartWithData } from "../../components/dashboard/BarChartWithData";
+import { MultiUserBarChartWithData } from "../../components/dashboard/MultiUserBarChartWithData";
 import MenuIcon from "@mui/icons-material/Menu";
+import React from "react";
 //import { TransactionContext } from "../../contex/GlobalState";
 
 //TODO: get a currencyformatter set by the account type
 
+const Item = styled(PaperCard)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
 export const Home = () => {
+  const colCount = 16;
+
   return (
-    <Container className="dashboard--container">
-      <Box sx={{ flexGrow: 1 }}>
-        <PaperCard label="Compare last 30 days">
-          <BarChartWithData />
-        </PaperCard>
-      </Box>
+    <Container sx={{ margin: "3% auto" }}>
+      {/*<Box sx={{ flexGrow: 1 }}>*/}
+      {/*<BarChartWithData />*/}
+      <Grid
+        container
+        //direction="row"
+        //justifyContent="center"
+        //alignItems="center"
+        spacing={2}
+        columns={colCount}
+      >
+        <Grid item xs={colCount * 0.25}>
+          <Item label="Last 30 days Expense">
+            <div>xs=2</div>
+          </Item>
+        </Grid>
+        <Grid item xs={colCount * 0.25}>
+          <Item label="Last month's Income">
+            <div>xs=2</div>
+          </Item>
+        </Grid>
+        <Grid item xs={colCount * 0.25}>
+          <Item label="Last month's Rend/Utils">
+            <div>xs=2</div>
+          </Item>
+        </Grid>
+        <Grid item xs={colCount * 0.25}>
+          <Item label="Last 30 days Transaction count">
+            <div>xs=2</div>
+          </Item>
+        </Grid>
+        <Grid item xs={colCount * 0.5}>
+          <Item label="Compare last 30 days Expenses">
+            <div>xs=8</div>
+          </Item>
+        </Grid>
+        <Grid item xs={colCount * 0.5}>
+          <Item label="Last 5 common Expense">
+            <div>xs=8</div>
+          </Item>
+        </Grid>
+        <Grid item xs={colCount * 0.4}>
+          <Item label="5 most expensive  Category (lost of categories)">
+            <div>xs=6</div>
+          </Item>
+        </Grid>
+        <Grid item xs={colCount * 0.6}>
+          <Item label="Last 30 days (tree map of expense categories)">
+            <div>xs=10</div>
+          </Item>
+        </Grid>
+      </Grid>
+      {/*</Box>*/}
     </Container>
   );
 };
