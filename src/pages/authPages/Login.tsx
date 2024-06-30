@@ -44,6 +44,23 @@ export const Login = () => {
       sx={{ display: "flex", flexDirection: "column" }}
     >
       <Controller
+        name="email"
+        control={control}
+        rules={rules}
+        render={({ field: { value, onChange }, fieldState: { error } }) => (
+          <CustomTextField
+            //id="email-textField"
+            label="Email"
+            type="email"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error?.message}
+          />
+        )}
+      />
+
+      <Controller
         name="password"
         control={control}
         rules={rules}
