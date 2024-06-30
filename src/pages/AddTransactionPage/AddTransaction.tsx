@@ -29,7 +29,7 @@ import moment from "moment";
 // list inputs in form
 type Inputs = {
   payee: string;
-  category: Category | null;
+  category: Category | null | "";
   date: Date;
   amount: string;
   description: string;
@@ -51,27 +51,28 @@ export function AddTransaction() {
   } = useForm<Inputs>({
     defaultValues: {
       payee: "",
-      category: null,
+      category: "",
       date: new Date(),
       amount: "",
       description: "",
-      user: users[0],
+      user: currentUser,
       paymentMethod: null,
       isCommon: false,
     },
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await addTransaction(
-      data /*, categories, paymentMethods, currentUser*/,
-    ).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      window.alert(
-        `Error during adding transaction: ${errorCode}\n${errorMessage}`,
-      );
-    });
+    console.log(data);
+    // await addTransaction(
+    //   data /*, categories, paymentMethods, currentUser*/,
+    // ).catch((error) => {
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //
+    //   window.alert(
+    //     `Error during adding transaction: ${errorCode}\n${errorMessage}`,
+    //   );
+    // });
   };
 
   const rules = {
@@ -124,7 +125,7 @@ export function AddTransaction() {
                       <CustomSelect
                         id="category"
                         label="Category"
-                        value={value?.id ?? undefined}
+                        value={value || value ? value.id : ""}
                         onChange={(e) =>
                           onChange(values.find((v) => v.id == e.target.value))
                         }
@@ -160,7 +161,7 @@ export function AddTransaction() {
               </Grid>
               <Grid item xs={1}>
                 <Controller
-                  name="date"
+                  name="amount"
                   control={control}
                   rules={rules}
                   render={({
@@ -199,7 +200,7 @@ export function AddTransaction() {
                       type="text"
                       value={value}
                       onChange={onChange}
-                      error={!!error}
+                      //error={!!error}
                       helperText={error?.message}
                       multiline={true}
                     />
