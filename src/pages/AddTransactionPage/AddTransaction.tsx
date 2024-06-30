@@ -29,7 +29,7 @@ import moment from "moment";
 // list inputs in form
 type Inputs = {
   payee: string;
-  category: Category | null | "";
+  category: Category | "";
   date: Date;
   amount: string;
   description: string;
@@ -86,7 +86,10 @@ export function AddTransaction() {
     <Container>
       <Box sx={{ flexGrow: 1, margin: "3% 0" }}>
         <PaperCard label="Add New Transactions">
-          <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}
+          >
             <Grid container spacing={2} columns={2} sx={{ flexGrow: 1 }}>
               <Grid item xs={1}>
                 <Controller
@@ -125,7 +128,7 @@ export function AddTransaction() {
                       <CustomSelect
                         id="category"
                         label="Category"
-                        value={value || value ? value.id : ""}
+                        value={value ? value.id : ""}
                         onChange={(e) =>
                           onChange(values.find((v) => v.id == e.target.value))
                         }
@@ -190,7 +193,6 @@ export function AddTransaction() {
                 <Controller
                   name="description"
                   control={control}
-                  rules={rules}
                   render={({
                     field: { value, onChange },
                     fieldState: { error },

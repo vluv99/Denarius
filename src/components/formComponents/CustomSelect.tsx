@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -19,15 +20,19 @@ type Params = {
 };
 
 export const CustomSelect = (params: Params) => {
+  const error = params.error ?? false;
   return (
     <FormControl sx={{ width: "25ch" }} variant="outlined">
-      <InputLabel id={`${params.id}-label`}>{params.label}</InputLabel>
+      <InputLabel id={`${params.id}-label`} error={error}>
+        {params.label}
+      </InputLabel>
       <Select
         labelId={`${params.id}-label`}
         id={`${params.id}-select`}
         value={params.value}
         label={params.label}
         onChange={params.onChange}
+        error={error}
       >
         {params.modelsArray.map((model, index) => (
           <MenuItem key={"category-select-" + index} value={model.id}>
@@ -35,6 +40,11 @@ export const CustomSelect = (params: Params) => {
           </MenuItem>
         ))}
       </Select>
+      {params.helperText ? (
+        <FormHelperText error={error}>{params.helperText}</FormHelperText>
+      ) : (
+        <></>
+      )}
     </FormControl>
   );
 };
