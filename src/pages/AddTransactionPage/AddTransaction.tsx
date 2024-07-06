@@ -25,6 +25,7 @@ import { addTransaction } from "../../services/transactionService";
 import { CustomTextField } from "../../components/formComponents/CustomTextField";
 import { CustomSelect } from "../../components/formComponents/CustomSelect";
 import moment from "moment";
+import { CustomDatePicker } from "../../components/formComponents/CustomDatePicker";
 
 // list inputs in form
 type Inputs = {
@@ -149,15 +150,14 @@ export function AddTransaction() {
                     field: { value, onChange },
                     fieldState: { error },
                   }) => (
-                    <DatePicker
+                    <CustomDatePicker
                       label="Date"
                       openTo="month"
                       views={["year", "month", "day"]}
                       value={moment(value)}
                       onChange={onChange}
-                      // slotProps={{
-                      //   field: { clearable: true, onClear: () => setCleared(true) },
-                      // }}
+                      error={!!error}
+                      helperText={error?.message}
                     />
                   )}
                 />
