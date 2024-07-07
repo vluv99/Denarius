@@ -149,7 +149,12 @@ export function AddTransaction() {
             onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}
             sx={{ width: isMobile ? "100%" : "50%" }}
           >
-            <Grid container spacing={2} columns={2} sx={{ flexGrow: 1 }}>
+            <Grid
+              container
+              spacing={2}
+              columns={isMobile ? 1 : 2}
+              sx={{ flexGrow: 1 }}
+            >
               <Grid item xs={1}>
                 <Controller
                   name="payee"
@@ -242,42 +247,6 @@ export function AddTransaction() {
                   )}
                 />
               </Grid>
-              <Grid item xs={1}>
-                <Controller
-                  name="user"
-                  control={control}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => {
-                    const passingValues = users.map((u) => ({
-                      chipLabel: u.username,
-                      key: u.userId,
-                      avatar: u.username
-                        .replace(/[^a-zA-Z0-9 ]/g, "")
-                        .toUpperCase()
-                        .substring(0, 2), // TODO: add profilePic to user and check if exists, otherwise return name letters
-                      icon: undefined,
-                    }));
-
-                    return (
-                      <CustomChipArray
-                        id={"users"}
-                        label="Users"
-                        value={value ? value.userId : ""}
-                        modelsArray={passingValues}
-                        onChange={(userID) => {
-                          //find the user based on the userID
-                          const user = users.find((u) => u.userId === userID);
-                          onChange(user);
-                        }}
-                        //error={!!error}
-                        //helperText={error?.message || "Optional"}
-                      />
-                    );
-                  }}
-                />
-              </Grid>
 
               <Grid item xs={1}>
                 <Controller
@@ -352,6 +321,43 @@ export function AddTransaction() {
                       multiline={true}
                     />
                   )}
+                />
+              </Grid>
+
+              <Grid item xs={1}>
+                <Controller
+                  name="user"
+                  control={control}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => {
+                    const passingValues = users.map((u) => ({
+                      chipLabel: u.username,
+                      key: u.userId,
+                      avatar: u.username
+                        .replace(/[^a-zA-Z0-9 ]/g, "")
+                        .toUpperCase()
+                        .substring(0, 2), // TODO: add profilePic to user and check if exists, otherwise return name letters
+                      icon: undefined,
+                    }));
+
+                    return (
+                      <CustomChipArray
+                        id={"users"}
+                        label="Users"
+                        value={value ? value.userId : ""}
+                        modelsArray={passingValues}
+                        onChange={(userID) => {
+                          //find the user based on the userID
+                          const user = users.find((u) => u.userId === userID);
+                          onChange(user);
+                        }}
+                        //error={!!error}
+                        //helperText={error?.message || "Optional"}
+                      />
+                    );
+                  }}
                 />
               </Grid>
 
