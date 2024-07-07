@@ -378,7 +378,6 @@ export function AddTransaction() {
                       label="Is common expense?"
                       value={value}
                       onChange={onChange}
-                      isDefaultChecked={false}
                     />
                   )}
                 />

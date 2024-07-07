@@ -7,7 +7,6 @@ type Params = {
   value: boolean;
   onChange: MouseEventHandler<HTMLButtonElement>;
   error?: boolean | undefined;
-  isDefaultChecked: boolean;
 };
 
 export const CustomCheckbox = (params: Params) => {
@@ -16,7 +15,6 @@ export const CustomCheckbox = (params: Params) => {
       label="Is common expense?"
       control={
         <Checkbox
-          defaultChecked={params.isDefaultChecked}
           color="secondary"
           checked={params.value}
           onClick={params.onChange}
