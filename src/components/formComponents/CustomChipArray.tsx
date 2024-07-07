@@ -1,4 +1,11 @@
-import { Avatar, Box, Chip, InputLabel, ListItem } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Chip,
+  FormHelperText,
+  InputLabel,
+  ListItem,
+} from "@mui/material";
 import React, { ReactElement } from "react";
 
 type Params = {
@@ -20,9 +27,10 @@ export const CustomChipArray = (params: Params) => {
   const error = params.error ?? false;
   return (
     <Box>
-      <InputLabel id={`${params.id}-label`} error={error}>
-        {params.label}
-      </InputLabel>
+      {/*<InputLabel id={`${params.id}-label`} error={error}>*/}
+      {/*  {params.label}*/}
+      {/*</InputLabel>*/}
+      <FormHelperText>{params.label}</FormHelperText>
 
       <Box
         sx={{

@@ -395,17 +395,6 @@ export function AddTransaction() {
               </Grid>
             </Grid>
 
-            {/*<FormControlLabel*/}
-            {/*  label="Is common expense?"*/}
-            {/*  control={*/}
-            {/*    <Checkbox*/}
-            {/*      //defaultChecked*/}
-            {/*      color="secondary"*/}
-            {/*      checked={isCommon}*/}
-            {/*      onClick={(e) => setIsCommon(!isCommon)}*/}
-            {/*    />*/}
-            {/*  }*/}
-            {/*/>*/}
             {/*  <Box*/}
             {/*    sx={{*/}
             {/*      display: "flex",*/}
