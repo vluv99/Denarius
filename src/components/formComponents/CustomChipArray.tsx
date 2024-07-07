@@ -1,12 +1,17 @@
 import { Avatar, Box, Chip, InputLabel, ListItem } from "@mui/material";
-import React, { MouseEventHandler } from "react";
+import React, { ReactElement } from "react";
 
 type Params = {
   id: string;
   label: string;
   helperText?: string | undefined;
   value: string | undefined;
-  modelsArray: { username: string; key: string }[];
+  modelsArray: {
+    chipLabel: string;
+    key: string;
+    avatar: string | undefined;
+    icon: ReactElement<any, any> | undefined;
+  }[];
   onChange: (usernamme: string) => void;
   error?: boolean | undefined;
 };
@@ -20,7 +25,6 @@ export const CustomChipArray = (params: Params) => {
       </InputLabel>
 
       <Box
-        component="ul"
         sx={{
           display: "flex",
           flexWrap: "wrap",
@@ -28,30 +32,24 @@ export const CustomChipArray = (params: Params) => {
         }}
       >
         {params.modelsArray.map((data, index) => {
-          let icon;
-          let avatar = data.username
-            .replace(/[^a-zA-Z0-9 ]/g, "")
-            .toUpperCase()
-            .substring(0, 2);
-
-          // TODO: add profilePic to user and check if exists, otherwise return name letters
-          // if (data.profilePic) {
-          //   //icon = <AccountCircle />;
-          // }
-
+          const avatar = data.avatar ? (
+            <Avatar>{data.avatar}</Avatar>
+          ) : undefined;
+          const isSelected = data.key === params.value;
           return (
-            <ListItem key={index}>
+            <Box key={index} sx={{ margin: "0.2em" }}>
               <Chip
-                //icon={icon}
-                label={data.username}
-                variant={data.key === params.value ? "filled" : "outlined"}
-                avatar={<Avatar>{avatar}</Avatar>}
+                icon={data.icon}
+                label={data.chipLabel}
+                variant={isSelected ? "filled" : "outlined"}
+                color={isSelected ? "secondary" : "default"}
+                avatar={avatar}
                 onClick={() => params.onChange(data.key)}
                 // onDelete={
                 //   data.name === "React" ? undefined : handleDelete(data)
                 // }
               />
-            </ListItem>
+            </Box>
           );
         })}
       </Box>

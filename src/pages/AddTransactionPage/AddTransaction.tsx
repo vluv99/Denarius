@@ -11,7 +11,15 @@ import {
 } from "@mui/material";
 import { PaperCard } from "../../components/PaperCard";
 import { DatePicker } from "@mui/x-date-pickers";
-import { AddCircleOutline } from "@mui/icons-material";
+import {
+  AddCircleOutline,
+  CreditCard,
+  CreditScore,
+  CurrencyExchange,
+  Healing,
+  LocalDining,
+  MedicalInformation,
+} from "@mui/icons-material";
 import {
   useCategoryContext,
   usePaymentMethodContext,
@@ -29,6 +37,7 @@ import { CustomDatePicker } from "../../components/formComponents/CustomDatePick
 import { CustomMoneyNumberFiled } from "../../components/formComponents/CustomMoneyNumberField";
 import { RegisterOptions } from "react-hook-form/dist/types/validator";
 import { CustomChipArray } from "../../components/formComponents/CustomChipArray";
+import { isMobile } from "react-device-detect";
 
 // list inputs in form
 type Inputs = {
@@ -138,6 +147,7 @@ export function AddTransaction() {
           <Box
             component="form"
             onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}
+            sx={{ width: isMobile ? "100%" : "50%" }}
           >
             <Grid container spacing={2} columns={2} sx={{ flexGrow: 1 }}>
               <Grid item xs={1}>
@@ -240,9 +250,14 @@ export function AddTransaction() {
                     field: { value, onChange },
                     fieldState: { error },
                   }) => {
-                    const values = users.map((c, i) => ({
-                      username: c.username,
-                      key: c.userId,
+                    const passingValues = users.map((u) => ({
+                      chipLabel: u.username,
+                      key: u.userId,
+                      avatar: u.username
+                        .replace(/[^a-zA-Z0-9 ]/g, "")
+                        .toUpperCase()
+                        .substring(0, 2), // TODO: add profilePic to user and check if exists, otherwise return name letters
+                      icon: undefined,
                     }));
 
                     return (
@@ -250,11 +265,66 @@ export function AddTransaction() {
                         id={"users"}
                         label="Users"
                         value={value ? value.userId : ""}
-                        modelsArray={values}
+                        modelsArray={passingValues}
                         onChange={(userID) => {
                           //find the user based on the userID
                           const user = users.find((u) => u.userId === userID);
                           onChange(user);
+                        }}
+                        //error={!!error}
+                        //helperText={error?.message || "Optional"}
+                      />
+                    );
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={1}>
+                <Controller
+                  name="paymentMethod"
+                  control={control}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => {
+                    let passingValues = paymentMethods.map((p) => {
+                      let icon = undefined;
+                      switch (p.name) {
+                        case "Main Debit Card":
+                          icon = <CreditCard />;
+                          break;
+                        case "Egészség":
+                          icon = <MedicalInformation />;
+                          break;
+                        case "Credit Card":
+                          icon = <CreditScore />;
+                          break;
+                        case "SZÉP":
+                          icon = <LocalDining />;
+                          break;
+                        case "Revolut":
+                          icon = <CurrencyExchange />;
+                          break;
+                      }
+
+                      return {
+                        chipLabel: p.name,
+                        key: p.id,
+                        avatar: undefined,
+                        icon: icon,
+                      };
+                    });
+
+                    return (
+                      <CustomChipArray
+                        id={"paymentMethod"}
+                        label="Payment Method"
+                        value={value ? value.id : ""}
+                        modelsArray={passingValues}
+                        onChange={(id) => {
+                          //find the user based on the userID
+                          const p = paymentMethods.find((p) => p.id === id);
+                          onChange(p);
                         }}
                         error={!!error}
                         helperText={error?.message || "Optional"}
@@ -296,23 +366,6 @@ export function AddTransaction() {
               </Grid>
             </Grid>
 
-            {/*  <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">*/}
-            {/*    <InputLabel id="user-label">User</InputLabel>*/}
-            {/*    <Select*/}
-            {/*      labelId="user-label"*/}
-            {/*      id="user-select"*/}
-            {/*      value={user}*/}
-            {/*      label="User"*/}
-            {/*      onChange={handleUserChange}*/}
-            {/*    >*/}
-            {/*      {users.map((value, i) => (*/}
-            {/*        <MenuItem key={"user-select-" + i} value={value.userId}>*/}
-            {/*          <AccountCircle />*/}
-            {/*          {value.username}*/}
-            {/*        </MenuItem>*/}
-            {/*      ))}*/}
-            {/*    </Select>*/}
-            {/*  </FormControl>*/}
             {/*  <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">*/}
             {/*    <InputLabel id="card-label">Payment method</InputLabel>*/}
             {/*    <Select*/}
