@@ -218,7 +218,7 @@ export function AddTransaction() {
                   }) => (
                     <CustomDatePicker
                       label="Date"
-                      openTo="month"
+                      openTo="day"
                       views={["year", "month", "day"]}
                       value={moment(value)}
                       onChange={onChange}

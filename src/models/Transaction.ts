@@ -3,6 +3,7 @@
 import { Category } from "./CategoryModel";
 import { User } from "./UserModel";
 import { PaymentMethod } from "./PaymentMethodModel";
+import moment from "moment";
 
 /**
  * Represents a single Transaction
@@ -50,7 +51,7 @@ export class Transaction {
     return {
       creationDate: new Date(),
       creatorUserId: currentUser.userId,
-      date: this.date,
+      date: new Date(this.date),
       category: this.category.id,
       payee: this.payee,
       amount: this.amount,
