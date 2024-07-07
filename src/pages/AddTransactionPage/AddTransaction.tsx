@@ -38,6 +38,7 @@ import { CustomMoneyNumberFiled } from "../../components/formComponents/CustomMo
 import { RegisterOptions } from "react-hook-form/dist/types/validator";
 import { CustomChipArray } from "../../components/formComponents/CustomChipArray";
 import { isMobile } from "react-device-detect";
+import { CustomCheckbox } from "../../components/formComponents/CustomChecbox";
 
 // list inputs in form
 type Inputs = {
@@ -72,7 +73,8 @@ export function AddTransaction() {
       amount: "",
       description: "",
       user: currentUser,
-      paymentMethod: null,
+      paymentMethod:
+        paymentMethods.find((p) => p.name === "Main Debit Card") || null,
       isCommon: false,
     },
   });
@@ -147,7 +149,10 @@ export function AddTransaction() {
           <Box
             component="form"
             onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}
-            sx={{ width: isMobile ? "100%" : "50%" }}
+            sx={{
+              width: isMobile ? "100%" : "50%",
+              minWidth: isMobile ? "95%" : "40vh",
+            }}
           >
             <Grid
               container
@@ -362,6 +367,24 @@ export function AddTransaction() {
               </Grid>
 
               <Grid item xs={1}>
+                <Controller
+                  name="isCommon"
+                  control={control}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => (
+                    <CustomCheckbox
+                      label="Is common expense?"
+                      value={value}
+                      onChange={onChange}
+                      isDefaultChecked={false}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={1}>
                 <Button
                   variant="contained"
                   startIcon={<AddCircleOutline />}
@@ -372,33 +395,17 @@ export function AddTransaction() {
               </Grid>
             </Grid>
 
-            {/*  <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">*/}
-            {/*    <InputLabel id="card-label">Payment method</InputLabel>*/}
-            {/*    <Select*/}
-            {/*      labelId="card-label"*/}
-            {/*      id="card-select"*/}
-            {/*      value={card}*/}
-            {/*      label="Card type"*/}
-            {/*      onChange={handleCardChange}*/}
-            {/*    >*/}
-            {/*      {paymentMethods.map((card, index) => (*/}
-            {/*        <MenuItem key={"card-select-" + index} value={card.id}>*/}
-            {/*          {card.name}*/}
-            {/*        </MenuItem>*/}
-            {/*      ))}*/}
-            {/*    </Select>*/}
-            {/*  </FormControl>*/}
-            {/*  <FormControlLabel*/}
-            {/*    label="Is common expense?"*/}
-            {/*    control={*/}
-            {/*      <Checkbox*/}
-            {/*        //defaultChecked*/}
-            {/*        color="secondary"*/}
-            {/*        checked={isCommon}*/}
-            {/*        onClick={(e) => setIsCommon(!isCommon)}*/}
-            {/*      />*/}
-            {/*    }*/}
-            {/*  />*/}
+            {/*<FormControlLabel*/}
+            {/*  label="Is common expense?"*/}
+            {/*  control={*/}
+            {/*    <Checkbox*/}
+            {/*      //defaultChecked*/}
+            {/*      color="secondary"*/}
+            {/*      checked={isCommon}*/}
+            {/*      onClick={(e) => setIsCommon(!isCommon)}*/}
+            {/*    />*/}
+            {/*  }*/}
+            {/*/>*/}
             {/*  <Box*/}
             {/*    sx={{*/}
             {/*      display: "flex",*/}

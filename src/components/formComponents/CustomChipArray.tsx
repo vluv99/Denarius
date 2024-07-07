@@ -12,7 +12,7 @@ type Params = {
     avatar: string | undefined;
     icon: ReactElement<any, any> | undefined;
   }[];
-  onChange: (usernamme: string) => void;
+  onChange: (labelText: string) => void;
   error?: boolean | undefined;
 };
 
