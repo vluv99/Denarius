@@ -28,6 +28,7 @@ import moment from "moment";
 import { CustomDatePicker } from "../../components/formComponents/CustomDatePicker";
 import { CustomMoneyNumberFiled } from "../../components/formComponents/CustomMoneyNumberField";
 import { RegisterOptions } from "react-hook-form/dist/types/validator";
+import { CustomChipArray } from "../../components/formComponents/CustomChipArray";
 
 // list inputs in form
 type Inputs = {
@@ -45,7 +46,10 @@ export function AddTransaction() {
   const categories = useCategoryContext();
   const paymentMethods = usePaymentMethodContext();
   const currentUser = useUserContext();
-  const users: User[] = [currentUser!];
+  const users: User[] = [
+    currentUser! /*,
+    new User("0", "dpeter99@gmail.com", "dpeter99"),*/,
+  ];
 
   const {
     control,
@@ -230,6 +234,38 @@ export function AddTransaction() {
               </Grid>
               <Grid item xs={1}>
                 <Controller
+                  name="user"
+                  control={control}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => {
+                    const values = users.map((c, i) => ({
+                      username: c.username,
+                      key: c.userId,
+                    }));
+
+                    return (
+                      <CustomChipArray
+                        id={"users"}
+                        label="Users"
+                        value={value ? value.userId : ""}
+                        modelsArray={values}
+                        onChange={(userID) => {
+                          //find the user based on the userID
+                          const user = users.find((u) => u.userId === userID);
+                          onChange(user);
+                        }}
+                        error={!!error}
+                        helperText={error?.message || "Optional"}
+                      />
+                    );
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={1}>
+                <Controller
                   name="description"
                   control={control}
                   render={({
@@ -242,7 +278,7 @@ export function AddTransaction() {
                       value={value}
                       onChange={onChange}
                       //error={!!error}
-                      helperText={error?.message}
+                      helperText={error?.message || "Optional"}
                       multiline={true}
                     />
                   )}
