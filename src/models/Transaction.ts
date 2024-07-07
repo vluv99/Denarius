@@ -3,11 +3,6 @@
 import { Category } from "./CategoryModel";
 import { User } from "./UserModel";
 import { PaymentMethod } from "./PaymentMethodModel";
-import {
-  useCategoryContext,
-  usePaymentMethodContext,
-  useUserContext,
-} from "../contexts/DBContexts";
 
 /**
  * Represents a single Transaction
@@ -15,6 +10,7 @@ import {
 export class Transaction {
   transactionId: string;
   creationDate: Date;
+  creatorUserId: string;
   date: Date;
   category: Category;
   payee: string;
@@ -27,6 +23,7 @@ export class Transaction {
   constructor(
     transactionId: string,
     creationDate: Date,
+    creatorUserId: string,
     date: Date,
     category: Category,
     payee: string,
@@ -38,6 +35,7 @@ export class Transaction {
   ) {
     this.transactionId = transactionId;
     this.creationDate = creationDate;
+    this.creatorUserId = creatorUserId;
     this.date = date;
     this.category = category;
     this.payee = payee;
@@ -48,10 +46,10 @@ export class Transaction {
     this.description = description;
   }
 
-  toDatabaseFormat() {
+  toDatabaseFormat(currentUser: User) {
     return {
-      transactionId: this.transactionId,
-      creationDate: this.creationDate,
+      creationDate: new Date(),
+      creatorUserId: currentUser.userId,
       date: this.date,
       category: this.category.id,
       payee: this.payee,
@@ -67,10 +65,11 @@ export class Transaction {
     return new Transaction(
       data.transactionId,
       data.creationDate,
+      data.creatorUserId,
       data.date,
       data.category,
       data.payee,
-      data.amount,
+      Number(data.amount),
       data.user,
       data.paymentMethod,
       data.isCommon,

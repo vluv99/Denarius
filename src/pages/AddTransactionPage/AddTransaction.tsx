@@ -80,17 +80,15 @@ export function AddTransaction() {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-    // await addTransaction(
-    //   data /*, categories, paymentMethods, currentUser*/,
-    // ).catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //
-    //   window.alert(
-    //     `Error during adding transaction: ${errorCode}\n${errorMessage}`,
-    //   );
-    // });
+    //console.log(data);
+    await addTransaction(data, currentUser!).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      window.alert(
+        `Error during adding transaction: ${errorCode}\n${errorMessage}`,
+      );
+    });
   };
 
   const rules = {
