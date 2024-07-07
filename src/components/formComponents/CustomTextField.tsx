@@ -22,7 +22,7 @@ export const CustomTextField = (params: Params) => {
       helperText={params.helperText}
       value={params.value}
       onChange={params.onChange}
-      sx={{ marginBottom: "4%" }}
+      //sx={{ marginBottom: "4%" }}
       error={params.error}
       multiline={params.multiline}
     />

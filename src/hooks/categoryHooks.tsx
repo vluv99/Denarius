@@ -18,6 +18,7 @@ export function useGetCategoryData() {
           name: data.name,
           color: data.color,
           id: doc.id,
+          expenseType: data.expenseType,
         };
       });
       setCategoriesData(categories);

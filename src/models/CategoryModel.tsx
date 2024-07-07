@@ -2,6 +2,7 @@ export type Category = {
   id: string;
   name: string;
   color: string;
+  expenseType: string; // "Income" | "Expense" | "Neutral"
 };
 
 // ###################### TEST ######################

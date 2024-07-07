@@ -26,6 +26,8 @@ import { CustomTextField } from "../../components/formComponents/CustomTextField
 import { CustomSelect } from "../../components/formComponents/CustomSelect";
 import moment from "moment";
 import { CustomDatePicker } from "../../components/formComponents/CustomDatePicker";
+import { CustomMoneyNumberFiled } from "../../components/formComponents/CustomMoneyNumberField";
+import { RegisterOptions } from "react-hook-form/dist/types/validator";
 
 // list inputs in form
 type Inputs = {
@@ -80,6 +82,48 @@ export function AddTransaction() {
     required: {
       value: true,
       message: "The field is required",
+    },
+  };
+
+  const amountRules: Omit<
+    RegisterOptions<Inputs, "amount">,
+    "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
+  > = {
+    required: {
+      value: true,
+      message: "The field is required",
+    },
+    pattern: {
+      value: /^-?[0-9]\d*(\.\d+)?$/,
+      message: "Amount must be a valid number",
+    },
+    validate: {
+      expenseCategory: (v: string, formValues) => {
+        // if return is string or false it's error, if true it's valid
+
+        const positives = categories
+          .filter((c) => c.expenseType === "Income")
+          .map((c) => c.name);
+        const negatives = categories
+          .filter((c) => c.expenseType === "Expense")
+          .map((c) => c.name);
+
+        if (
+          formValues.category &&
+          positives.includes(formValues.category.name) &&
+          Number(v) < 0
+        ) {
+          return "Amount must be Positive";
+        } else if (
+          formValues.category &&
+          negatives.includes(formValues.category.name) &&
+          Number(v) > 0
+        ) {
+          return "Amount must be Negative";
+        }
+        // if category isn't selected yet, don't throw error
+        return true;
+      },
     },
   };
 
@@ -166,26 +210,21 @@ export function AddTransaction() {
                 <Controller
                   name="amount"
                   control={control}
-                  rules={rules}
+                  rules={amountRules}
                   render={({
                     field: { value, onChange },
                     fieldState: { error },
                   }) => (
-                    <FormControl fullWidth /*sx={{ m: 1 }}*/>
-                      <InputLabel htmlFor="outlined-adornment-amount">
-                        Amount
-                      </InputLabel>
-                      <OutlinedInput
-                        id="amounttextField"
-                        inputMode="numeric"
-                        value={value}
-                        onChange={onChange}
-                        startAdornment={
-                          <InputAdornment position="start">Ft</InputAdornment>
-                        }
-                        label="Amount"
-                      />
-                    </FormControl>
+                    <CustomMoneyNumberFiled
+                      id={"amount"}
+                      value={value}
+                      label={"Amount"}
+                      moneySign={"Ft"}
+                      autoComplete={"off"}
+                      onChange={onChange}
+                      error={!!error}
+                      helperText={error?.message}
+                    />
                   )}
                 />
               </Grid>
