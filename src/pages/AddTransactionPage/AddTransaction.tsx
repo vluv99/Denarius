@@ -144,291 +144,302 @@ export function AddTransaction() {
     <Container>
       <Box sx={{ flexGrow: 1, margin: "3% 0" }}>
         <PaperCard label="Add New Transactions">
-          <Box
-            component="form"
-            onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}
-            sx={{
-              width: isMobile ? "100%" : "50%",
-              minWidth: isMobile ? "95%" : "40vh",
-            }}
-          >
-            <Grid
-              container
-              spacing={2}
-              columns={isMobile ? 1 : 2}
-              sx={{ flexGrow: 1 }}
+          <Box display="flex" flexWrap={"wrap"}>
+            <Box
+              component="form"
+              onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}
+              sx={{
+                width: isMobile ? "100%" : "50%",
+                minWidth: isMobile ? "95%" : "40vh",
+              }}
             >
-              <Grid item xs={1}>
-                <Controller
-                  name="payee"
-                  control={control}
-                  rules={rules}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => (
-                    <CustomTextField
-                      label="Payee"
-                      type="text"
-                      value={value}
-                      onChange={onChange}
-                      error={!!error}
-                      helperText={error?.message}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <Controller
-                  name="category"
-                  control={control}
-                  rules={rules}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => {
-                    const values = categories.map((c) => ({
-                      id: c.id,
-                      name: c.name,
-                    }));
-                    return (
-                      <CustomSelect
-                        id="category"
-                        label="Category"
-                        value={value ? value.id : ""}
-                        onChange={(e) =>
-                          onChange(values.find((v) => v.id == e.target.value))
-                        }
+              <Grid
+                container
+                spacing={2}
+                columns={isMobile ? 1 : 2}
+                sx={{ flexGrow: 1 }}
+              >
+                <Grid item xs={1}>
+                  <Controller
+                    name="payee"
+                    control={control}
+                    rules={rules}
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { error },
+                    }) => (
+                      <CustomTextField
+                        label="Payee"
+                        type="text"
+                        value={value}
+                        onChange={onChange}
                         error={!!error}
                         helperText={error?.message}
-                        modelsArray={values}
+                        fullWidth={true}
                       />
-                    );
-                  }}
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <Controller
-                  name="date"
-                  control={control}
-                  rules={rules}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => (
-                    <CustomDatePicker
-                      label="Date"
-                      openTo="day"
-                      views={["year", "month", "day"]}
-                      value={moment(value)}
-                      onChange={onChange}
-                      error={!!error}
-                      helperText={error?.message}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <Controller
-                  name="amount"
-                  control={control}
-                  rules={amountRules}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => (
-                    <CustomMoneyNumberFiled
-                      id={"amount"}
-                      value={value}
-                      label={"Amount"}
-                      moneySign={"Ft"}
-                      autoComplete={"off"}
-                      onChange={onChange}
-                      error={!!error}
-                      helperText={error?.message}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={1}>
-                <Controller
-                  name="paymentMethod"
-                  control={control}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => {
-                    let passingValues = paymentMethods.map((p) => {
-                      let icon = undefined;
-                      switch (p.name) {
-                        case "Main Debit Card":
-                          icon = <CreditCard />;
-                          break;
-                        case "Egészség":
-                          icon = <MedicalInformation />;
-                          break;
-                        case "Credit Card":
-                          icon = <CreditScore />;
-                          break;
-                        case "SZÉP":
-                          icon = <LocalDining />;
-                          break;
-                        case "Revolut":
-                          icon = <CurrencyExchange />;
-                          break;
-                      }
-
-                      return {
-                        chipLabel: p.name,
-                        key: p.id,
-                        avatar: undefined,
-                        icon: icon,
-                      };
-                    });
-
-                    return (
-                      <CustomChipArray
-                        id={"paymentMethod"}
-                        label="Payment Method"
-                        value={value ? value.id : ""}
-                        modelsArray={passingValues}
-                        onChange={(id) => {
-                          //find the user based on the userID
-                          const p = paymentMethods.find((p) => p.id === id);
-                          onChange(p);
-                        }}
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={1}>
+                  <Controller
+                    name="category"
+                    control={control}
+                    rules={rules}
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { error },
+                    }) => {
+                      const values = categories.map((c) => ({
+                        id: c.id,
+                        name: c.name,
+                      }));
+                      return (
+                        <CustomSelect
+                          id="category"
+                          label="Category"
+                          value={value ? value.id : ""}
+                          onChange={(e) =>
+                            onChange(values.find((v) => v.id == e.target.value))
+                          }
+                          error={!!error}
+                          helperText={error?.message}
+                          modelsArray={values}
+                          fullWidth={true}
+                        />
+                      );
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={1}>
+                  <Controller
+                    name="date"
+                    control={control}
+                    rules={rules}
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { error },
+                    }) => (
+                      <CustomDatePicker
+                        label="Date"
+                        openTo="day"
+                        views={["year", "month", "day"]}
+                        value={moment(value)}
+                        onChange={onChange}
                         error={!!error}
-                        helperText={error?.message || "Optional"}
+                        helperText={error?.message}
+                        fullWidth={true}
                       />
-                    );
-                  }}
-                />
-              </Grid>
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={1}>
+                  <Controller
+                    name="amount"
+                    control={control}
+                    rules={amountRules}
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { error },
+                    }) => (
+                      <CustomMoneyNumberFiled
+                        id={"amount"}
+                        value={value}
+                        label={"Amount"}
+                        moneySign={"Ft"}
+                        autoComplete={"off"}
+                        onChange={onChange}
+                        error={!!error}
+                        helperText={error?.message}
+                        fullWidth={true}
+                      />
+                    )}
+                  />
+                </Grid>
 
-              <Grid item xs={1}>
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => (
-                    <CustomTextField
-                      label="Description"
-                      type="text"
-                      value={value}
-                      onChange={onChange}
-                      //error={!!error}
-                      helperText={error?.message || "Optional"}
-                      multiline={true}
-                    />
-                  )}
-                />
-              </Grid>
+                <Grid item xs={1}>
+                  <Controller
+                    name="paymentMethod"
+                    control={control}
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { error },
+                    }) => {
+                      let passingValues = paymentMethods.map((p) => {
+                        let icon = undefined;
+                        switch (p.name) {
+                          case "Main Debit Card":
+                            icon = <CreditCard />;
+                            break;
+                          case "Egészség":
+                            icon = <MedicalInformation />;
+                            break;
+                          case "Credit Card":
+                            icon = <CreditScore />;
+                            break;
+                          case "SZÉP":
+                            icon = <LocalDining />;
+                            break;
+                          case "Revolut":
+                            icon = <CurrencyExchange />;
+                            break;
+                        }
 
-              <Grid item xs={1}>
-                <Controller
-                  name="user"
-                  control={control}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => {
-                    const passingValues = users.map((u) => ({
-                      chipLabel: u.username,
-                      key: u.userId,
-                      avatar: u.username
-                        .replace(/[^a-zA-Z0-9 ]/g, "")
-                        .toUpperCase()
-                        .substring(0, 2), // TODO: add profilePic to user and check if exists, otherwise return name letters
-                      icon: undefined,
-                    }));
+                        return {
+                          chipLabel: p.name,
+                          key: p.id,
+                          avatar: undefined,
+                          icon: icon,
+                        };
+                      });
 
-                    return (
-                      <CustomChipArray
-                        id={"users"}
-                        label="Users"
-                        value={value ? value.userId : ""}
-                        modelsArray={passingValues}
-                        onChange={(userID) => {
-                          //find the user based on the userID
-                          const user = users.find((u) => u.userId === userID);
-                          onChange(user);
-                        }}
+                      return (
+                        <CustomChipArray
+                          id={"paymentMethod"}
+                          label="Payment Method"
+                          value={value ? value.id : ""}
+                          modelsArray={passingValues}
+                          onChange={(id) => {
+                            //find the user based on the userID
+                            const p = paymentMethods.find((p) => p.id === id);
+                            onChange(p);
+                          }}
+                          error={!!error}
+                          helperText={error?.message || "Optional"}
+                        />
+                      );
+                    }}
+                  />
+                </Grid>
+
+                <Grid item xs={1}>
+                  <Controller
+                    name="description"
+                    control={control}
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { error },
+                    }) => (
+                      <CustomTextField
+                        label="Description"
+                        type="text"
+                        value={value}
+                        onChange={onChange}
                         //error={!!error}
-                        //helperText={error?.message || "Optional"}
+                        helperText={error?.message || "Optional"}
+                        multiline={true}
+                        fullWidth={true}
                       />
-                    );
-                  }}
-                />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={1}>
+                  <Controller
+                    name="user"
+                    control={control}
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { error },
+                    }) => {
+                      const passingValues = users.map((u) => ({
+                        chipLabel: u.username,
+                        key: u.userId,
+                        avatar: u.username
+                          .replace(/[^a-zA-Z0-9 ]/g, "")
+                          .toUpperCase()
+                          .substring(0, 2), // TODO: add profilePic to user and check if exists, otherwise return name letters
+                        icon: undefined,
+                      }));
+
+                      return (
+                        <CustomChipArray
+                          id={"users"}
+                          label="Users"
+                          value={value ? value.userId : ""}
+                          modelsArray={passingValues}
+                          onChange={(userID) => {
+                            //find the user based on the userID
+                            const user = users.find((u) => u.userId === userID);
+                            onChange(user);
+                          }}
+                          //error={!!error}
+                          //helperText={error?.message || "Optional"}
+                        />
+                      );
+                    }}
+                  />
+                </Grid>
+
+                <Grid item xs={1}>
+                  <Controller
+                    name="isCommon"
+                    control={control}
+                    render={({
+                      field: { value, onChange },
+                      fieldState: { error },
+                    }) => (
+                      <CustomCheckbox
+                        label="Is common expense?"
+                        value={value}
+                        onChange={onChange}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={1}>
+                  <Button
+                    variant="contained"
+                    startIcon={<AddCircleOutline />}
+                    type="submit"
+                  >
+                    Add
+                  </Button>
+                </Grid>
               </Grid>
 
-              <Grid item xs={1}>
-                <Controller
-                  name="isCommon"
-                  control={control}
-                  render={({
-                    field: { value, onChange },
-                    fieldState: { error },
-                  }) => (
-                    <CustomCheckbox
-                      label="Is common expense?"
-                      value={value}
-                      onChange={onChange}
-                    />
-                  )}
-                />
-              </Grid>
+              {/*  <Box*/}
+              {/*    sx={{*/}
+              {/*      display: "flex",*/}
+              {/*      flexGrow: isMobile ? 1 : 2,*/}
+              {/*      minWidth: isMobile ? "25ch" : "50ch",*/}
+              {/*      flexDirection: isMobile ? "column" : "initial", //TODO: fix the mobile view for these buttons somehow???*/}
+              {/*    }}*/}
+              {/*  >*/}
+              {/*    <FormControl*/}
+              {/*      sx={{*/}
+              {/*        marginTop: 1,*/}
+              {/*        marginBottom: 1,*/}
+              {/*        marginRight: isMobile ? 0 : 1,*/}
+              {/*        width: "25ch",*/}
+              {/*      }}*/}
+              {/*    >*/}
+              {/*      <Button*/}
+              {/*        variant="outlined"*/}
+              {/*        startIcon={<DeleteIcon />}*/}
+              {/*        color="secondary"*/}
+              {/*        type="reset"*/}
+              {/*        onClick={handleClear}*/}
+              {/*      >*/}
+              {/*        Clear*/}
+              {/*      </Button>*/}
+              {/*    </FormControl>*/}
+              {/*    <FormControl*/}
+              {/*      sx={{*/}
+              {/*        marginTop: 1,*/}
+              {/*        marginBottom: 1,*/}
+              {/*        marginLeft: isMobile ? 0 : 1,*/}
+              {/*        width: "25ch",*/}
+              {/*      }}*/}
+              {/*    >*/}
 
-              <Grid item xs={1}>
-                <Button
-                  variant="contained"
-                  startIcon={<AddCircleOutline />}
-                  type="submit"
-                >
-                  Add
-                </Button>
-              </Grid>
-            </Grid>
-
-            {/*  <Box*/}
-            {/*    sx={{*/}
-            {/*      display: "flex",*/}
-            {/*      flexGrow: isMobile ? 1 : 2,*/}
-            {/*      minWidth: isMobile ? "25ch" : "50ch",*/}
-            {/*      flexDirection: isMobile ? "column" : "initial", //TODO: fix the mobile view for these buttons somehow???*/}
-            {/*    }}*/}
-            {/*  >*/}
-            {/*    <FormControl*/}
-            {/*      sx={{*/}
-            {/*        marginTop: 1,*/}
-            {/*        marginBottom: 1,*/}
-            {/*        marginRight: isMobile ? 0 : 1,*/}
-            {/*        width: "25ch",*/}
-            {/*      }}*/}
-            {/*    >*/}
-            {/*      <Button*/}
-            {/*        variant="outlined"*/}
-            {/*        startIcon={<DeleteIcon />}*/}
-            {/*        color="secondary"*/}
-            {/*        type="reset"*/}
-            {/*        onClick={handleClear}*/}
-            {/*      >*/}
-            {/*        Clear*/}
-            {/*      </Button>*/}
-            {/*    </FormControl>*/}
-            {/*    <FormControl*/}
-            {/*      sx={{*/}
-            {/*        marginTop: 1,*/}
-            {/*        marginBottom: 1,*/}
-            {/*        marginLeft: isMobile ? 0 : 1,*/}
-            {/*        width: "25ch",*/}
-            {/*      }}*/}
-            {/*    >*/}
-
-            {/*    </FormControl>*/}
-            {/*  </Box>*/}
+              {/*    </FormControl>*/}
+              {/*  </Box>*/}
+            </Box>
+            <Box sx={{ margin: isMobile ? "5% 0 0 0" : "0 0 0 3%" }}>
+              Placeholder to list where newly added transaction will appear.
+              (WIP)
+            </Box>
           </Box>
         </PaperCard>
       </Box>

@@ -5,6 +5,8 @@ import {
   InputLabel,
   OutlinedInput,
   SelectChangeEvent,
+  SxProps,
+  Theme,
 } from "@mui/material";
 import React from "react";
 
@@ -17,12 +19,14 @@ type Params = {
   autoComplete: "on" | "off";
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: boolean | undefined;
+  fullWidth: boolean;
+  sx?: SxProps<Theme> | undefined;
 };
 
 export const CustomMoneyNumberFiled = (params: Params) => {
   const error = params.error ?? false;
   return (
-    <FormControl /*fullWidth*/>
+    <FormControl fullWidth={params.fullWidth} sx={params.sx}>
       <InputLabel htmlFor={`${params.id}-id`} error={error}>
         Amount
       </InputLabel>

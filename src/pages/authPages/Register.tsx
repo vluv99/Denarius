@@ -63,6 +63,8 @@ export const Register = () => {
             onChange={onChange}
             error={!!error}
             helperText={error?.message}
+            fullWidth={true}
+            sx={{ marginBottom: "4%" }}
           />
         )}
       />
@@ -79,6 +81,8 @@ export const Register = () => {
             onChange={onChange}
             error={!!error}
             helperText={error?.message}
+            fullWidth={true}
+            sx={{ marginBottom: "4%" }}
           />
         )}
       />
@@ -95,6 +99,8 @@ export const Register = () => {
             onChange={onChange}
             error={!!error}
             helperText={error?.message}
+            fullWidth={true}
+            sx={{ marginBottom: "4%" }}
           />
         )}
       />

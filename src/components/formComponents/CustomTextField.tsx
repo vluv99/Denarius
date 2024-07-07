@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { SxProps, TextField, Theme } from "@mui/material";
 import React from "react";
 
 type Params = {
@@ -10,6 +10,8 @@ type Params = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: boolean | undefined;
   multiline?: boolean;
+  fullWidth: boolean;
+  sx?: SxProps<Theme> | undefined;
 };
 
 export const CustomTextField = (params: Params) => {
@@ -26,6 +28,8 @@ export const CustomTextField = (params: Params) => {
       error={params.error}
       multiline={params.multiline}
       minRows={params.multiline ? 3 : 0}
+      fullWidth={params.fullWidth}
+      sx={params.sx}
     />
   );
 };

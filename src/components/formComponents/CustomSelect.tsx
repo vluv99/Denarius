@@ -5,6 +5,8 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  SxProps,
+  Theme,
 } from "@mui/material";
 import React from "react";
 import { Category } from "../../models/CategoryModel";
@@ -17,12 +19,14 @@ type Params = {
   modelsArray: { name: string; id: string }[];
   onChange: (e: SelectChangeEvent<string>) => void;
   error?: boolean | undefined;
+  fullWidth: boolean;
+  sx?: SxProps<Theme> | undefined;
 };
 
 export const CustomSelect = (params: Params) => {
   const error = params.error ?? false;
   return (
-    <FormControl sx={{ width: "25ch" }} variant="outlined">
+    <FormControl sx={params.sx} fullWidth={params.fullWidth} variant="outlined">
       <InputLabel id={`${params.id}-label`} error={error}>
         {params.label}
       </InputLabel>

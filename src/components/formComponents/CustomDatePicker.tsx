@@ -1,6 +1,7 @@
 import React from "react";
 import moment, { Moment } from "moment/moment";
 import { DatePicker, DateView } from "@mui/x-date-pickers";
+import { SxProps, Theme } from "@mui/material";
 
 type Params = {
   //id: string;
@@ -11,6 +12,8 @@ type Params = {
   value: Moment | null;
   onChange: (e: Moment | null) => void;
   error?: boolean | undefined;
+  fullWidth: boolean;
+  sx?: SxProps<Theme> | undefined;
 };
 
 export const CustomDatePicker = (params: Params) => {
@@ -26,8 +29,10 @@ export const CustomDatePicker = (params: Params) => {
         textField: {
           helperText: params.helperText,
           error: params.error,
+          fullWidth: params.fullWidth,
         },
       }}
+      sx={params.sx}
     />
   );
 };

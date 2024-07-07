@@ -56,6 +56,8 @@ export const Login = () => {
             onChange={onChange}
             error={!!error}
             helperText={error?.message}
+            fullWidth={false}
+            sx={{ marginBottom: "4%" }}
           />
         )}
       />
@@ -73,6 +75,8 @@ export const Login = () => {
             onChange={onChange}
             error={!!error}
             helperText={error?.message}
+            fullWidth={true}
+            sx={{ marginBottom: "4%" }}
           />
         )}
       />
