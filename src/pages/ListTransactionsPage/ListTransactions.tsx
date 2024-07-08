@@ -10,9 +10,24 @@ import { useGetUserBrowserTheme } from "../../theme/consts";
 import { testTransactions } from "./TestTransactions";
 import { Box, Typography } from "@mui/material";
 import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
+import {
+  useCategoryContext,
+  usePaymentMethodContext,
+  useUserContext,
+} from "../../contexts/DBContexts";
+import { Transaction } from "../../models/Transaction";
+import { User } from "../../models/UserModel";
 
 export const ListTransactions = () => {
-  const columns: GridColDef[] = [
+  const categories = useCategoryContext();
+  const paymentMethods = usePaymentMethodContext();
+  const currentUser = useUserContext();
+  const users: User[] = [
+    currentUser! /*,
+    new User("0", "dpeter99@gmail.com", "dpeter99"),*/,
+  ];
+
+  const columns: GridColDef<Transaction>[] = [
     { field: "id", headerName: "ID", width: 100 },
     {
       field: "date",
@@ -31,7 +46,7 @@ export const ListTransactions = () => {
       headerName: "Category",
       flex: 0,
       minWidth: isMobile ? 130 : 160,
-      /*type: "Category",*/ /*width: 130,*/
+      valueGetter: (value) => categories.find((d) => d.id === value)?.name,
     },
     {
       field: "description",
@@ -54,6 +69,7 @@ export const ListTransactions = () => {
       flex: 0,
       //type: "User",
       width: 130,
+      valueGetter: (value) => users.find((d) => d.userId === value)?.username,
     },
     {
       field: "isCommon",
@@ -64,12 +80,13 @@ export const ListTransactions = () => {
       /*width: 50,*/
     },
     {
-      field: "cardType",
-      headerName: "Card",
+      field: "paymentMethod",
+      headerName: "Payment Method",
       flex: 0,
       minWidth: 130,
       //type: "CartType",
       /*width: 130,*/
+      valueGetter: (value) => paymentMethods.find((d) => d.id === value)?.name,
     },
   ];
 
@@ -111,7 +128,7 @@ export const ListTransactions = () => {
           slots={{
             toolbar: GridToolbar,
           }}
-          getCellClassName={(params: GridCellParams<any, any, number>) => {
+          getCellClassName={(params: GridCellParams) => {
             if (params.field !== "amount" || params.value == null) {
               return "";
             }

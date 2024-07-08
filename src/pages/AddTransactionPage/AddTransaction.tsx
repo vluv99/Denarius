@@ -33,12 +33,12 @@ import { Transaction } from "../../models/Transaction";
 // list inputs in form
 type Inputs = {
   payee: string;
-  category: Category | "";
+  category: Category | undefined;
   date: Date;
   amount: string;
   description: string;
   user: User;
-  paymentMethod: PaymentMethod | null;
+  paymentMethod: PaymentMethod;
   isCommon: boolean;
 };
 
@@ -58,13 +58,12 @@ export function AddTransaction() {
   } = useForm<Inputs>({
     defaultValues: {
       payee: "",
-      category: "",
+      category: undefined,
       date: new Date(),
       amount: "",
       description: "",
       user: currentUser,
-      paymentMethod:
-        paymentMethods.find((p) => p.name === "Main Debit Card") || null,
+      paymentMethod: paymentMethods.find((p) => p.name === "Main Debit Card"),
       isCommon: false,
     },
   });
@@ -76,15 +75,15 @@ export function AddTransaction() {
       new Date(),
       currentUser!.userId,
       data.date,
-      data.category,
+      data.category!,
       data.payee,
-      data.amount,
+      Number(data.amount),
       data.user,
       data.paymentMethod,
       data.isCommon,
       data.description,
     );
-    await addTransaction(data, currentUser!).catch((error) => {
+    await addTransaction(t, currentUser!).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
 
