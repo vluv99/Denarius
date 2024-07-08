@@ -9,7 +9,7 @@ import moment from "moment";
  * Represents a single Transaction
  */
 export class Transaction {
-  transactionId: string;
+  id: string;
   creationDate: Date;
   creatorUserId: string;
   date: Date;
@@ -34,7 +34,7 @@ export class Transaction {
     isCommon: boolean,
     description: string,
   ) {
-    this.transactionId = transactionId;
+    this.id = transactionId;
     this.creationDate = creationDate;
     this.creatorUserId = creatorUserId;
     this.date = date;
@@ -62,12 +62,12 @@ export class Transaction {
     };
   }
 
-  static toTransactionFormat(data: any): Transaction {
+  static toTransactionFormat(id: string, data: any): Transaction {
     return new Transaction(
-      data.transactionId,
-      data.creationDate,
+      id,
+      data.creationDate.toDate(),
       data.creatorUserId,
-      data.date,
+      data.date.toDate(),
       data.category,
       data.payee,
       Number(data.amount),

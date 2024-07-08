@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { useGetUserBrowserTheme } from "../../theme/consts";
 import { testTransactions } from "./TestTransactions";
 import { Box, Typography } from "@mui/material";
+import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
 
 export const ListTransactions = () => {
   const columns: GridColDef[] = [
@@ -74,7 +75,7 @@ export const ListTransactions = () => {
 
   //const { transactions } = useContext(TransactionContext);
 
-  const rows = testTransactions;
+  const rows = useTransactionContext();
 
   const theme = useGetUserBrowserTheme();
 

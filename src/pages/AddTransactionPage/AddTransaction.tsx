@@ -1,22 +1,11 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
+import { Box, Button, Container, Grid } from "@mui/material";
 import { PaperCard } from "../../components/PaperCard";
-import { DatePicker } from "@mui/x-date-pickers";
 import {
   AddCircleOutline,
   CreditCard,
   CreditScore,
   CurrencyExchange,
-  Healing,
   LocalDining,
   MedicalInformation,
 } from "@mui/icons-material";
@@ -39,6 +28,7 @@ import { RegisterOptions } from "react-hook-form/dist/types/validator";
 import { CustomChipArray } from "../../components/formComponents/CustomChipArray";
 import { isMobile } from "react-device-detect";
 import { CustomCheckbox } from "../../components/formComponents/CustomChecbox";
+import { Transaction } from "../../models/Transaction";
 
 // list inputs in form
 type Inputs = {
@@ -81,6 +71,19 @@ export function AddTransaction() {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     //console.log(data);
+    const t = new Transaction(
+      "",
+      new Date(),
+      currentUser!.userId,
+      data.date,
+      data.category,
+      data.payee,
+      data.amount,
+      data.user,
+      data.paymentMethod,
+      data.isCommon,
+      data.description,
+    );
     await addTransaction(data, currentUser!).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
