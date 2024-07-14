@@ -2,7 +2,7 @@ import { SxProps, TextField, Theme } from "@mui/material";
 import React from "react";
 
 type Params = {
-  //id: string;
+  id: string;
   label: string;
   type: React.HTMLInputTypeAttribute;
   helperText?: string | undefined;
@@ -12,6 +12,7 @@ type Params = {
   multiline?: boolean;
   fullWidth: boolean;
   sx?: SxProps<Theme> | undefined;
+  autoComplete: boolean;
 };
 
 export const CustomTextField = (params: Params) => {
@@ -19,6 +20,7 @@ export const CustomTextField = (params: Params) => {
     <TextField
       //id={params.id + "-textField"}
       label={params.label}
+      name={params.id}
       variant="outlined"
       type={params.type}
       helperText={params.helperText}
@@ -30,6 +32,11 @@ export const CustomTextField = (params: Params) => {
       minRows={params.multiline ? 3 : 0}
       fullWidth={params.fullWidth}
       sx={params.sx}
+      inputProps={{
+        ...(params.autoComplete
+          ? { autoComplete: params.id }
+          : { autoComplete: "off" }),
+      }}
     />
   );
 };

@@ -56,7 +56,7 @@ export const Register = () => {
         rules={rules}
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
-            //id="email-textField"
+            id="email-textField"
             label="Email"
             type="email"
             value={value}
@@ -65,6 +65,7 @@ export const Register = () => {
             helperText={error?.message}
             fullWidth={true}
             sx={{ marginBottom: "4%" }}
+            autoComplete={true}
           />
         )}
       />
@@ -74,7 +75,7 @@ export const Register = () => {
         rules={rules}
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
-            //id="email-textField"
+            id="username-textField"
             label="Username"
             type="text"
             value={value}
@@ -83,6 +84,7 @@ export const Register = () => {
             helperText={error?.message}
             fullWidth={true}
             sx={{ marginBottom: "4%" }}
+            autoComplete={true}
           />
         )}
       />
@@ -92,7 +94,7 @@ export const Register = () => {
         rules={rules}
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
-            //id="password-textField"
+            id="password-textField"
             label="Password"
             type="password"
             value={value}
@@ -101,6 +103,7 @@ export const Register = () => {
             helperText={error?.message}
             fullWidth={true}
             sx={{ marginBottom: "4%" }}
+            autoComplete={false}
           />
         )}
       />

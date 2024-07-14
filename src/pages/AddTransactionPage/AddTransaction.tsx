@@ -171,6 +171,7 @@ export function AddTransaction() {
                       fieldState: { error },
                     }) => (
                       <CustomTextField
+                        id={"payee-textfield"}
                         label="Payee"
                         type="text"
                         value={value}
@@ -178,6 +179,7 @@ export function AddTransaction() {
                         error={!!error}
                         helperText={error?.message}
                         fullWidth={true}
+                        autoComplete={true}
                       />
                     )}
                   />
@@ -322,6 +324,7 @@ export function AddTransaction() {
                       fieldState: { error },
                     }) => (
                       <CustomTextField
+                        id={"description-textfield"}
                         label="Description"
                         type="text"
                         value={value}
@@ -330,6 +333,7 @@ export function AddTransaction() {
                         helperText={error?.message || "Optional"}
                         multiline={true}
                         fullWidth={true}
+                        autoComplete={true}
                       />
                     )}
                   />

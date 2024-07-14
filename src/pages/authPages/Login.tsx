@@ -49,7 +49,7 @@ export const Login = () => {
         rules={rules}
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
-            //id="email-textField"
+            id="email-textField"
             label="Email"
             type="email"
             value={value}
@@ -58,6 +58,7 @@ export const Login = () => {
             helperText={error?.message}
             fullWidth={false}
             sx={{ marginBottom: "4%" }}
+            autoComplete={true}
           />
         )}
       />
@@ -68,7 +69,7 @@ export const Login = () => {
         rules={rules}
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
-            //id="password-textField"
+            id="password-textField"
             label="Password"
             type="password"
             value={value}
@@ -77,6 +78,7 @@ export const Login = () => {
             helperText={error?.message}
             fullWidth={true}
             sx={{ marginBottom: "4%" }}
+            autoComplete={true}
           />
         )}
       />
