@@ -179,7 +179,7 @@ export function AddTransaction() {
                         error={!!error}
                         helperText={error?.message}
                         fullWidth={true}
-                        autoComplete={true}
+                        autoComplete={"on"}
                       />
                     )}
                   />
@@ -333,7 +333,7 @@ export function AddTransaction() {
                         helperText={error?.message || "Optional"}
                         multiline={true}
                         fullWidth={true}
-                        autoComplete={true}
+                        autoComplete={"on"}
                       />
                     )}
                   />

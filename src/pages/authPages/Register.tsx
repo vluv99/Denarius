@@ -65,7 +65,7 @@ export const Register = () => {
             helperText={error?.message}
             fullWidth={true}
             sx={{ marginBottom: "4%" }}
-            autoComplete={true}
+            autoComplete={"email"}
           />
         )}
       />
@@ -84,7 +84,7 @@ export const Register = () => {
             helperText={error?.message}
             fullWidth={true}
             sx={{ marginBottom: "4%" }}
-            autoComplete={true}
+            autoComplete={"username"}
           />
         )}
       />
@@ -103,7 +103,7 @@ export const Register = () => {
             helperText={error?.message}
             fullWidth={true}
             sx={{ marginBottom: "4%" }}
-            autoComplete={false}
+            autoComplete={"new-password"}
           />
         )}
       />

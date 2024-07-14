@@ -1,5 +1,5 @@
 import { SxProps, TextField, Theme } from "@mui/material";
-import React from "react";
+import React, { HTMLInputAutoCompleteAttribute } from "react";
 
 type Params = {
   id: string;
@@ -12,7 +12,7 @@ type Params = {
   multiline?: boolean;
   fullWidth: boolean;
   sx?: SxProps<Theme> | undefined;
-  autoComplete: boolean;
+  autoComplete: HTMLInputAutoCompleteAttribute;
 };
 
 export const CustomTextField = (params: Params) => {
@@ -33,9 +33,7 @@ export const CustomTextField = (params: Params) => {
       fullWidth={params.fullWidth}
       sx={params.sx}
       inputProps={{
-        ...(params.autoComplete
-          ? { autoComplete: params.id }
-          : { autoComplete: "off" }),
+        autoComplete: params.autoComplete,
       }}
     />
   );
