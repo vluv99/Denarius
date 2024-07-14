@@ -10,6 +10,8 @@ import {
   signInWithRedirect,
   getRedirectResult,
   GoogleAuthProvider,
+  setPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 
 const USER_COLLECTION_NAME = "user";
@@ -51,6 +53,11 @@ export async function loginUser(
   const auth = getAuth();
   let userCredential = undefined;
 
+  // Existing and future Auth states are now persisted in the current session only.
+  // Closing the window would clear any existing state even if a user forgets to sign out.
+  const authPersistence = await setPersistence(auth, browserSessionPersistence);
+
+  // New sign-in will be persisted with session persistence.
   if (formId === "Google") {
     console.log("Login with Google");
     window.localStorage.setItem("googleLoginProgress", "true");
