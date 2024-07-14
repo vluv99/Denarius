@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -23,3 +24,9 @@ export const db = getFirestore(firebaseApp);
 
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(firebaseApp);
+
+// To apply the default browser preference instead of explicitly setting it.
+// auth.useDeviceLanguage();
+
+// Create an instance of the Google provider object
+export const provider = new GoogleAuthProvider();
