@@ -1,0 +1,81 @@
+{
+  "translation": {
+    "websiteName": "DENARIUS",
+    "projectName": "Totum",
+    "logoSubtext": "a $t(projectName) gyártásából",
+
+    "view": {
+      "dasboard": {
+        "label": "Kezdőképernyő"
+      },
+      "addTransaction": {
+        "label": "Új Tranzakció",
+        "addButtonLabel": "Hozzáadás",
+        "fields": {
+          "payeeLabel": "Kedvezményezett",
+          "categoryLabel": "Kategória",
+          "dateLabel": "Dátum",
+          "amountLabel": "Összeg",
+          "paymentMethodLabel": "Fizetési mód",
+          "descriptionLabel": "Egyéb megjegyzés",
+          "userLabel": "Felhasználók",
+          "isCommonLabel": "Közös költség?"
+        },
+        "validationMsg": {
+          "errorMsg": "Hiba történt a tranzakció hozzáadása során",
+          "requiredFieldMsg": "A mező kitöltése kötelező",
+          "validNumberFieldMsg": "Az összegnek érvényes számnak kell lennie",
+          "positiveNumberMsg": "Az összegnek pozitívnak kell lennie",
+          "negativeNumberMsg": "Az összegnek negatívnak kell lennie"
+        },
+        "optionalFieldSubText": "Opcionális"
+      },
+      "listTransaction": {
+        "label": "Tranzakciók Listázása",
+        "columns": {
+          "idHeader": "ID",
+          "dateHeader": "Dátum",
+          "payeeHeader": "Kedvezményezett",
+          "categoryHeader": "Kategória",
+          "descriptionHeader": "Megjegyzés",
+          "amountHeader": "Összeg (Ft)",
+          "userHeader": "Felhasználó",
+          "isCommonHeader": "Közös",
+          "paymentMethodHeader": "Fizetési mód"
+        }
+      },
+      "auth": {
+        "descriptionText": "Kezelje pénzügyeit egyszerűen és kényelmesen. Kövesse nyomon és ossza meg a háztartási kiadásokat családján belül.",
+        "toRegisterSubText": "Nincs fiókod?",
+        "toRegisterButtonLabel": "Regisztrálj",
+        "toLoginSubText": "Már regisztráltál?",
+        "toLoginButtonLabel": "Belépés",
+        "login": {
+          "label": "Bejelentkezés",
+          "loginButtonLabel": "Belépés",
+          "googleButtonLabel": "Google",
+          "errorMsg": "Hiba a felhasználói bejelentkezés során",
+          "requiredFieldMsg": "A mező kitöltése kötelező",
+          "fields": {
+            "emailLabel": "Email",
+            "passwordLabel": "Jelszó"
+          }
+        },
+        "register": {
+          "label": "Fiók létrehozása",
+          "registerButtonLabel": "Regisztráció",
+          "errorMsg": "Hiba a felhasználói regisztráció során",
+          "requiredFieldMsg": "A mező kitöltése kötelező",
+          "fields": {
+            "emailLabel": "Email",
+            "usernameLabel": "Felhasználónév",
+            "passwordLabel": "Jelszó"
+          }
+        }
+      }
+
+    },
+
+    "logoutButtonLabel": "Kijelentkezés"
+  }
+}
