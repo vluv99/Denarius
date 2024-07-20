@@ -16,10 +16,12 @@ import { DrawerComponent } from "./DrawerComponent";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { routeAddresses } from "../routes/Routes";
-import { useGetUserBrowserTheme, websiteName } from "../theme/consts";
 import { AccountCircle } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 export function Navbar() {
+  const { t } = useTranslation();
+
   const [openDrawer, setOpenDrawer] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -93,7 +95,7 @@ export function Navbar() {
 
           <Typography variant="h6" color="inherit" component="div">
             <Typography variant="h6">
-              <Link to={routeAddresses.home.to}>{websiteName}</Link>
+              <Link to={routeAddresses.home.to}>{t("websiteName")}</Link>
             </Typography>
             <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
               <DrawerComponent setOpenDrawer={setOpenDrawer}></DrawerComponent>

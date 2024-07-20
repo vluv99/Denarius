@@ -7,10 +7,10 @@ import { DrawerButton } from "./DrawerButton";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import { routeAddresses } from "../routes/Routes";
-import { projectName, websiteName } from "../theme/consts";
 import Divider from "@mui/material/Divider";
 import { Logout } from "@mui/icons-material";
 import { getAuth, signOut } from "firebase/auth";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   setOpenDrawer: Dispatch<SetStateAction<boolean>>;
@@ -21,6 +21,7 @@ export const DrawerComponent = ({
   staysOpenOnClick = false,
 }: Props) => {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const { t } = useTranslation();
 
   const onClick = () => setOpenDrawer(staysOpenOnClick);
 
@@ -67,12 +68,12 @@ export const DrawerComponent = ({
           >
             <AccountBalanceIcon sx={{ fontSize: 100 }} />
             <Typography gutterBottom variant="h6" component="div">
-              {websiteName}
+              {t("websiteName")}
             </Typography>
             <Divider orientation="horizontal" variant="middle" flexItem />
             <div>
               <Typography gutterBottom variant="caption" component="i">
-                of {projectName} Production
+                {t("logoSubtext")}
               </Typography>
             </div>
           </div>
@@ -82,21 +83,21 @@ export const DrawerComponent = ({
       <List>
         <DrawerButton
           icon={<DashboardIcon />}
-          label={routeAddresses.home.label}
+          label={t("view.dasboard.label")}
           to={routeAddresses.home.to}
           onClick={onClick}
         />
 
         <DrawerButton
           icon={<PlaylistAddIcon />}
-          label={routeAddresses.addTransaction.label}
+          label={t("view.addTransaction.label")}
           to={routeAddresses.addTransaction.to}
           onClick={onClick}
         />
 
         <DrawerButton
           icon={<ViewListIcon />}
-          label={routeAddresses.listTransactions.label}
+          label={t("view.listTransaction.label")}
           to={routeAddresses.listTransactions.to}
           onClick={onClick}
         />
@@ -104,26 +105,26 @@ export const DrawerComponent = ({
         <hr />
         <DrawerButton
           icon={<Logout />}
-          label={"Logout"}
+          label={t("logoutButtonLabel")}
           to={""}
           onClick={onLogOut}
         />
       </List>
 
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          Successfully logged out!
-        </Alert>
-      </Snackbar>
+      {/*<Snackbar*/}
+      {/*  open={snackbarOpen}*/}
+      {/*  autoHideDuration={3000}*/}
+      {/*  onClose={handleClose}*/}
+      {/*>*/}
+      {/*  <Alert*/}
+      {/*    onClose={handleClose}*/}
+      {/*    severity="success"*/}
+      {/*    variant="filled"*/}
+      {/*    sx={{ width: "100%" }}*/}
+      {/*  >*/}
+      {/*    Successfully logged out!*/}
+      {/*  </Alert>*/}
+      {/*</Snackbar>*/}
     </>
   );
 };

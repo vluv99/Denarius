@@ -1,0 +1,81 @@
+{
+  "translation": {
+    "websiteName": "DENARIUS",
+    "projectName": "Totum",
+    "logoSubtext": "of $t(projectName) Production",
+
+    "view": {
+      "dasboard": {
+        "label": "Dashboard"
+      },
+      "addTransaction": {
+        "label": "New Transaction",
+        "addButtonLabel": "Add",
+        "fields": {
+          "payeeLabel": "Payee",
+          "categoryLabel": "Category",
+          "dateLabel": "Date",
+          "amountLabel": "Amount",
+          "paymentMethodLabel": "Payment Method",
+          "descriptionLabel": "Description",
+          "userLabel": "Users",
+          "isCommonLabel": "Is common expense?"
+        },
+        "validationMsg": {
+          "errorMsg": "Error during adding transaction",
+          "requiredFieldMsg": "The field is required",
+          "validNumberFieldMsg": "Amount must be a valid number",
+          "positiveNumberMsg": "Amount must be Positive",
+          "negativeNumberMsg": "Amount must be Negative"
+        },
+        "optionalFieldSubText": "Optional"
+      },
+      "listTransaction": {
+        "label": "List Transactions",
+        "columns": {
+          "idHeader": "ID",
+          "dateHeader": "Date",
+          "payeeHeader": "Payee",
+          "categoryHeader": "Category",
+          "descriptionHeader": "Desc.",
+          "amountHeader": "Amount (Ft)",
+          "userHeader": "User",
+          "isCommonHeader": "Common",
+          "paymentMethodHeader": "Payment Method"
+        }
+      },
+      "auth": {
+        "descriptionText": "Manage your finances easily and conveniently. Keep track and share household expenses within your family.",
+        "toRegisterSubText": "Don't have an account?",
+        "toRegisterButtonLabel": "Register",
+        "toLoginSubText": "Already registered?",
+        "toLoginButtonLabel": "Login",
+        "login": {
+          "label": "Sign In",
+          "loginButtonLabel": "Login",
+          "googleButtonLabel": "Google",
+          "errorMsg": "Error during user login",
+          "requiredFieldMsg": "The field is required",
+          "fields": {
+            "emailLabel": "Email",
+            "passwordLabel": "Password"
+          }
+        },
+        "register": {
+          "label": "Create Account",
+          "registerButtonLabel": "Register",
+          "errorMsg": "Error during user login",
+          "requiredFieldMsg": "The field is required",
+          "fields": {
+            "emailLabel": "Email",
+            "usernameLabel": "Username",
+            "passwordLabel": "Password"
+          }
+        }
+      }
+
+    },
+
+    "logoutButtonLabel": "Logout"
+  }
+}

@@ -7,15 +7,15 @@ import { ListTransactions } from "../pages/ListTransactionsPage/ListTransactions
 export const routeAddresses = {
   home: {
     to: "/",
-    label: "Dashboard",
+    //label: "Dashboard",
   },
   addTransaction: {
     to: "/add-transaction",
-    label: "New Transaction",
+    //label: "New Transaction",
   },
   listTransactions: {
     to: "/list-transactions",
-    label: "List Transactions",
+    //label: "List Transactions",
   },
 };
 export const router = createBrowserRouter([
