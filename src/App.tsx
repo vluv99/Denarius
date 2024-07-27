@@ -16,12 +16,6 @@ export default function App() {
   const { t, i18n } = useTranslation();
   const theme = useGetUserBrowserTheme();
 
-  useEffect(() => {
-    const language = navigator.language;
-    i18n.changeLanguage(language);
-    console.log(`Current set language: ${language}`);
-  }, []);
-
   return (
     <UserContextProvider>
       <AppContexts>

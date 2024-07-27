@@ -18,6 +18,7 @@ import React, { useState } from "react";
 import { routeAddresses } from "../routes/Routes";
 import { AccountCircle } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import { LanguageSwitch } from "./LanguageSwitch";
 
 export function Navbar() {
   const { t } = useTranslation();
@@ -131,11 +132,7 @@ export function Navbar() {
               onClose={handleClose}
             >
               <MenuItem>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography>En</Typography>
-                  <AntSwitch inputProps={{ "aria-label": "ant design" }} />
-                  <Typography>Hu</Typography>
-                </Stack>
+                <LanguageSwitch />
               </MenuItem>
             </Menu>
           </div>

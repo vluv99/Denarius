@@ -131,7 +131,7 @@ export const ListTransactions = () => {
           rows={rows}
           columns={columns}
           localeText={
-            language === "hu-HU"
+            language.includes("hu")
               ? huHU.components.MuiDataGrid.defaultProps.localeText
               : undefined
           }
