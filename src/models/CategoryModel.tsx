@@ -3,6 +3,7 @@ export type Category = {
   name: string;
   color: string;
   expenseType: string; // "Income" | "Expense" | "Neutral"
+  priority: number;
 };
 
 // ###################### TEST ######################
