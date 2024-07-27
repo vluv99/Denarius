@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import App, { Shell } from "../App";
+import { Shell } from "../App";
 import { Home } from "../pages/HomePage/Home";
 import { AddTransaction } from "../pages/AddTransactionPage/AddTransaction";
 import { ListTransactions } from "../pages/ListTransactionsPage/ListTransactions";
+import React from "react";
 
 export const routeAddresses = {
   home: {

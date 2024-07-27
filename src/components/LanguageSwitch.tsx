@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Stack, styled, Switch, Typography } from "@mui/material";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
   width: 28,
@@ -47,14 +47,14 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export function LanguageSwitch() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [switchVal, setSwitchVal] = useState<boolean>(
     !i18n.language.includes("en"),
   );
 
   const handleChange = async (event: ChangeEvent) => {
     const lang = i18n.language.includes("en") ? "hu" : "en"; // swap lang based on result
-    const success = await i18n.changeLanguage(lang);
+    await i18n.changeLanguage(lang);
     setSwitchVal(!switchVal);
   };
 
