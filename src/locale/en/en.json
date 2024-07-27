@@ -76,6 +76,31 @@
 
     },
 
-    "logoutButtonLabel": "Logout"
+    "logoutButtonLabel": "Logout",
+
+    "database": {
+      "paymentMethod": {
+        "mainDebitCard": "Main Debit Card",
+        "heathBenefitsCard": "Egészség",
+        "creditCard": "Credit Card",
+        "otherBenefitsCard": "SZÉP",
+        "exchangeCard": "Revolut"
+      },
+      "category": {
+        "other": "Other",
+        "electronics": "Electronics",
+        "groceries": "Groceries",
+        "banking": "Banking",
+        "rent": "Rent",
+        "investment": "Investment",
+        "food": "Food",
+        "furniture": "Furniture",
+        "medicine": "Medicine",
+        "foodDelivery": "Food Delivery",
+        "income": "Income",
+        "vacation": "Vacation",
+        "travel": "Travel"
+      }
+    }
   }
 }

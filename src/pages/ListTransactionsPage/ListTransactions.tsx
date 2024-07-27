@@ -57,7 +57,8 @@ export const ListTransactions = () => {
       headerName: t(`${listTPrefix}columns.categoryHeader`),
       flex: 0,
       minWidth: isMobile ? 130 : 160,
-      valueGetter: (value) => categories.find((d) => d.id === value)?.name,
+      valueGetter: (value) =>
+        t(`database.category.${categories.find((d) => d.id === value)?.name}`),
     },
     {
       field: "description",
@@ -91,7 +92,11 @@ export const ListTransactions = () => {
       headerName: t(`${listTPrefix}columns.paymentMethodHeader`),
       flex: 0,
       minWidth: 130,
-      valueGetter: (value) => paymentMethods.find((d) => d.id === value)?.name,
+      valueGetter: (value) =>
+        t(
+          `database.paymentMethod.${paymentMethods.find((d) => d.id === value)
+            ?.name}`,
+        ),
     },
   ];
 

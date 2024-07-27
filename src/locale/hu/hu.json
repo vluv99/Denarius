@@ -76,6 +76,31 @@
 
     },
 
-    "logoutButtonLabel": "Kijelentkezés"
+    "logoutButtonLabel": "Kijelentkezés",
+
+    "database": {
+      "paymentMethod": {
+        "mainDebitCard": "Fő bankkártya",
+        "heathBenefitsCard": "Egészség",
+        "creditCard": "Hitelkártya",
+        "otherBenefitsCard": "SZÉP",
+        "exchangeCard": "Revolut"
+      },
+      "category": {
+        "other": "Egyéb",
+        "electronics": "Elektronikai cuccok",
+        "groceries": "Élelmiszerek",
+        "banking": "Banki tevékenység",
+        "rent": "Bérlés",
+        "investment": "Beruházás",
+        "food": "Étel",
+        "furniture": "Bútor",
+        "medicine": "Medicine",
+        "foodDelivery": "Gyógyszer",
+        "income": "Jövedelem",
+        "vacation": "Vakáció",
+        "travel": "Utazás"
+      }
+    }
   }
 }

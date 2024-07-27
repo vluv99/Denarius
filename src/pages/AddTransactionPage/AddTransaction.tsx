@@ -67,7 +67,7 @@ export function AddTransaction() {
       amount: "",
       description: "",
       user: currentUser,
-      paymentMethod: paymentMethods.find((p) => p.name === "Main Debit Card"),
+      paymentMethod: paymentMethods.find((p) => p.name === "mainDebitCard"),
       isCommon: false,
     },
   });
@@ -201,7 +201,7 @@ export function AddTransaction() {
                     }) => {
                       const values = categories.map((c) => ({
                         id: c.id,
-                        name: c.name,
+                        name: t(`database.category.${c.name}`),
                       }));
                       return (
                         <CustomSelect
@@ -276,26 +276,20 @@ export function AddTransaction() {
                     }) => {
                       let passingValues = paymentMethods.map((p) => {
                         let icon = undefined;
-                        switch (p.name) {
-                          case "Main Debit Card":
-                            icon = <CreditCard />;
-                            break;
-                          case "Egészség":
-                            icon = <MedicalInformation />;
-                            break;
-                          case "Credit Card":
-                            icon = <CreditScore />;
-                            break;
-                          case "SZÉP":
-                            icon = <LocalDining />;
-                            break;
-                          case "Revolut":
-                            icon = <CurrencyExchange />;
-                            break;
+                        if (p.name === "mainDebitCard") {
+                          icon = <CreditCard />;
+                        } else if (p.name === "heathBenefitsCard") {
+                          icon = <MedicalInformation />;
+                        } else if (p.name === "ceditCard") {
+                          icon = <CreditScore />;
+                        } else if (p.name === "otherBenefitsCard") {
+                          icon = <LocalDining />;
+                        } else if (p.name === "exchangeCard") {
+                          icon = <CurrencyExchange />;
                         }
 
                         return {
-                          chipLabel: p.name,
+                          chipLabel: t(`database.paymentMethod.${p.name}`),
                           key: p.id,
                           avatar: undefined,
                           icon: icon,
@@ -306,8 +300,6 @@ export function AddTransaction() {
                         <CustomChipArray
                           id={"paymentMethod"}
                           label={t(`${addTPrefix}fields.paymentMethodLabel`)}
-                            "view.addTransaction.fields.paymentMethodLabel",
-                          )}
                           value={value ? value.id : ""}
                           modelsArray={passingValues}
                           onChange={(id) => {
