@@ -24,6 +24,7 @@ export const ListTransactions = () => {
     t,
     i18n: { language },
   } = useTranslation();
+  const listTPrefix = "view.listTransaction.";
 
   const categories = useCategoryContext();
   const paymentMethods = usePaymentMethodContext();
@@ -36,58 +37,58 @@ export const ListTransactions = () => {
   const columns: GridColDef<Transaction>[] = [
     {
       field: "id",
-      headerName: t("view.listTransaction.columns.idHeader"),
+      headerName: t(`${listTPrefix}columns.idHeader`),
       width: 100,
     },
     {
       field: "date",
-      headerName: t("view.listTransaction.columns.dateHeader"),
+      headerName: t(`${listTPrefix}columns.dateHeader`),
       type: "date",
       flex: 0,
     },
     {
       field: "payee",
-      headerName: t("view.listTransaction.columns.payeeHeader"),
+      headerName: t(`${listTPrefix}columns.payeeHeader`),
       flex: 0,
       minWidth: isMobile ? 110 : 180,
     },
     {
       field: "category",
-      headerName: t("view.listTransaction.columns.categoryHeader"),
+      headerName: t(`${listTPrefix}columns.categoryHeader`),
       flex: 0,
       minWidth: isMobile ? 130 : 160,
       valueGetter: (value) => categories.find((d) => d.id === value)?.name,
     },
     {
       field: "description",
-      headerName: t("view.listTransaction.columns.descriptionHeader"),
+      headerName: t(`${listTPrefix}columns.descriptionHeader`),
       sortable: false,
       flex: 0,
       minWidth: isMobile ? 110 : 220,
     },
     {
       field: "amount",
-      headerName: t("view.listTransaction.columns.amountHeader"),
+      headerName: t(`${listTPrefix}columns.amountHeader`),
       type: "number",
       flex: 0,
     },
     {
       field: "user",
-      headerName: t("view.listTransaction.columns.userHeader"),
+      headerName: t(`${listTPrefix}columns.userHeader`),
       flex: 0,
       width: 130,
       valueGetter: (value) => users.find((d) => d.userId === value)?.username,
     },
     {
       field: "isCommon",
-      headerName: t("view.listTransaction.columns.isCommonHeader"),
+      headerName: t(`${listTPrefix}columns.isCommonHeader`),
       type: "boolean",
       flex: 0,
       minWidth: 130,
     },
     {
       field: "paymentMethod",
-      headerName: t("view.listTransaction.columns.paymentMethodHeader"),
+      headerName: t(`${listTPrefix}columns.paymentMethodHeader`),
       flex: 0,
       minWidth: 130,
       valueGetter: (value) => paymentMethods.find((d) => d.id === value)?.name,
@@ -119,7 +120,7 @@ export const ListTransactions = () => {
     >
       <div>
         <Typography gutterBottom variant="h5" component="div">
-          {t("view.listTransaction.label")}
+          {t(`${listTPrefix}label`)}
         </Typography>
         <DataGrid
           rows={rows}
