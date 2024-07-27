@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { Category } from "../models/CategoryModel";
 
@@ -8,10 +14,11 @@ const CATEGORY_COLLECTION_NAME = "category";
 export function useGetCategoryData() {
   const [categories, setCategoriesData] = useState<Category[]>([]);
   const docRef = collection(db, CATEGORY_COLLECTION_NAME);
+  const q = query(docRef, orderBy("priority", "asc"));
 
   useEffect(() => {
     // onSnapshot so we can get data update real-time
-    const unsubscribe = onSnapshot(docRef, (querySnapshot) => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const categories = querySnapshot.docs.map((doc) => {
         const data = doc.data(); // return data compatible with data types specified
         return {
@@ -19,6 +26,7 @@ export function useGetCategoryData() {
           color: data.color,
           id: doc.id,
           expenseType: data.expenseType,
+          priority: data.priority,
         };
       });
       setCategoriesData(categories);

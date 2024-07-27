@@ -7,11 +7,13 @@ import { Navbar } from "./components/Navbar";
 import { Outlet, RouterProvider } from "react-router-dom";
 import { router } from "./routes/Routes";
 import { AuthPage } from "./pages/authPages/AuthPage";
-import React from "react";
+import React, { useEffect } from "react";
 import { AppContexts } from "./contexts/AppContexts";
 import { UserContextProvider, useUserContext } from "./contexts/DBContexts";
+import { useTranslation } from "react-i18next";
 
 export default function App() {
+  const { t, i18n } = useTranslation();
   const theme = useGetUserBrowserTheme();
 
   return (

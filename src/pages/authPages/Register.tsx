@@ -3,6 +3,7 @@ import React from "react";
 import { loginUser, registerUser } from "../../services/userService";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { CustomTextField } from "../../components/formComponents/CustomTextField";
+import { useTranslation } from "react-i18next";
 
 // list inputs in form
 type Inputs = {
@@ -12,6 +13,8 @@ type Inputs = {
 };
 
 export const Register = () => {
+  const { t } = useTranslation();
+
   const {
     control,
     handleSubmit,
@@ -31,7 +34,7 @@ export const Register = () => {
         const errorMessage = error.message;
 
         window.alert(
-          `Error during user registration: ${errorCode}\n${errorMessage}`,
+          `${t("view.auth.register.errorMsg")}: ${errorCode}\n${errorMessage}`,
         );
       },
     );
@@ -40,7 +43,7 @@ export const Register = () => {
   const rules = {
     required: {
       value: true,
-      message: "The field is required",
+      message: t("view.auth.register.requiredFieldMsg"),
     },
   };
 
@@ -57,7 +60,7 @@ export const Register = () => {
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
             id="email-textField"
-            label="Email"
+            label={t("view.auth.register.fields.emailLabel")}
             type="email"
             value={value}
             onChange={onChange}
@@ -76,7 +79,7 @@ export const Register = () => {
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
             id="username-textField"
-            label="Username"
+            label={t("view.auth.register.fields.usernameLabel")}
             type="text"
             value={value}
             onChange={onChange}
@@ -95,7 +98,7 @@ export const Register = () => {
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
             id="password-textField"
-            label="Password"
+            label={t("view.auth.register.fields.passwordLabel")}
             type="password"
             value={value}
             onChange={onChange}
@@ -114,7 +117,7 @@ export const Register = () => {
         type="submit"
         sx={{ flexGrow: "1" }}
       >
-        Register
+        {t("view.auth.register.registerButtonLabel")}
       </Button>
     </Box>
   );

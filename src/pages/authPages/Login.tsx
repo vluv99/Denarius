@@ -4,6 +4,7 @@ import { CustomTextField } from "../../components/formComponents/CustomTextField
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { loginUser } from "../../services/userService";
 import { getFormSubmissionInfo } from "react-router-dom/dist/dom";
+import { useTranslation } from "react-i18next";
 
 // list inputs in form
 type Inputs = {
@@ -12,6 +13,8 @@ type Inputs = {
 };
 
 export const Login = () => {
+  const { t } = useTranslation();
+
   const {
     control,
     handleSubmit,
@@ -29,7 +32,9 @@ export const Login = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
 
-        window.alert(`Error during user login: ${errorCode}\n${errorMessage}`);
+        window.alert(
+          `${t("view.auth.login.errorMsg")}: ${errorCode}\n${errorMessage}`,
+        );
       },
     );
   };
@@ -40,14 +45,16 @@ export const Login = () => {
       const errorCode = error.code;
       const errorMessage = error.message;
 
-      window.alert(`Error during user login: ${errorCode}\n${errorMessage}`);
+      window.alert(
+        `${t("view.auth.login.errorMsg")}: ${errorCode}\n${errorMessage}`,
+      );
     });
   };
 
   const rules = {
     required: {
       value: true,
-      message: "The field is required",
+      message: t("view.auth.login.requiredFieldMsg"),
     },
   };
   return (
@@ -63,7 +70,7 @@ export const Login = () => {
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
             id="email-textField"
-            label="Email"
+            label={t("view.auth.login.fields.emailLabel")}
             type="email"
             value={value}
             onChange={onChange}
@@ -83,7 +90,7 @@ export const Login = () => {
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
             id="password-textField"
-            label="Password"
+            label={t("view.auth.login.fields.passwordLabel")}
             type="password"
             value={value}
             onChange={onChange}
@@ -108,7 +115,7 @@ export const Login = () => {
           type="submit"
           sx={{ flexGrow: "1", maxWidth: "45%" }}
         >
-          Login
+          {t("view.auth.login.loginButtonLabel")}
         </Button>
         <Button
           id="Google"
@@ -119,7 +126,7 @@ export const Login = () => {
           sx={{ flexGrow: "1", maxWidth: "45%" }}
           disabled={true}
         >
-          Google
+          {t("view.auth.login.googleButtonLabel")}
         </Button>
       </Box>
     </Box>

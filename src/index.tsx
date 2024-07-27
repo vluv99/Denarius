@@ -4,6 +4,8 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 
+import "./config/i18n";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );

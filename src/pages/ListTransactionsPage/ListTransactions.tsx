@@ -5,9 +5,9 @@ import {
   GridColDef,
   GridToolbar,
 } from "@mui/x-data-grid";
-import { useContext } from "react";
+import { huHU } from "@mui/x-data-grid/locales";
+
 import { useGetUserBrowserTheme } from "../../theme/consts";
-import { testTransactions } from "./TestTransactions";
 import { Box, Typography } from "@mui/material";
 import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
 import {
@@ -17,8 +17,15 @@ import {
 } from "../../contexts/DBContexts";
 import { Transaction } from "../../models/Transaction";
 import { User } from "../../models/UserModel";
+import { useTranslation } from "react-i18next";
 
 export const ListTransactions = () => {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
+  const listTPrefix = "view.listTransaction.";
+
   const categories = useCategoryContext();
   const paymentMethods = usePaymentMethodContext();
   const currentUser = useUserContext();
@@ -28,65 +35,68 @@ export const ListTransactions = () => {
   ];
 
   const columns: GridColDef<Transaction>[] = [
-    { field: "id", headerName: "ID", width: 100 },
+    {
+      field: "id",
+      headerName: t(`${listTPrefix}columns.idHeader`),
+      width: 100,
+    },
     {
       field: "date",
-      headerName: "Date",
+      headerName: t(`${listTPrefix}columns.dateHeader`),
       type: "date",
-      flex: 0 /*width: 100*/,
+      flex: 0,
     },
     {
       field: "payee",
-      headerName: "Payee",
+      headerName: t(`${listTPrefix}columns.payeeHeader`),
       flex: 0,
       minWidth: isMobile ? 110 : 180,
     },
     {
       field: "category",
-      headerName: "Category",
+      headerName: t(`${listTPrefix}columns.categoryHeader`),
       flex: 0,
       minWidth: isMobile ? 130 : 160,
-      valueGetter: (value) => categories.find((d) => d.id === value)?.name,
+      valueGetter: (value) =>
+        t(`database.category.${categories.find((d) => d.id === value)?.name}`),
     },
     {
       field: "description",
-      headerName: "Desc.",
+      headerName: t(`${listTPrefix}columns.descriptionHeader`),
       sortable: false,
       flex: 0,
       minWidth: isMobile ? 110 : 220,
-      /*width: 130,*/
     },
     {
       field: "amount",
-      headerName: "Amount (Ft)",
+      headerName: t(`${listTPrefix}columns.amountHeader`),
       type: "number",
       flex: 0,
-      /* width: 80,*/
     },
     {
       field: "user",
-      headerName: "User",
+      headerName: t(`${listTPrefix}columns.userHeader`),
       flex: 0,
-      //type: "User",
       width: 130,
       valueGetter: (value) => users.find((d) => d.userId === value)?.username,
     },
     {
       field: "isCommon",
-      headerName: "Common",
+      headerName: t(`${listTPrefix}columns.isCommonHeader`),
       type: "boolean",
       flex: 0,
       minWidth: 130,
-      /*width: 50,*/
     },
     {
       field: "paymentMethod",
-      headerName: "Payment Method",
+      headerName: t(`${listTPrefix}columns.paymentMethodHeader`),
       flex: 0,
       minWidth: 130,
-      //type: "CartType",
-      /*width: 130,*/
-      valueGetter: (value) => paymentMethods.find((d) => d.id === value)?.name,
+      valueGetter: (value) =>
+        t(
+          `database.paymentMethod.${paymentMethods.find((d) => d.id === value)
+            ?.name}`,
+        ),
     },
   ];
 
@@ -115,11 +125,16 @@ export const ListTransactions = () => {
     >
       <div>
         <Typography gutterBottom variant="h5" component="div">
-          List Transactions
+          {t(`${listTPrefix}label`)}
         </Typography>
         <DataGrid
           rows={rows}
           columns={columns}
+          localeText={
+            language.includes("hu")
+              ? huHU.components.MuiDataGrid.defaultProps.localeText
+              : undefined
+          }
           autoHeight={true}
           //autoPageSize={true} // doesn't work well with filtering
           disableColumnMenu={true}

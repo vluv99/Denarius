@@ -29,6 +29,7 @@ import { CustomChipArray } from "../../components/formComponents/CustomChipArray
 import { isMobile } from "react-device-detect";
 import { CustomCheckbox } from "../../components/formComponents/CustomChecbox";
 import { Transaction } from "../../models/Transaction";
+import { useTranslation } from "react-i18next";
 
 // list inputs in form
 type Inputs = {
@@ -43,6 +44,9 @@ type Inputs = {
 };
 
 export function AddTransaction() {
+  const { t } = useTranslation();
+  const addTPrefix = "view.addTransaction.";
+
   const categories = useCategoryContext();
   const paymentMethods = usePaymentMethodContext();
   const currentUser = useUserContext();
@@ -63,14 +67,14 @@ export function AddTransaction() {
       amount: "",
       description: "",
       user: currentUser,
-      paymentMethod: paymentMethods.find((p) => p.name === "Main Debit Card"),
+      paymentMethod: paymentMethods.find((p) => p.name === "mainDebitCard"),
       isCommon: false,
     },
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     //console.log(data);
-    const t = new Transaction(
+    const transaction = new Transaction(
       "",
       new Date(),
       currentUser!.userId,
@@ -83,12 +87,14 @@ export function AddTransaction() {
       data.isCommon,
       data.description,
     );
-    await addTransaction(t, currentUser!).catch((error) => {
+    await addTransaction(transaction, currentUser!).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
 
       window.alert(
-        `Error during adding transaction: ${errorCode}\n${errorMessage}`,
+        `${t(
+          `${addTPrefix}validationMsg.errorMsg`,
+        )}: ${errorCode}\n${errorMessage}`,
       );
     });
   };
@@ -96,7 +102,7 @@ export function AddTransaction() {
   const rules = {
     required: {
       value: true,
-      message: "The field is required",
+      message: t(`${addTPrefix}validationMsg.requiredFieldMsg`),
     },
   };
 
@@ -106,11 +112,11 @@ export function AddTransaction() {
   > = {
     required: {
       value: true,
-      message: "The field is required",
+      message: t(`${addTPrefix}validationMsg.requiredFieldMsg`),
     },
     pattern: {
       value: /^-?[0-9]\d*(\.\d+)?$/,
-      message: "Amount must be a valid number",
+      message: t(`${addTPrefix}validationMsg.validNumberFieldMsg`),
     },
     validate: {
       expenseCategory: (v: string, formValues) => {
@@ -128,13 +134,13 @@ export function AddTransaction() {
           positives.includes(formValues.category.name) &&
           Number(v) < 0
         ) {
-          return "Amount must be Positive";
+          return t(`${addTPrefix}validationMsg.positiveNumberMsg`);
         } else if (
           formValues.category &&
           negatives.includes(formValues.category.name) &&
           Number(v) > 0
         ) {
-          return "Amount must be Negative";
+          return t(`${addTPrefix}validationMsg.negativeNumberMsg`);
         }
         // if category isn't selected yet, don't throw error
         return true;
@@ -145,7 +151,7 @@ export function AddTransaction() {
   return (
     <Container>
       <Box sx={{ flexGrow: 1, margin: "3% 0" }}>
-        <PaperCard label="Add New Transactions">
+        <PaperCard label={t(`${addTPrefix}label`)}>
           <Box display="flex" flexWrap={"wrap"}>
             <Box
               component="form"
@@ -172,7 +178,7 @@ export function AddTransaction() {
                     }) => (
                       <CustomTextField
                         id={"payee-textfield"}
-                        label="Payee"
+                        label={t(`${addTPrefix}fields.payeeLabel`)}
                         type="text"
                         value={value}
                         onChange={onChange}
@@ -195,12 +201,12 @@ export function AddTransaction() {
                     }) => {
                       const values = categories.map((c) => ({
                         id: c.id,
-                        name: c.name,
+                        name: t(`database.category.${c.name}`),
                       }));
                       return (
                         <CustomSelect
                           id="category"
-                          label="Category"
+                          label={t(`${addTPrefix}fields.categoryLabel`)}
                           value={value ? value.id : ""}
                           onChange={(e) =>
                             onChange(values.find((v) => v.id == e.target.value))
@@ -224,7 +230,7 @@ export function AddTransaction() {
                       fieldState: { error },
                     }) => (
                       <CustomDatePicker
-                        label="Date"
+                        label={t(`${addTPrefix}fields.dateLabel`)}
                         openTo="day"
                         views={["year", "month", "day"]}
                         value={moment(value)}
@@ -248,7 +254,7 @@ export function AddTransaction() {
                       <CustomMoneyNumberFiled
                         id={"amount"}
                         value={value}
-                        label={"Amount"}
+                        label={t(`${addTPrefix}fields.amountLabel`)}
                         moneySign={"Ft"}
                         autoComplete={"off"}
                         onChange={onChange}
@@ -270,26 +276,20 @@ export function AddTransaction() {
                     }) => {
                       let passingValues = paymentMethods.map((p) => {
                         let icon = undefined;
-                        switch (p.name) {
-                          case "Main Debit Card":
-                            icon = <CreditCard />;
-                            break;
-                          case "Egészség":
-                            icon = <MedicalInformation />;
-                            break;
-                          case "Credit Card":
-                            icon = <CreditScore />;
-                            break;
-                          case "SZÉP":
-                            icon = <LocalDining />;
-                            break;
-                          case "Revolut":
-                            icon = <CurrencyExchange />;
-                            break;
+                        if (p.name === "mainDebitCard") {
+                          icon = <CreditCard />;
+                        } else if (p.name === "heathBenefitsCard") {
+                          icon = <MedicalInformation />;
+                        } else if (p.name === "ceditCard") {
+                          icon = <CreditScore />;
+                        } else if (p.name === "otherBenefitsCard") {
+                          icon = <LocalDining />;
+                        } else if (p.name === "exchangeCard") {
+                          icon = <CurrencyExchange />;
                         }
 
                         return {
-                          chipLabel: p.name,
+                          chipLabel: t(`database.paymentMethod.${p.name}`),
                           key: p.id,
                           avatar: undefined,
                           icon: icon,
@@ -299,7 +299,7 @@ export function AddTransaction() {
                       return (
                         <CustomChipArray
                           id={"paymentMethod"}
-                          label="Payment Method"
+                          label={t(`${addTPrefix}fields.paymentMethodLabel`)}
                           value={value ? value.id : ""}
                           modelsArray={passingValues}
                           onChange={(id) => {
@@ -308,7 +308,10 @@ export function AddTransaction() {
                             onChange(p);
                           }}
                           error={!!error}
-                          helperText={error?.message || "Optional"}
+                          helperText={
+                            error?.message ||
+                            t(`${addTPrefix}optionalFieldSubText`)
+                          }
                         />
                       );
                     }}
@@ -325,12 +328,15 @@ export function AddTransaction() {
                     }) => (
                       <CustomTextField
                         id={"description-textfield"}
-                        label="Description"
+                        label={t(`${addTPrefix}fields.descriptionLabel`)}
                         type="text"
                         value={value}
                         onChange={onChange}
                         //error={!!error}
-                        helperText={error?.message || "Optional"}
+                        helperText={
+                          error?.message ||
+                          t(`${addTPrefix}optionalFieldSubText`)
+                        }
                         multiline={true}
                         fullWidth={true}
                         autoComplete={"on"}
@@ -360,7 +366,7 @@ export function AddTransaction() {
                       return (
                         <CustomChipArray
                           id={"users"}
-                          label="Users"
+                          label={t(`${addTPrefix}fields.userLabel`)}
                           value={value ? value.userId : ""}
                           modelsArray={passingValues}
                           onChange={(userID) => {
@@ -385,7 +391,7 @@ export function AddTransaction() {
                       fieldState: { error },
                     }) => (
                       <CustomCheckbox
-                        label="Is common expense?"
+                        label={t(`${addTPrefix}fields.isCommonLabel`)}
                         value={value}
                         onChange={onChange}
                       />
@@ -399,7 +405,7 @@ export function AddTransaction() {
                     startIcon={<AddCircleOutline />}
                     type="submit"
                   >
-                    Add
+                    {t(`${addTPrefix}addButtonLabel`)}
                   </Button>
                 </Grid>
               </Grid>

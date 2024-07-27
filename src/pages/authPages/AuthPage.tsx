@@ -5,10 +5,27 @@ import { Register } from "./Register";
 import React, { ReactElement, useState } from "react";
 import { isMobile } from "react-device-detect";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { projectName, websiteName } from "../../theme/consts";
 import Divider from "@mui/material/Divider";
+import { useTranslation } from "react-i18next";
 
 export const AuthPage = () => {
+  const { t } = useTranslation();
+
+  const authForms: AuthForms = {
+    login: {
+      title: t("view.auth.login.label"),
+      toOtherFormButtonLabel: t("view.auth.toRegisterButtonLabel"),
+      subText: t("view.auth.toRegisterSubText"),
+      color: "secondary",
+    },
+    register: {
+      title: t("view.auth.register.label"),
+      toOtherFormButtonLabel: t("view.auth.toLoginButtonLabel"),
+      subText: t("view.auth.toLoginSubText"),
+      color: "primary",
+    },
+  };
+
   const defaultState = authForms.login;
 
   const [authForm, setAuthForm] = useState(defaultState);
@@ -48,6 +65,8 @@ export const AuthPageLayout = ({
   children: ReactElement;
   handleNavigation: () => void;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Container maxWidth={"md"} sx={{ margin: "5% auto" }}>
       <Box sx={{ flexGrow: 1 }}>
@@ -118,7 +137,7 @@ export const AuthPageLayout = ({
             >
               <AccountBalanceIcon sx={{ fontSize: 100 }} />
               <Typography gutterBottom variant="h6" component="div">
-                {websiteName}
+                {t("websiteName")}
               </Typography>
 
               <Typography
@@ -127,15 +146,14 @@ export const AuthPageLayout = ({
                 component="i"
                 p={"1 0 0 0"}
               >
-                of {projectName} Production
+                {t("logoSubtext")}
               </Typography>
               <Typography
                 gutterBottom
                 variant="body1"
                 sx={{ textAlign: "center" }}
               >
-                Manage your finances easily and conveniently. Keep track and
-                share household expenses within your family.
+                {t("view.auth.descriptionText")}
               </Typography>
             </Box>
           </Box>
@@ -154,19 +172,4 @@ type AuthForm = {
 
 type AuthForms = {
   [key: string]: AuthForm;
-};
-
-const authForms: AuthForms = {
-  login: {
-    title: "Sign In",
-    toOtherFormButtonLabel: "Register",
-    subText: "Don't have an account?",
-    color: "secondary",
-  },
-  register: {
-    title: "Create Account",
-    toOtherFormButtonLabel: "Login",
-    subText: "Already registered?",
-    color: "primary",
-  },
 };
