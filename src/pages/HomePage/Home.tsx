@@ -1,8 +1,6 @@
-import { Container, Box, Grid, styled, Paper } from "@mui/material";
+import { Container, Grid, styled } from "@mui/material";
 
 import { PaperCard } from "../../components/PaperCard";
-import { MultiUserBarChartWithData } from "../../components/dashboard/MultiUserBarChartWithData";
-import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 //import { TransactionContext } from "../../contex/GlobalState";
 
@@ -21,58 +19,48 @@ export const Home = () => {
 
   return (
     <Container sx={{ margin: "3% auto" }}>
-      {/*<Box sx={{ flexGrow: 1 }}>*/}
-      {/*<BarChartWithData />*/}
-      <Grid
-        container
-        //direction="row"
-        //justifyContent="center"
-        //alignItems="center"
-        spacing={2}
-        columns={colCount}
-      >
-        <Grid item xs={colCount * 0.25}>
+      <Grid container spacing={2} columns={colCount} alignItems={"stretch"}>
+        <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
           <Item label="Last 30 days Expense">
             <div>xs=2</div>
           </Item>
         </Grid>
-        <Grid item xs={colCount * 0.25}>
+        <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
           <Item label="Last month's Income">
             <div>xs=2</div>
           </Item>
         </Grid>
-        <Grid item xs={colCount * 0.25}>
+        <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
           <Item label="Last month's Rend/Utils">
             <div>xs=2</div>
           </Item>
         </Grid>
-        <Grid item xs={colCount * 0.25}>
+        <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
           <Item label="Last 30 days Transaction count">
             <div>xs=2</div>
           </Item>
         </Grid>
-        <Grid item xs={colCount * 0.5}>
+        <Grid item sm={colCount * 0.5} xs={colCount}>
           <Item label="Compare last 30 days Expenses">
             <div>xs=8</div>
           </Item>
         </Grid>
-        <Grid item xs={colCount * 0.5}>
+        <Grid item sm={colCount * 0.5} xs={colCount}>
           <Item label="Last 5 common Expense">
             <div>xs=8</div>
           </Item>
         </Grid>
-        <Grid item xs={colCount * 0.4}>
+        <Grid item sm={colCount * 0.4} xs={colCount}>
           <Item label="5 most expensive  Category (lost of categories)">
             <div>xs=6</div>
           </Item>
         </Grid>
-        <Grid item xs={colCount * 0.6}>
+        <Grid item sm={colCount * 0.6} xs={colCount}>
           <Item label="Last 30 days (tree map of expense categories)">
             <div>xs=10</div>
           </Item>
         </Grid>
       </Grid>
-      {/*</Box>*/}
     </Container>
   );
 };

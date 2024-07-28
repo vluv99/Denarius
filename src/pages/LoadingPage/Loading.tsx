@@ -3,8 +3,6 @@ import React from "react";
 import { useGetUserBrowserTheme } from "../../theme/consts";
 
 export function Loading() {
-  const theme = useGetUserBrowserTheme();
-
   return (
     <Box
       component="main"
