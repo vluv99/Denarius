@@ -1,10 +1,5 @@
 import { useGetUserBrowserTheme } from "./theme/consts";
-import {
-  Box,
-  CircularProgress,
-  CssBaseline,
-  ThemeProvider,
-} from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -12,20 +7,29 @@ import { Navbar } from "./components/Navbar";
 import { Outlet, RouterProvider } from "react-router-dom";
 import { router } from "./routes/Routes";
 import { AuthPage } from "./pages/authPages/AuthPage";
-import React, { Suspense, useContext } from "react";
+import React from "react";
 import { AppContexts } from "./contexts/AppContexts";
 import {
   useFullUserContext,
   UserContextProvider,
   useUserContext,
 } from "./contexts/DBContexts";
+import { Loading } from "./pages/LoadingPage/Loading";
+
+export default function App() {
+  return (
+    <UserContextProvider>
+      <HandleUserLoading />
+    </UserContextProvider>
+  );
+}
 
 function HandleUserLoading() {
   const user = useFullUserContext();
   const theme = useGetUserBrowserTheme();
 
   if (user.loading) {
-    return <CircularProgress color="secondary" />;
+    return <Loading />;
   }
 
   return (
@@ -35,14 +39,6 @@ function HandleUserLoading() {
         <InnerPage />
       </ThemeProvider>
     </AppContexts>
-  );
-}
-
-export default function App() {
-  return (
-    <UserContextProvider>
-      <HandleUserLoading />
-    </UserContextProvider>
   );
 }
 
