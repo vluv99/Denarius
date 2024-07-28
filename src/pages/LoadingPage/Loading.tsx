@@ -9,7 +9,6 @@ export function Loading() {
     <Box
       component="main"
       sx={{
-        backgroundColor: theme.palette.background.default,
         height: "100vh",
         display: "flex",
         justifyContent: "center",

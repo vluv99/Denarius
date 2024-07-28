@@ -17,27 +17,27 @@ import {
 import { Loading } from "./pages/LoadingPage/Loading";
 
 export default function App() {
+  const theme = useGetUserBrowserTheme();
+
   return (
-    <UserContextProvider>
-      <HandleUserLoading />
-    </UserContextProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <UserContextProvider>
+        <HandleUserLoading />
+      </UserContextProvider>
+    </ThemeProvider>
   );
 }
 
 function HandleUserLoading() {
   const user = useFullUserContext();
-  const theme = useGetUserBrowserTheme();
-
   if (user.loading) {
     return <Loading />;
   }
 
   return (
     <AppContexts>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <InnerPage />
-      </ThemeProvider>
+      <InnerPage />
     </AppContexts>
   );
 }
