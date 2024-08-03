@@ -31,7 +31,7 @@ export async function registerUser(
   // firebase user id
   const userID = userCredential.user.uid;
   const u = new User(userID, email, username);
-console.error(userCredential);
+
   try {
     await setDoc(doc(db, USER_COLLECTION_NAME, u.userId), u.toDatabaseFormat());
   } catch (e) {
