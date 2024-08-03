@@ -1,5 +1,5 @@
 import { setDoc, doc, getDoc } from "firebase/firestore";
-import { db, provider } from "../utils/firebase";
+import {db, provider, USER_COLLECTION_NAME} from "../utils/firebase";
 import { User } from "../models/UserModel";
 import {
   createUserWithEmailAndPassword,
@@ -14,7 +14,6 @@ import {
   browserSessionPersistence,
 } from "firebase/auth";
 
-const USER_COLLECTION_NAME = "user";
 
 export async function registerUser(
   email: string,
@@ -32,7 +31,7 @@ export async function registerUser(
   // firebase user id
   const userID = userCredential.user.uid;
   const u = new User(userID, email, username);
-
+console.error(userCredential);
   try {
     await setDoc(doc(db, USER_COLLECTION_NAME, u.userId), u.toDatabaseFormat());
   } catch (e) {
@@ -91,10 +90,13 @@ export async function getLoggedInUser(): Promise<User> {
 
   if (userID) {
     const docSnap = await getDoc(doc(db, USER_COLLECTION_NAME, userID));
-    if (!docSnap) {
+    const data = docSnap && docSnap.data();
+
+    if (!docSnap || !data) {
       throw new Error("Could not get logged in user data");
     }
-    return User.toUserFormat(docSnap.data());
+
+    return User.toUserFormat(data);
   }
   throw new Error("No logged in user");
 }

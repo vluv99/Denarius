@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import {CARD_COLLECTION_NAME, db} from "../utils/firebase";
 import { PaymentMethod } from "../models/PaymentMethodModel";
 
-const CARD_COLLECTION_NAME = "paymentMethod";
 
 export function useGetPaymentMethodData() {
   const [card, setCardData] = useState<PaymentMethod[]>([]);
