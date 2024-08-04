@@ -23,7 +23,7 @@ export function PaymentMethodContextProvider({ children }: ChildrenProp) {
 }
 
 /**
- * Return categories collected from DB with a simplified function
+ * Return paymentMethods collected from DB with a simplified function
  */
 export const usePaymentMethodContext = (): PaymentMethod[] => {
   return useContext(PaymentMethodContext);

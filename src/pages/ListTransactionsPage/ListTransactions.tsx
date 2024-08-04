@@ -7,8 +7,7 @@ import {
 } from "@mui/x-data-grid";
 import { huHU } from "@mui/x-data-grid/locales";
 
-import { useGetUserBrowserTheme } from "../../theme/themeHooks";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
 import {
   useCategoryContext,
@@ -104,7 +103,7 @@ export const ListTransactions = () => {
 
   const rows = useTransactionContext();
 
-  const theme = useGetUserBrowserTheme();
+  const theme = useTheme();
 
   return (
     <Box
