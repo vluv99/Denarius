@@ -280,7 +280,7 @@ export function AddTransaction() {
                           icon = <CreditCard />;
                         } else if (p.name === "heathBenefitsCard") {
                           icon = <MedicalInformation />;
-                        } else if (p.name === "ceditCard") {
+                        } else if (p.name === "creditCard") {
                           icon = <CreditScore />;
                         } else if (p.name === "otherBenefitsCard") {
                           icon = <LocalDining />;
