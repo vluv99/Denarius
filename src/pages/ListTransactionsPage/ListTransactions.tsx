@@ -7,7 +7,7 @@ import {
 } from "@mui/x-data-grid";
 import { huHU } from "@mui/x-data-grid/locales";
 
-import { useGetUserBrowserTheme } from "../../theme/consts";
+import { useGetUserBrowserTheme } from "../../theme/themeHooks";
 import { Box, Typography } from "@mui/material";
 import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
 import {

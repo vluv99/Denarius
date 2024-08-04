@@ -1,5 +1,5 @@
 import { MonoStackerBar } from "../charts/stackedBar/MonoStackerBar";
-import { useGetUserBrowserTheme } from "../../theme/consts";
+import { useGetUserBrowserTheme } from "../../theme/themeHooks";
 import { Container, Typography } from "@mui/material";
 import { useContext } from "react";
 //import { TransactionContext } from "../../contex/GlobalState";

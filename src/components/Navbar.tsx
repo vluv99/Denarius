@@ -19,6 +19,7 @@ import { routeAddresses } from "../routes/Routes";
 import { AccountCircle } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitch } from "./LanguageSwitch";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 export function Navbar() {
   const { t } = useTranslation();
@@ -59,6 +60,7 @@ export function Navbar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
+          <ThemeSwitch />
 
           <div>
             <IconButton

@@ -1,5 +1,11 @@
-import { useGetUserBrowserTheme } from "./theme/consts";
-import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import { useGetUserBrowserTheme } from "./theme/themeHooks";
+import {
+  Box,
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+  useMediaQuery,
+} from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -15,17 +21,15 @@ import {
   useUserContext,
 } from "./contexts/DBContexts";
 import { Loading } from "./pages/LoadingPage/Loading";
+import { AppThemeContextProvider } from "./contexts/ThemeContexts";
 
 export default function App() {
-  const theme = useGetUserBrowserTheme();
-
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <AppThemeContextProvider>
       <UserContextProvider>
         <HandleUserLoading />
       </UserContextProvider>
-    </ThemeProvider>
+    </AppThemeContextProvider>
   );
 }
 

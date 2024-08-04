@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 import React from "react";
-import { useGetUserBrowserTheme } from "../../theme/consts";
+import { useGetUserBrowserTheme } from "../../theme/themeHooks";
 
 export function Loading() {
   return (
