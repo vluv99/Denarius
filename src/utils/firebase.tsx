@@ -25,6 +25,10 @@ export const db = getFirestore(firebaseApp);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(firebaseApp);
 
+export const USER_COLLECTION_NAME = process.env.REACT_APP_FIREBASE_COLLECTION_USER || "user";
+export const CATEGORY_COLLECTION_NAME = process.env.REACT_APP_FIREBASE_COLLECTION_CATEGORY || "category";
+export const TRANSACTION_COLLECTION_NAME = process.env.REACT_APP_FIREBASE_COLLECTION_TRANSACTION || "transaction";
+export const CARD_COLLECTION_NAME = process.env.REACT_APP_FIREBASE_COLLECTION_PAYMENT || "paymentMethod";
 // To apply the default browser preference instead of explicitly setting it.
 // auth.useDeviceLanguage();
 

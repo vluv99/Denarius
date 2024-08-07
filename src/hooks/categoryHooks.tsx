@@ -6,10 +6,9 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import {CATEGORY_COLLECTION_NAME, db} from "../utils/firebase";
 import { Category } from "../models/CategoryModel";
 
-const CATEGORY_COLLECTION_NAME = "category";
 
 export function useGetCategoryData() {
   const [categories, setCategoriesData] = useState<Category[]>([]);
