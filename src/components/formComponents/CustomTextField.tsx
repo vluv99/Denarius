@@ -29,7 +29,7 @@ export const CustomTextField = (params: Params) => {
       //sx={{ marginBottom: "4%" }}
       error={params.error}
       multiline={params.multiline}
-      minRows={params.multiline ? 3 : 0}
+      minRows={params.multiline ? 2 : 0}
       fullWidth={params.fullWidth}
       sx={params.sx}
       inputProps={{

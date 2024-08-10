@@ -203,6 +203,29 @@ export function AddTransaction() {
                   </Grid>
                   <Grid item xs={1}>
                     <Controller
+                      name="amount"
+                      control={control}
+                      rules={amountRules}
+                      render={({
+                        field: { value, onChange },
+                        fieldState: { error },
+                      }) => (
+                        <CustomMoneyNumberFiled
+                          id={"amount"}
+                          value={value}
+                          label={t(`${addTPrefix}fields.amountLabel`)}
+                          moneySign={"Ft"}
+                          autoComplete={"off"}
+                          onChange={onChange}
+                          error={!!error}
+                          helperText={error?.message}
+                          fullWidth={true}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={1}>
+                    <Controller
                       name="category"
                       control={control}
                       rules={rules}
@@ -255,31 +278,8 @@ export function AddTransaction() {
                       )}
                     />
                   </Grid>
-                  <Grid item xs={1}>
-                    <Controller
-                      name="amount"
-                      control={control}
-                      rules={amountRules}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => (
-                        <CustomMoneyNumberFiled
-                          id={"amount"}
-                          value={value}
-                          label={t(`${addTPrefix}fields.amountLabel`)}
-                          moneySign={"Ft"}
-                          autoComplete={"off"}
-                          onChange={onChange}
-                          error={!!error}
-                          helperText={error?.message}
-                          fullWidth={true}
-                        />
-                      )}
-                    />
-                  </Grid>
 
-                  <Grid item xs={1}>
+                  <Grid item sm={2} xs={1}>
                     <Controller
                       name="paymentMethod"
                       control={control}
@@ -330,35 +330,7 @@ export function AddTransaction() {
                       }}
                     />
                   </Grid>
-
-                  <Grid item xs={1}>
-                    <Controller
-                      name="description"
-                      control={control}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => (
-                        <CustomTextField
-                          id={"description-textfield"}
-                          label={t(`${addTPrefix}fields.descriptionLabel`)}
-                          type="text"
-                          value={value}
-                          onChange={onChange}
-                          //error={!!error}
-                          helperText={
-                            error?.message ||
-                            t(`${addTPrefix}optionalFieldSubText`)
-                          }
-                          multiline={true}
-                          fullWidth={true}
-                          autoComplete={"on"}
-                        />
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item xs={1}>
+                  <Grid item sm={2} xs={1}>
                     <Controller
                       name="user"
                       control={control}
@@ -394,6 +366,33 @@ export function AddTransaction() {
                           />
                         );
                       }}
+                    />
+                  </Grid>
+
+                  <Grid item sm={2} xs={1}>
+                    <Controller
+                      name="description"
+                      control={control}
+                      render={({
+                        field: { value, onChange },
+                        fieldState: { error },
+                      }) => (
+                        <CustomTextField
+                          id={"description-textfield"}
+                          label={t(`${addTPrefix}fields.descriptionLabel`)}
+                          type="text"
+                          value={value}
+                          onChange={onChange}
+                          //error={!!error}
+                          helperText={
+                            error?.message ||
+                            t(`${addTPrefix}optionalFieldSubText`)
+                          }
+                          multiline={true}
+                          fullWidth={true}
+                          autoComplete={"on"}
+                        />
+                      )}
                     />
                   </Grid>
 
