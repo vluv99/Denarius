@@ -435,7 +435,7 @@ export function AddTransaction() {
       </Container>
       <CustomSnackbar
         severity={"success"}
-        infoText={"Transaction saved!"}
+        infoText={t(`${addTPrefix}validationMsg.successMsg`)}
         open={successSnackBarOpen}
         setOpen={setSuccessSnackBarOpen}
       />

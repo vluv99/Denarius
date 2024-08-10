@@ -22,7 +22,8 @@
           "isCommonLabel": "Közös költség?"
         },
         "validationMsg": {
-          "errorMsg": "Hiba történt a tranzakció hozzáadása során",
+          "errorMsg": "Nem sikerult elmenteni a tranzakciót!",
+          "successMsg": "A tranzakció sikeresen mentve!",
           "requiredFieldMsg": "A mező kitöltése kötelező",
           "validNumberFieldMsg": "Az összegnek érvényes számnak kell lennie",
           "positiveNumberMsg": "Az összegnek pozitívnak kell lennie",

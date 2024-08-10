@@ -22,7 +22,8 @@
           "isCommonLabel": "Is common expense?"
         },
         "validationMsg": {
-          "errorMsg": "Error during adding transaction",
+          "errorMsg": "Failed to save transaction!",
+          "successMsg": "Transaction successfully saved!",
           "requiredFieldMsg": "The field is required",
           "validNumberFieldMsg": "Amount must be a valid number",
           "positiveNumberMsg": "Amount must be Positive",
