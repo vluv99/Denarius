@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, Container, Grid } from "@mui/material";
 import { PaperCard } from "../../components/PaperCard";
-import {
-  AddCircleOutline,
-  CreditCard,
-  CreditScore,
-  CurrencyExchange,
-  LocalDining,
-  MedicalInformation,
-} from "@mui/icons-material";
+import { AddCircleOutline } from "@mui/icons-material";
 import {
   useCategoryContext,
   usePaymentMethodContext,
@@ -17,17 +10,8 @@ import {
 import { User } from "../../models/UserModel";
 import { Category } from "../../models/CategoryModel";
 import { PaymentMethod } from "../../models/PaymentMethodModel";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { addTransaction } from "../../services/transactionService";
-import { CustomTextField } from "../../components/formComponents/CustomTextField";
-import { CustomSelect } from "../../components/formComponents/CustomSelect";
-import moment from "moment";
-import { CustomDatePicker } from "../../components/formComponents/CustomDatePicker";
-import { CustomMoneyNumberFiled } from "../../components/formComponents/CustomMoneyNumberField";
-import { RegisterOptions } from "react-hook-form/dist/types/validator";
-import { CustomChipArray } from "../../components/formComponents/CustomChipArray";
-import { isMobile } from "react-device-detect";
-import { CustomCheckbox } from "../../components/formComponents/CustomChecbox";
 import { Transaction } from "../../models/Transaction";
 import { useTranslation } from "react-i18next";
 import { CustomSnackbar } from "../../components/CustomSnackbar";
@@ -115,13 +99,6 @@ export function AddTransaction() {
       });
   };
 
-  const rules = {
-    required: {
-      value: true,
-      message: t(`${addTPrefix}validationMsg.requiredFieldMsg`),
-    },
-  };
-
   return (
     <>
       <Container>
@@ -134,56 +111,50 @@ export function AddTransaction() {
                   console.log(errors),
                 )}
                 sx={{
-                  width: isMobile ? "100%" : "50%",
-                  minWidth: isMobile ? "95%" : "40vh",
+                  width: { sm: "100%", lg: "50%" },
+                  minWidth: { sm: "40vh", lg: "40vh" },
                 }}
               >
-                <Grid
-                  container
-                  spacing={2}
-                  columns={isMobile ? 1 : 2}
-                  sx={{ flexGrow: 1 }}
-                >
-                  <Grid item xs={1}>
+                <Grid container spacing={2} columns={4} sx={{ flexGrow: 1 }}>
+                  <Grid item xs={4} sm={1} md={2} lg={2}>
                     <PayeeInput control={control} requiredRules={true} />
                   </Grid>
-                  <Grid item xs={1}>
+                  <Grid item xs={4} sm={1} md={2} lg={2}>
                     <AmountInput
                       control={control}
                       requiredRules={true}
                       categories={categories}
                     />
                   </Grid>
-                  <Grid item xs={1}>
+                  <Grid item xs={4} sm={1} md={2} lg={2}>
                     <CategoryInput
                       control={control}
                       requiredRules={true}
                       categories={categories}
                     />
                   </Grid>
-                  <Grid item xs={1}>
+                  <Grid item xs={4} sm={1} md={2} lg={2}>
                     <DateInput control={control} requiredRules={true} />
                   </Grid>
 
-                  <Grid item sm={2} xs={1}>
+                  <Grid item xs={4} sm={2} md={2} lg={4}>
                     <PaymentMethodInput
                       control={control}
                       paymentMethods={paymentMethods}
                     />
                   </Grid>
-                  <Grid item sm={2} xs={1}>
+                  <Grid item xs={4} sm={2} md={2} lg={4}>
                     <UserInput control={control} users={users} />
                   </Grid>
-
-                  <Grid item sm={2} xs={1}>
+                  <Grid item xs={4} sm={2} md={2} lg={4}>
                     <DescriptionInput control={control} requiredRules={false} />
                   </Grid>
 
-                  <Grid item xs={1}>
+                  <Grid item xs={4} sm={1} md={1} lg={2}>
                     <IsCommonInput control={control} />
                   </Grid>
 
-                  <Grid item xs={1}>
+                  <Grid item xs={4} sm={1} md={1} lg={2}>
                     <Button
                       variant="contained"
                       startIcon={<AddCircleOutline />}
@@ -194,7 +165,11 @@ export function AddTransaction() {
                   </Grid>
                 </Grid>
               </Box>
-              <Box sx={{ margin: isMobile ? "5% 0 0 0" : "0 0 0 3%" }}>
+              <Box
+                sx={{
+                  margin: { xs: "5% 0 0 0", sm: "0 0 0 3%" },
+                }}
+              >
                 Placeholder to list where newly added transaction will appear.
                 (WIP)
               </Box>
