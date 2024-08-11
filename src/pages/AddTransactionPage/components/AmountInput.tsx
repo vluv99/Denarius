@@ -34,20 +34,20 @@ export function AmountInput(params: Params) {
 
         const positives = params.categories
           .filter((c) => c.expenseType === "Income")
-          .map((c) => c.name);
+          .map((c) => c.id);
         const negatives = params.categories
           .filter((c) => c.expenseType === "Expense")
-          .map((c) => c.name);
+          .map((c) => c.id);
 
         if (
           formValues.category &&
-          positives.includes(formValues.category.name) &&
+          positives.includes(formValues.category.id) &&
           Number(v) < 0
         ) {
           return t(`${addTPrefix}validationMsg.positiveNumberMsg`);
         } else if (
           formValues.category &&
-          negatives.includes(formValues.category.name) &&
+          negatives.includes(formValues.category.id) &&
           Number(v) > 0
         ) {
           return t(`${addTPrefix}validationMsg.negativeNumberMsg`);
