@@ -116,45 +116,45 @@ export function AddTransaction() {
                 }}
               >
                 <Grid container spacing={2} columns={4} sx={{ flexGrow: 1 }}>
-                  <Grid item xs={4} sm={1} md={2} lg={2}>
+                  <Grid item xs={4} sm={2} md={2} lg={2}>
                     <PayeeInput control={control} requiredRules={true} />
                   </Grid>
-                  <Grid item xs={4} sm={1} md={2} lg={2}>
+                  <Grid item xs={4} sm={2} md={2} lg={2}>
                     <AmountInput
                       control={control}
                       requiredRules={true}
                       categories={categories}
                     />
                   </Grid>
-                  <Grid item xs={4} sm={1} md={2} lg={2}>
+                  <Grid item xs={4} sm={2} md={2} lg={2}>
                     <CategoryInput
                       control={control}
                       requiredRules={true}
                       categories={categories}
                     />
                   </Grid>
-                  <Grid item xs={4} sm={1} md={2} lg={2}>
+                  <Grid item xs={4} sm={2} md={2} lg={2}>
                     <DateInput control={control} requiredRules={true} />
                   </Grid>
 
-                  <Grid item xs={4} sm={2} md={2} lg={4}>
+                  <Grid item xs={4} sm={4} md={2} lg={4}>
                     <PaymentMethodInput
                       control={control}
                       paymentMethods={paymentMethods}
                     />
                   </Grid>
-                  <Grid item xs={4} sm={2} md={2} lg={4}>
+                  <Grid item xs={4} sm={4} md={2} lg={4}>
                     <UserInput control={control} users={users} />
                   </Grid>
-                  <Grid item xs={4} sm={2} md={2} lg={4}>
+                  <Grid item xs={4} sm={4} md={2} lg={4}>
                     <DescriptionInput control={control} requiredRules={false} />
                   </Grid>
 
-                  <Grid item xs={4} sm={1} md={1} lg={2}>
+                  <Grid item xs={4} sm={2} md={1} lg={2}>
                     <IsCommonInput control={control} />
                   </Grid>
 
-                  <Grid item xs={4} sm={1} md={1} lg={2}>
+                  <Grid item xs={4} sm={2} md={1} lg={2}>
                     <Button
                       variant="contained"
                       startIcon={<AddCircleOutline />}
