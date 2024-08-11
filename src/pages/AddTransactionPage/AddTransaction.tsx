@@ -31,9 +31,17 @@ import { CustomCheckbox } from "../../components/formComponents/CustomChecbox";
 import { Transaction } from "../../models/Transaction";
 import { useTranslation } from "react-i18next";
 import { CustomSnackbar } from "../../components/CustomSnackbar";
+import { PayeeInput } from "./components/PayeeInput";
+import { AmountInput } from "./components/AmountInput";
+import { CategoryInput } from "./components/CategoryInput";
+import { DateInput } from "./components/DateInput";
+import { PaymentMethodInput } from "./components/PaymentMethodInput";
+import { UserInput } from "./components/UserInput";
+import { DescriptionInput } from "./components/DescriptionInput";
+import { IsCommonInput } from "./components/IsCommonInput";
 
 // list inputs in form
-type Inputs = {
+export type AddTransactionValues = {
   payee: string;
   category: Category | undefined;
   date: Date;
@@ -64,7 +72,7 @@ export function AddTransaction() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<AddTransactionValues>({
     defaultValues: {
       payee: "",
       category: undefined,
@@ -77,7 +85,7 @@ export function AddTransaction() {
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<AddTransactionValues> = async (data) => {
     //console.log(data);
     const transaction = new Transaction(
       "",
@@ -114,48 +122,6 @@ export function AddTransaction() {
     },
   };
 
-  const amountRules: Omit<
-    RegisterOptions<Inputs, "amount">,
-    "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
-  > = {
-    required: {
-      value: true,
-      message: t(`${addTPrefix}validationMsg.requiredFieldMsg`),
-    },
-    pattern: {
-      value: /^-?[0-9]\d*(\.\d+)?$/,
-      message: t(`${addTPrefix}validationMsg.validNumberFieldMsg`),
-    },
-    validate: {
-      expenseCategory: (v: string, formValues) => {
-        // if return is string or false it's error, if true it's valid
-
-        const positives = categories
-          .filter((c) => c.expenseType === "Income")
-          .map((c) => c.name);
-        const negatives = categories
-          .filter((c) => c.expenseType === "Expense")
-          .map((c) => c.name);
-
-        if (
-          formValues.category &&
-          positives.includes(formValues.category.name) &&
-          Number(v) < 0
-        ) {
-          return t(`${addTPrefix}validationMsg.positiveNumberMsg`);
-        } else if (
-          formValues.category &&
-          negatives.includes(formValues.category.name) &&
-          Number(v) > 0
-        ) {
-          return t(`${addTPrefix}validationMsg.negativeNumberMsg`);
-        }
-        // if category isn't selected yet, don't throw error
-        return true;
-      },
-    },
-  };
-
   return (
     <>
       <Container>
@@ -179,238 +145,42 @@ export function AddTransaction() {
                   sx={{ flexGrow: 1 }}
                 >
                   <Grid item xs={1}>
-                    <Controller
-                      name="payee"
+                    <PayeeInput control={control} requiredRules={true} />
+                  </Grid>
+                  <Grid item xs={1}>
+                    <AmountInput
                       control={control}
-                      rules={rules}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => (
-                        <CustomTextField
-                          id={"payee-textfield"}
-                          label={t(`${addTPrefix}fields.payeeLabel`)}
-                          type="text"
-                          value={value}
-                          onChange={onChange}
-                          error={!!error}
-                          helperText={error?.message}
-                          fullWidth={true}
-                          autoComplete={"on"}
-                        />
-                      )}
+                      requiredRules={true}
+                      categories={categories}
                     />
                   </Grid>
                   <Grid item xs={1}>
-                    <Controller
-                      name="amount"
+                    <CategoryInput
                       control={control}
-                      rules={amountRules}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => (
-                        <CustomMoneyNumberFiled
-                          id={"amount"}
-                          value={value}
-                          label={t(`${addTPrefix}fields.amountLabel`)}
-                          moneySign={"Ft"}
-                          autoComplete={"off"}
-                          onChange={onChange}
-                          error={!!error}
-                          helperText={error?.message}
-                          fullWidth={true}
-                        />
-                      )}
+                      requiredRules={true}
+                      categories={categories}
                     />
                   </Grid>
                   <Grid item xs={1}>
-                    <Controller
-                      name="category"
-                      control={control}
-                      rules={rules}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => {
-                        const values = categories.map((c) => ({
-                          id: c.id,
-                          name: t(`database.category.${c.name}`),
-                        }));
-                        return (
-                          <CustomSelect
-                            id="category"
-                            label={t(`${addTPrefix}fields.categoryLabel`)}
-                            value={value ? value.id : ""}
-                            onChange={(e) =>
-                              onChange(
-                                values.find((v) => v.id == e.target.value),
-                              )
-                            }
-                            error={!!error}
-                            helperText={error?.message}
-                            modelsArray={values}
-                            fullWidth={true}
-                          />
-                        );
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <Controller
-                      name="date"
-                      control={control}
-                      rules={rules}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => (
-                        <CustomDatePicker
-                          label={t(`${addTPrefix}fields.dateLabel`)}
-                          openTo="day"
-                          views={["year", "month", "day"]}
-                          value={moment(value)}
-                          onChange={onChange}
-                          error={!!error}
-                          helperText={error?.message}
-                          fullWidth={true}
-                        />
-                      )}
-                    />
+                    <DateInput control={control} requiredRules={true} />
                   </Grid>
 
                   <Grid item sm={2} xs={1}>
-                    <Controller
-                      name="paymentMethod"
+                    <PaymentMethodInput
                       control={control}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => {
-                        let passingValues = paymentMethods.map((p) => {
-                          let icon = undefined;
-                          if (p.name === "mainDebitCard") {
-                            icon = <CreditCard />;
-                          } else if (p.name === "heathBenefitsCard") {
-                            icon = <MedicalInformation />;
-                          } else if (p.name === "creditCard") {
-                            icon = <CreditScore />;
-                          } else if (p.name === "otherBenefitsCard") {
-                            icon = <LocalDining />;
-                          } else if (p.name === "exchangeCard") {
-                            icon = <CurrencyExchange />;
-                          }
-
-                          return {
-                            chipLabel: t(`database.paymentMethod.${p.name}`),
-                            key: p.id,
-                            avatar: undefined,
-                            icon: icon,
-                          };
-                        });
-
-                        return (
-                          <CustomChipArray
-                            id={"paymentMethod"}
-                            label={t(`${addTPrefix}fields.paymentMethodLabel`)}
-                            value={value ? value.id : ""}
-                            modelsArray={passingValues}
-                            onChange={(id) => {
-                              //find the user based on the userID
-                              const p = paymentMethods.find((p) => p.id === id);
-                              onChange(p);
-                            }}
-                            error={!!error}
-                            helperText={
-                              error?.message ||
-                              t(`${addTPrefix}optionalFieldSubText`)
-                            }
-                          />
-                        );
-                      }}
+                      paymentMethods={paymentMethods}
                     />
                   </Grid>
                   <Grid item sm={2} xs={1}>
-                    <Controller
-                      name="user"
-                      control={control}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => {
-                        const passingValues = users.map((u) => ({
-                          chipLabel: u.username,
-                          key: u.userId,
-                          avatar: u.username
-                            .replace(/[^a-zA-Z0-9 ]/g, "")
-                            .toUpperCase()
-                            .substring(0, 2), // TODO: add profilePic to user and check if exists, otherwise return name letters
-                          icon: undefined,
-                        }));
-
-                        return (
-                          <CustomChipArray
-                            id={"users"}
-                            label={t(`${addTPrefix}fields.userLabel`)}
-                            value={value ? value.userId : ""}
-                            modelsArray={passingValues}
-                            onChange={(userID) => {
-                              //find the user based on the userID
-                              const user = users.find(
-                                (u) => u.userId === userID,
-                              );
-                              onChange(user);
-                            }}
-                            //error={!!error}
-                            //helperText={error?.message || "Optional"}
-                          />
-                        );
-                      }}
-                    />
+                    <UserInput control={control} users={users} />
                   </Grid>
 
                   <Grid item sm={2} xs={1}>
-                    <Controller
-                      name="description"
-                      control={control}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => (
-                        <CustomTextField
-                          id={"description-textfield"}
-                          label={t(`${addTPrefix}fields.descriptionLabel`)}
-                          type="text"
-                          value={value}
-                          onChange={onChange}
-                          //error={!!error}
-                          helperText={
-                            error?.message ||
-                            t(`${addTPrefix}optionalFieldSubText`)
-                          }
-                          multiline={true}
-                          fullWidth={true}
-                          autoComplete={"on"}
-                        />
-                      )}
-                    />
+                    <DescriptionInput control={control} requiredRules={false} />
                   </Grid>
 
                   <Grid item xs={1}>
-                    <Controller
-                      name="isCommon"
-                      control={control}
-                      render={({
-                        field: { value, onChange },
-                        fieldState: { error },
-                      }) => (
-                        <CustomCheckbox
-                          label={t(`${addTPrefix}fields.isCommonLabel`)}
-                          value={value}
-                          onChange={onChange}
-                        />
-                      )}
-                    />
+                    <IsCommonInput control={control} />
                   </Grid>
 
                   <Grid item xs={1}>
