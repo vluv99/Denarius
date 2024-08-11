@@ -1,4 +1,3 @@
-import { isMobile } from "react-device-detect";
 import {
   DataGrid,
   GridCellParams,
@@ -7,7 +6,7 @@ import {
 } from "@mui/x-data-grid";
 import { huHU } from "@mui/x-data-grid/locales";
 
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
 import {
   useCategoryContext,
@@ -33,6 +32,9 @@ export const ListTransactions = () => {
     new User("0", "dpeter99@gmail.com", "dpeter99"),*/,
   ];
 
+  const theme = useTheme();
+  const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
+
   const columns: GridColDef<Transaction>[] = [
     {
       field: "id",
@@ -49,13 +51,20 @@ export const ListTransactions = () => {
       field: "payee",
       headerName: t(`${listTPrefix}columns.payeeHeader`),
       flex: 0,
-      minWidth: isMobile ? 110 : 180,
+      minWidth: lessThanSmall ? 110 : 180,
+    },
+    {
+      field: "amount",
+      headerName: t(`${listTPrefix}columns.amountHeader`),
+      type: "number",
+      flex: 0,
+      minWidth: 125,
     },
     {
       field: "category",
       headerName: t(`${listTPrefix}columns.categoryHeader`),
       flex: 0,
-      minWidth: isMobile ? 130 : 160,
+      minWidth: lessThanSmall ? 130 : 160,
       valueGetter: (value) =>
         t(`database.category.${categories.find((d) => d.id === value)?.name}`),
     },
@@ -64,13 +73,7 @@ export const ListTransactions = () => {
       headerName: t(`${listTPrefix}columns.descriptionHeader`),
       sortable: false,
       flex: 0,
-      minWidth: isMobile ? 110 : 220,
-    },
-    {
-      field: "amount",
-      headerName: t(`${listTPrefix}columns.amountHeader`),
-      type: "number",
-      flex: 0,
+      minWidth: lessThanSmall ? 110 : 220,
     },
     {
       field: "user",
@@ -90,7 +93,7 @@ export const ListTransactions = () => {
       field: "paymentMethod",
       headerName: t(`${listTPrefix}columns.paymentMethodHeader`),
       flex: 0,
-      minWidth: 130,
+      minWidth: 160,
       valueGetter: (value) =>
         t(
           `database.paymentMethod.${paymentMethods.find((d) => d.id === value)
@@ -103,14 +106,11 @@ export const ListTransactions = () => {
 
   const rows = useTransactionContext();
 
-  const theme = useTheme();
-
   return (
     <Box
       sx={{
-        //width: isMobile || window.screen.width < 1200 ? "95%" : "80%",
-        width: isMobile ? "95%" : "80%",
-        margin: isMobile ? "5% auto" : "3% auto",
+        width: { xs: "95%", sm: "92%", lg: "80%" },
+        margin: { xs: "5% auto", sm: "3% auto" },
         "& .plus": {
           color: theme.palette.success.main,
           fontWeight: "bold",
