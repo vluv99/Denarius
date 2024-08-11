@@ -3,7 +3,6 @@ import { PaperCard } from "../../components/PaperCard";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import React, { ReactElement, useState } from "react";
-import { isMobile } from "react-device-detect";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Divider from "@mui/material/Divider";
 import { useTranslation } from "react-i18next";
@@ -76,9 +75,9 @@ export const AuthPageLayout = ({
             sx={{
               flexDirection: "row",
               justifyContent: "space-between",
-              alignItems: isMobile ? "stretch" : "center",
-              flexFlow: isMobile ? "column wrap" : "unset",
-              maxWidth: isMobile ? "100%" : "unset",
+              alignItems: { xs: "stretch", sm: "center" },
+              flexFlow: { xs: "column wrap", sm: "unset" },
+              maxWidth: { xs: "100%", sm: "unset" },
             }}
           >
             <Box
@@ -87,8 +86,8 @@ export const AuthPageLayout = ({
               sx={{
                 flexDirection: "column",
                 //flexGrow: 1,
-                margin: isMobile ? "5% 0 0 0" : "0",
-                width: isMobile ? "100%" : "40%",
+                margin: { xs: "5% 0 0 0", sm: "0" },
+                width: { xs: "100%", sm: "40%" },
                 alignSelf: "start",
               }}
             >
@@ -120,7 +119,13 @@ export const AuthPageLayout = ({
               </Box>
             </Box>
             <Divider
-              orientation={isMobile ? "horizontal" : "vertical"}
+              orientation={"horizontal"}
+              sx={{ display: { xs: "block", sm: "none" } }}
+              flexItem
+            />
+            <Divider
+              orientation={"vertical"}
+              sx={{ display: { xs: "none", sm: "block" } }}
               flexItem
             />
             <Box
@@ -130,9 +135,8 @@ export const AuthPageLayout = ({
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "column",
-                maxWidth: isMobile ? "100%" : "50%",
-                margin: isMobile ? "5% 0" : "0 0",
-                //flexGrow: 1,
+                maxWidth: { xs: "100%", sm: "50%" },
+                margin: { xs: "5% 0", sm: "0 0" },
               }}
             >
               <AccountBalanceIcon sx={{ fontSize: 100 }} />
