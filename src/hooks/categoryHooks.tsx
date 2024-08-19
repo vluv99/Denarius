@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import {CATEGORY_COLLECTION_NAME, db} from "../utils/firebase";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { CATEGORY_COLLECTION_NAME, db } from "../utils/firebase";
 import { Category } from "../models/CategoryModel";
 
-
 export function useGetCategoryData() {
-  const [categories, setCategoriesData] = useState<Category[]>([]);
+  const [categories, setCategoriesData] = useState<Category[] | undefined>(
+    undefined,
+  );
   const docRef = collection(db, CATEGORY_COLLECTION_NAME);
   const q = query(docRef, orderBy("priority", "asc"));
 

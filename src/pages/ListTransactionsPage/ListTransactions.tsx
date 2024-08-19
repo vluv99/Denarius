@@ -16,21 +16,60 @@ import {
 import { Transaction } from "../../models/Transaction";
 import { User } from "../../models/UserModel";
 import { useTranslation } from "react-i18next";
+import { Loading } from "../LoadingPage/Loading";
+import { Category } from "../../models/CategoryModel";
+import { PaymentMethod } from "../../models/PaymentMethodModel";
+import React, { useEffect, useState } from "react";
 
 export const ListTransactions = () => {
-  const {
-    t,
-    i18n: { language },
-  } = useTranslation();
-  const listTPrefix = "view.listTransaction.";
-
-  const categories = useCategoryContext();
-  const paymentMethods = usePaymentMethodContext();
+  const { categories, catLoading } = useCategoryContext();
+  const { paymentMethods, payMethLoading } = usePaymentMethodContext();
   const currentUser = useUserContext();
   const users: User[] = [
     currentUser! /*,
     new User("0", "dpeter99@gmail.com", "dpeter99"),*/,
   ];
+
+  const [loading, setLoading] = useState(catLoading);
+
+  useEffect(() => {
+    if (catLoading || payMethLoading) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [catLoading, payMethLoading]);
+
+  /**
+   * If anything is loading from the DB, the page should show a loading screen
+   */
+  if (loading) {
+    return <Loading />;
+  }
+
+  return (
+    <ListTransactionsTable
+      categories={categories!}
+      paymentMethods={paymentMethods!}
+      users={users}
+    />
+  );
+};
+
+function ListTransactionsTable({
+  categories,
+  paymentMethods,
+  users,
+}: {
+  categories: Category[];
+  paymentMethods: PaymentMethod[];
+  users: User[];
+}) {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
+  const listTPrefix = "view.listTransaction.";
 
   const theme = useTheme();
   const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
@@ -66,7 +105,7 @@ export const ListTransactions = () => {
       flex: 0,
       minWidth: lessThanSmall ? 130 : 160,
       valueGetter: (value) =>
-        t(`database.category.${categories.find((d) => d.id === value)?.name}`),
+        t(`database.category.${categories!.find((d) => d.id === value)?.name}`),
     },
     {
       field: "description",
@@ -101,8 +140,6 @@ export const ListTransactions = () => {
         ),
     },
   ];
-
-  //const { transactions } = useContext(TransactionContext);
 
   const rows = useTransactionContext();
 
@@ -168,4 +205,4 @@ export const ListTransactions = () => {
       </div>
     </Box>
   );
-};
+}

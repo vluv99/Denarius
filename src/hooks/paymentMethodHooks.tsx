@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import {CARD_COLLECTION_NAME, db} from "../utils/firebase";
+import { CARD_COLLECTION_NAME, db } from "../utils/firebase";
 import { PaymentMethod } from "../models/PaymentMethodModel";
 
-
 export function useGetPaymentMethodData() {
-  const [card, setCardData] = useState<PaymentMethod[]>([]);
+  const [card, setCardData] = useState<PaymentMethod[] | undefined>(undefined);
   const docRef = collection(db, CARD_COLLECTION_NAME);
   const q = query(docRef, orderBy("priority", "asc"));
 

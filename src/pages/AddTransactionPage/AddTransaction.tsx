@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Grid } from "@mui/material";
 import { PaperCard } from "../../components/PaperCard";
 import { AddCircleOutline } from "@mui/icons-material";
@@ -23,6 +23,7 @@ import { PaymentMethodInput } from "./components/PaymentMethodInput";
 import { UserInput } from "./components/UserInput";
 import { DescriptionInput } from "./components/DescriptionInput";
 import { IsCommonInput } from "./components/IsCommonInput";
+import { Loading } from "../LoadingPage/Loading";
 
 // list inputs in form
 export type AddTransactionValues = {
@@ -37,16 +38,54 @@ export type AddTransactionValues = {
 };
 
 export function AddTransaction() {
-  const { t } = useTranslation();
-  const addTPrefix = "view.addTransaction.";
-
-  const categories = useCategoryContext();
-  const paymentMethods = usePaymentMethodContext();
+  const { categories, catLoading } = useCategoryContext();
+  const { paymentMethods, payMethLoading } = usePaymentMethodContext();
   const currentUser = useUserContext();
   const users: User[] = [
     currentUser! /*,
     new User("0", "dpeter99@gmail.com", "dpeter99"),*/,
   ];
+
+  const [loading, setLoading] = useState(catLoading);
+
+  useEffect(() => {
+    if (catLoading || payMethLoading) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [catLoading, payMethLoading]);
+
+  /**
+   * If anything is loading from the DB, the page should show a loading screen
+   */
+  if (loading) {
+    return <Loading />;
+  }
+
+  return (
+    <AddTransactionForm
+      categories={categories!}
+      paymentMethods={paymentMethods!}
+      currentUser={currentUser!}
+      users={users}
+    />
+  );
+}
+
+function AddTransactionForm({
+  categories,
+  paymentMethods,
+  currentUser,
+  users,
+}: {
+  categories: Category[];
+  paymentMethods: PaymentMethod[];
+  currentUser: User;
+  users: User[];
+}) {
+  const { t } = useTranslation();
+  const addTPrefix = "view.addTransaction.";
 
   const [successSnackBarOpen, setSuccessSnackBarOpen] =
     useState<boolean>(false);
