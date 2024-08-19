@@ -23,7 +23,7 @@ import React, { useEffect, useState } from "react";
 
 export const ListTransactions = () => {
   const { categories, catLoading } = useCategoryContext();
-  const paymentMethods = usePaymentMethodContext();
+  const { paymentMethods, payMethLoading } = usePaymentMethodContext();
   const currentUser = useUserContext();
   const users: User[] = [
     currentUser! /*,
@@ -33,12 +33,12 @@ export const ListTransactions = () => {
   const [loading, setLoading] = useState(catLoading);
 
   useEffect(() => {
-    if (catLoading) {
+    if (catLoading || payMethLoading) {
       setLoading(true);
     } else {
       setLoading(false);
     }
-  }, [catLoading]);
+  }, [catLoading, payMethLoading]);
 
   /**
    * If anything is loading from the DB, the page should show a loading screen

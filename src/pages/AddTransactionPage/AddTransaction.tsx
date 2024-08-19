@@ -39,7 +39,7 @@ export type AddTransactionValues = {
 
 export function AddTransaction() {
   const { categories, catLoading } = useCategoryContext();
-  const paymentMethods = usePaymentMethodContext();
+  const { paymentMethods, payMethLoading } = usePaymentMethodContext();
   const currentUser = useUserContext();
   const users: User[] = [
     currentUser! /*,
@@ -49,12 +49,12 @@ export function AddTransaction() {
   const [loading, setLoading] = useState(catLoading);
 
   useEffect(() => {
-    if (catLoading) {
+    if (catLoading || payMethLoading) {
       setLoading(true);
     } else {
       setLoading(false);
     }
-  }, [catLoading]);
+  }, [catLoading, payMethLoading]);
 
   /**
    * If anything is loading from the DB, the page should show a loading screen
