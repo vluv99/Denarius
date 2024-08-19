@@ -1,9 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ChildrenProp } from "../../utils/types";
 import { PaymentMethod } from "../../models/PaymentMethodModel";
-import { useGetPaymentMethodData } from "../../hooks/cardHooks";
-import { Simulate } from "react-dom/test-utils";
-import load = Simulate.load;
+import { useGetPaymentMethodData } from "../../hooks/paymentMethodHooks";
 
 export type PaymentMethodCtx = {
   paymentMethods: PaymentMethod[] | undefined;
@@ -21,7 +19,7 @@ const PaymentMethodContext =
  * @constructor
  */
 export function PaymentMethodContextProvider({ children }: ChildrenProp) {
-  const paymentMethods: PaymentMethod[] = useGetPaymentMethodData();
+  const paymentMethods: PaymentMethod[] | undefined = useGetPaymentMethodData();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
