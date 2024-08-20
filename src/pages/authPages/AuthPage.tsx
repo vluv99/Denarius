@@ -6,6 +6,7 @@ import React, { ReactElement, useState } from "react";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Divider from "@mui/material/Divider";
 import { useTranslation } from "react-i18next";
+import { LanguageSwitch } from "../../components/LanguageSwitch";
 
 export const AuthPage = () => {
   const { t } = useTranslation();
@@ -162,6 +163,7 @@ export const AuthPageLayout = ({
             </Box>
           </Box>
         </PaperCard>
+        <LanguageSwitch />
       </Box>
     </Container>
   );

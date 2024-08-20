@@ -60,13 +60,13 @@ export function LanguageSwitch() {
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <Typography>En</Typography>
+      <Typography>EN</Typography>
       <AntSwitch
         onChange={handleChange}
         checked={switchVal}
         inputProps={{ "aria-label": "language switcher" }}
       />
-      <Typography>Hu</Typography>
+      <Typography>HU</Typography>
     </Stack>
   );
 }
