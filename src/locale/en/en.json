@@ -67,10 +67,13 @@
           "registerButtonLabel": "Register",
           "errorMsg": "Error during user login",
           "requiredFieldMsg": "The field is required",
+          "passwordPatternMsg": "Minimum eight characters, at least one uppercase letter, and one number required",
+          "passwordMatchErrorMsg": "Passwords must match!",
           "fields": {
             "emailLabel": "Email",
             "usernameLabel": "Username",
-            "passwordLabel": "Password"
+            "passwordLabel": "Password",
+            "passwordCheckLabel": "Confirm Password"
           }
         }
       }

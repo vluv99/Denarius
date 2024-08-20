@@ -67,10 +67,13 @@
           "registerButtonLabel": "Regisztráció",
           "errorMsg": "Hiba a felhasználói regisztráció során",
           "requiredFieldMsg": "A mező kitöltése kötelező",
+          "passwordPatternMsg": "Legalább nyolc karakter, egy nagybetű és egy szám kötelező",
+          "passwordMatchErrorMsg": "A jelszavaknak egyezniük kell!",
           "fields": {
             "emailLabel": "Email",
             "usernameLabel": "Felhasználónév",
-            "passwordLabel": "Jelszó"
+            "passwordLabel": "Jelszó",
+            "passwordCheckLabel": "Jelszó Megerősítés"
           }
         }
       }

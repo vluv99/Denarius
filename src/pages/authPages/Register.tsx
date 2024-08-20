@@ -10,6 +10,7 @@ type Inputs = {
   email: string;
   username: string;
   password: string;
+  passwordCheck: string;
 };
 
 export const Register = () => {
@@ -24,6 +25,7 @@ export const Register = () => {
       email: "",
       username: "",
       password: "",
+      passwordCheck: "",
     },
   });
 
@@ -44,6 +46,29 @@ export const Register = () => {
     required: {
       value: true,
       message: t("view.auth.register.requiredFieldMsg"),
+    },
+  };
+
+  const passwordRules = {
+    required: {
+      value: true,
+      message: t("view.auth.register.requiredFieldMsg"),
+    },
+    pattern: {
+      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      message: t("view.auth.register.passwordPatternMsg"),
+    },
+    validate: {
+      passwordsMatch: (v: string, formValues: Inputs) => {
+        // if return is string or false it's error, if true it's valid
+
+        if (formValues.password !== formValues.passwordCheck) {
+          return t("view.auth.register.passwordMatchErrorMsg");
+        }
+
+        // if field isn't selected yet, don't throw error
+        return true;
+      },
     },
   };
 
@@ -94,11 +119,30 @@ export const Register = () => {
       <Controller
         name="password"
         control={control}
-        rules={rules}
+        rules={passwordRules}
         render={({ field: { value, onChange }, fieldState: { error } }) => (
           <CustomTextField
             id="password-textField"
             label={t("view.auth.register.fields.passwordLabel")}
+            type="password"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error?.message}
+            fullWidth={true}
+            sx={{ marginBottom: "4%" }}
+            autoComplete={"new-password"}
+          />
+        )}
+      />
+      <Controller
+        name="passwordCheck"
+        control={control}
+        rules={passwordRules}
+        render={({ field: { value, onChange }, fieldState: { error } }) => (
+          <CustomTextField
+            id="passwordCheck-textField"
+            label={t("view.auth.register.fields.passwordCheckLabel")}
             type="password"
             value={value}
             onChange={onChange}
