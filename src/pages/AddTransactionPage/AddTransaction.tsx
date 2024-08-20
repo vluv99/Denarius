@@ -94,6 +94,7 @@ function AddTransactionForm({
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<AddTransactionValues>({
     defaultValues: {
@@ -124,7 +125,10 @@ function AddTransactionForm({
       data.description,
     );
     await addTransaction(transaction, currentUser!)
-      .then(() => setSuccessSnackBarOpen(true))
+      .then(() => {
+        setSuccessSnackBarOpen(true);
+        reset(); // update form back to default values
+      })
       .catch((error) => {
         setErrorSnackBarOpen(true);
 
