@@ -13,11 +13,11 @@ export class Transaction {
   creationDate: Date;
   creatorUserId: string;
   date: Date;
-  category: Category;
+  category: string;
   payee: string;
   amount: number;
-  user: User;
-  paymentMethod: PaymentMethod;
+  user: string;
+  paymentMethod: string;
   isCommon: boolean;
   description: string;
 
@@ -26,11 +26,11 @@ export class Transaction {
     creationDate: Date,
     creatorUserId: string,
     date: Date,
-    category: Category,
+    category: string,
     payee: string,
     amount: number,
-    user: User,
-    paymentMethod: PaymentMethod,
+    user: string,
+    paymentMethod: string,
     isCommon: boolean,
     description: string,
   ) {
@@ -52,11 +52,11 @@ export class Transaction {
       creationDate: new Date(),
       creatorUserId: currentUser.userId,
       date: new Date(this.date),
-      category: this.category.id,
+      category: this.category,
       payee: this.payee,
       amount: this.amount,
-      user: this.user.userId,
-      paymentMethod: this.paymentMethod.id,
+      user: this.user,
+      paymentMethod: this.paymentMethod,
       isCommon: this.isCommon,
       description: this.description,
     };

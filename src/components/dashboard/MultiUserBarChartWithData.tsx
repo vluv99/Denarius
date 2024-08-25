@@ -62,7 +62,7 @@ function summTransactionDataPerUser(
   user: string,
 ): { number: number; color: string; user: string; diff: number } {
   const userTrans = transactions.filter(
-    (t: Transaction) => t.user.userId === user && t.amount < 0 && t.isCommon,
+    (t: Transaction) => t.user === user && t.amount < 0 && t.isCommon,
   );
 
   if (userTrans.length > 0) {

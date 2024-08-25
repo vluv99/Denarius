@@ -29,7 +29,8 @@
           "positiveNumberMsg": "Az összegnek pozitívnak kell lennie",
           "negativeNumberMsg": "Az összegnek negatívnak kell lennie"
         },
-        "optionalFieldSubText": "Opcionális"
+        "optionalFieldSubText": "Opcionális",
+        "noTransactionsTodayText": "A mai napon még nincs új tranzakció!"
       },
       "listTransaction": {
         "label": "Tranzakciók Listázása",

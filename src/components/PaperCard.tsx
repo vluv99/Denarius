@@ -12,7 +12,7 @@ interface DashboardCardProps {
 export const PaperCard = ({ label, children }: DashboardCardProps) => {
   return (
     <>
-      <Paper elevation={4} sx={{ padding: "20px" }}>
+      <Paper elevation={4} sx={{ padding: { xs: "20px 5px", sm: "20px" } }}>
         <Container>
           <Typography
             className="card-label"

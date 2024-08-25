@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, Container, Grid } from "@mui/material";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { PaperCard } from "../../components/PaperCard";
-import { AddCircleOutline } from "@mui/icons-material";
+import { AddCircleOutline, Close, DoneOutline } from "@mui/icons-material";
 import {
   useCategoryContext,
   usePaymentMethodContext,
@@ -24,6 +31,9 @@ import { UserInput } from "./components/UserInput";
 import { DescriptionInput } from "./components/DescriptionInput";
 import { IsCommonInput } from "./components/IsCommonInput";
 import { Loading } from "../LoadingPage/Loading";
+import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
+import { huHU } from "@mui/x-data-grid/locales";
+import { formatToCurrency, isDateToday } from "../../utils/utils";
 
 // list inputs in form
 export type AddTransactionValues = {
@@ -116,11 +126,11 @@ function AddTransactionForm({
       new Date(),
       currentUser!.userId,
       data.date,
-      data.category!,
+      data.category?.id!,
       data.payee,
       Number(data.amount),
-      data.user,
-      data.paymentMethod,
+      data.user.userId,
+      data.paymentMethod.id,
       data.isCommon,
       data.description,
     );
@@ -144,7 +154,11 @@ function AddTransactionForm({
 
   return (
     <>
-      <Container>
+      <Container
+        sx={{
+          padding: { xs: "0px", sm: "0 24px", md: "0 24px", lg: "0 24px" },
+        }}
+      >
         <Box sx={{ flexGrow: 1, margin: "3% 0" }}>
           <PaperCard label={t(`${addTPrefix}label`)}>
             <Box display="flex" flexWrap={"wrap"}>
@@ -210,11 +224,22 @@ function AddTransactionForm({
               </Box>
               <Box
                 sx={{
-                  margin: { xs: "5% 0 0 0", sm: "0 0 0 3%" },
+                  flexGrow: 1,
+                  margin: {
+                    xs: "5% 0 0 0",
+                    sm: "5% auto 0 auto",
+                    md: "3% auto 0 auto",
+                    lg: "0 0 0 3%",
+                  },
+                  width: "min-content",
                 }}
               >
-                Placeholder to list where newly added transaction will appear.
-                (WIP)
+                <ListTodaysTransactions
+                  categories={categories}
+                  paymentMethods={paymentMethods}
+                  currentUser={currentUser}
+                  users={users}
+                />
               </Box>
             </Box>
           </PaperCard>
@@ -233,5 +258,105 @@ function AddTransactionForm({
         setOpen={setErrorSnackBarOpen}
       />
     </>
+  );
+}
+
+export function ListTodaysTransactions({
+  categories,
+  paymentMethods,
+  currentUser,
+  users,
+}: {
+  categories: Category[];
+  paymentMethods: PaymentMethod[];
+  currentUser: User;
+  users: User[];
+}) {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
+  const addTPrefix = "view.addTransaction.";
+
+  const theme = useTheme();
+
+  const transactions = useTransactionContext();
+  const rows = useMemo(
+    () =>
+      transactions
+        .filter((t) => isDateToday(t.creationDate))
+        .sort((a, b) => a.creationDate.getTime() - b.creationDate.getTime()),
+    [transactions],
+  );
+
+  function getSx(i: number) {
+    return {
+      display: "grid",
+      gridTemplateColumns: {
+        xs: "1fr 2fr",
+        sm: "1fr 2fr 1fr 1fr",
+      },
+      justifyItems: "center",
+      alignItems: "center",
+      padding: "4px",
+      backgroundColor:
+        i % 2
+          ? "inherit"
+          : `rgb( from ${theme.palette.primary.main} r g b / 0.21)`,
+    };
+  }
+
+  return (
+    <Box
+      sx={{
+        "& .plus": {
+          color: theme.palette.success.main,
+          fontWeight: "bold",
+        },
+        "& .minus": {
+          color: theme.palette.error.main,
+          fontWeight: "bold",
+        },
+        border: `1px solid ${theme.palette.divider}`,
+        borderRadius: "4px",
+        textAlign: "center",
+      }}
+    >
+      <Box sx={{ ...getSx(1), fontWeight: "bold", padding: "8px" }}>
+        <Box>Amount</Box>
+        <Box>Payee</Box>
+        <Box>Category</Box>
+        <Box>Common</Box>
+      </Box>
+      {rows.length > 0 ? (
+        rows.map((row, i) => (
+          <Box sx={getSx(i)}>
+            <Box className={row.amount > 0 ? "plus" : "minus"}>
+              {formatToCurrency(row.amount)}
+            </Box>
+            <Box>{row.payee}</Box>
+            <Box>
+              {t(
+                `database.category.${categories.find(
+                  (c) => c.id === row.category,
+                )?.name}`,
+              )}
+            </Box>
+            <Box sx={{ height: "24px" }}>
+              {row.isCommon ? <DoneOutline /> : <Close />}
+            </Box>
+          </Box>
+        ))
+      ) : (
+        <Typography
+          sx={{
+            padding: "8px",
+            backgroundColor: `rgb( from ${theme.palette.primary.main} r g b / 0.21)`,
+          }}
+        >
+          {t(`${addTPrefix}noTransactionsTodayText`)}
+        </Typography>
+      )}
+    </Box>
   );
 }
