@@ -20,15 +20,19 @@ export const PaperCard = ({ label, children }: DashboardCardProps) => {
         }}
       >
         <Container sx={{ padding: { xs: "10px", sm: "10px" } }}>
-          <Typography
-            className="card-label"
-            gutterBottom
-            //variant="h5"
-            component="div"
-            sx={{ typography: { xs: "h6", sm: "h6", lg: "h5" } }}
-          >
-            {label}
-          </Typography>
+          {!label ? (
+            <></>
+          ) : (
+            <Typography
+              className="card-label"
+              gutterBottom
+              //variant="h5"
+              component="div"
+              sx={{ typography: { xs: "h6", sm: "h6", lg: "h5" } }}
+            >
+              {label}
+            </Typography>
+          )}
           <div className="card-content">{children}</div>
         </Container>
       </Paper>

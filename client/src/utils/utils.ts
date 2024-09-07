@@ -12,6 +12,20 @@ export function isDateToday(date: Date): boolean {
   );
 }
 
+export function isDateIn30Days(date: Date): boolean {
+  const compareDate = new Date(new Date().setDate(new Date().getDate() - 30));
+
+  return compareDate.getTime() <= date.getTime();
+}
+
+export function isDateFromLastMonth(date: Date) {
+  const today = new Date(),
+    thisMonth = today.getMonth() + 1,
+    datesMonth = date.getMonth() + 1;
+
+  return thisMonth === 1 ? datesMonth === 12 : datesMonth === thisMonth - 1;
+}
+
 export function formatToCurrency(value: number): string {
   return new Intl.NumberFormat("hu-HU", {
     style: "currency",

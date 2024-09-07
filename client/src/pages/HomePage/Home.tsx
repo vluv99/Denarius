@@ -8,7 +8,7 @@ import {
 
 import { PaperCard } from "../../components/PaperCard";
 import React, { useEffect, useState } from "react";
-import { Last30DaysSimple } from "./components/Last30DaysSimple";
+import { Last30DaysExpense } from "./components/Last30DaysExpense";
 import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
 import {
   useCategoryContext,
@@ -17,6 +17,7 @@ import {
 } from "../../contexts/DBContexts";
 import { Loading } from "../LoadingPage/Loading";
 import { useTranslation } from "react-i18next";
+import { LastMonthIncome } from "./components/LastMonthIncome";
 //import { TransactionContext } from "../../contex/GlobalState";
 
 //TODO: get a currencyformatter set by the account type
@@ -60,16 +61,17 @@ export const Home = () => {
       <Grid container spacing={2} columns={colCount} alignItems={"stretch"}>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
           <Item label={t(`${homePrefix}grid_1.label`)}>
-            <Last30DaysSimple transactions={transactions} />
+            <Last30DaysExpense transactions={transactions} />
           </Item>
         </Grid>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
           <Item label="Last month's Income:">
-            <div>xs=2</div>
+            {/*<div>xs=2</div>*/}
+            <LastMonthIncome transactions={transactions} />
           </Item>
         </Grid>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label="Last month's Rend/Utils:">
+          <Item label="Last month's Rent/Utils:">
             <div>xs=2</div>
           </Item>
         </Grid>

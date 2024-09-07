@@ -3,25 +3,33 @@ import { Box, Theme, Typography, useMediaQuery } from "@mui/material";
 import firebase from "firebase/compat";
 import { Transaction } from "../../../models/Transaction";
 import { useTranslation } from "react-i18next";
-import { formatToCurrency } from "../../../utils/utils";
+import { formatToCurrency, isDateIn30Days } from "../../../utils/utils";
 
-export function Last30DaysSimple({
+export function Last30DaysExpense({
   transactions,
 }: {
   transactions: Transaction[];
 }) {
-  const [filteredSum, setFilteredSum] = useState(0);
+  const [sum, setSum] = useState(0);
 
   useEffect(() => {
-    setFilteredSum(0);
+    setSum(0);
     if (transactions.length === 0) {
       return;
     }
-    const result = transactions
+
+    const filtered = transactions.filter(
+      (t) => t.amount < 0 && isDateIn30Days(t.date),
+    );
+
+    if (filtered.length === 0) {
+      return;
+    }
+
+    const result = filtered
       .map((t) => t.amount)
-      .filter((t) => t < 0)
       .reduce((sum, num) => sum + num);
-    setFilteredSum(result);
+    setSum(result);
   }, [transactions]);
 
   return (
@@ -31,7 +39,7 @@ export function Last30DaysSimple({
         component="div"
         sx={{ typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" } }}
       >
-        {formatToCurrency(filteredSum)}
+        {formatToCurrency(sum)}
       </Typography>
     </Box>
   );

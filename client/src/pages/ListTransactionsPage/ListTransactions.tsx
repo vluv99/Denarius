@@ -6,7 +6,13 @@ import {
 } from "@mui/x-data-grid";
 import { huHU } from "@mui/x-data-grid/locales";
 
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useTransactionContext } from "../../contexts/DBContexts/TransactionContext";
 import {
   useCategoryContext,
@@ -20,6 +26,7 @@ import { Loading } from "../LoadingPage/Loading";
 import { Category } from "../../models/CategoryModel";
 import { PaymentMethod } from "../../models/PaymentMethodModel";
 import React, { useEffect, useState } from "react";
+import { PaperCard } from "../../components/PaperCard";
 
 export const ListTransactions = () => {
   const { categories, catLoading } = useCategoryContext();
@@ -144,65 +151,74 @@ function ListTransactionsTable({
   const rows = useTransactionContext();
 
   return (
-    <Box
+    <Container
       sx={{
-        width: { xs: "95%", sm: "92%", lg: "80%" },
-        margin: { xs: "5% auto", sm: "3% auto" },
-        "& .plus": {
-          color: theme.palette.success.main,
-          fontWeight: "bold",
-        },
-        "& .minus": {
-          color: theme.palette.error.main,
-          fontWeight: "bold",
-        },
+        margin: { xs: "1% 0", sm: "3% auto" },
+        padding: { xs: "0px", sm: "0 24px", md: "0 24px", lg: "0 24px" },
       }}
-      //className="list--container"
     >
-      <div>
-        <Typography gutterBottom variant="h5" component="div">
-          {t(`${listTPrefix}label`)}
-        </Typography>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          localeText={
-            language.includes("hu")
-              ? huHU.components.MuiDataGrid.defaultProps.localeText
-              : undefined
-          }
-          autoHeight={true}
-          //autoPageSize={true} // doesn't work well with filtering
-          disableColumnMenu={true}
-          ignoreDiacritics={true}
-          editMode="row"
-          slots={{
-            toolbar: GridToolbar,
-          }}
-          getCellClassName={(params: GridCellParams) => {
-            if (params.field !== "amount" || params.value == null) {
-              return "";
-            }
-            return Number(params.value) > 0 ? "plus" : "minus";
-          }}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
+      <PaperCard label={""}>
+        <Box
+          sx={{
+            //width: { xs: "95%", sm: "92%", lg: "80%", xl: "100%" },
+            margin: { xs: "5% 0", sm: "3% 0" },
+            "& .plus": {
+              color: theme.palette.success.main,
+              fontWeight: "bold",
             },
-            columns: {
-              columnVisibilityModel: {
-                // Hide columns
-                id: false,
-              },
-            },
-            sorting: {
-              sortModel: [{ field: "date", sort: "desc" }],
+            "& .minus": {
+              color: theme.palette.error.main,
+              fontWeight: "bold",
             },
           }}
-          pageSizeOptions={[5, 10, 20]}
-          checkboxSelection
-        />
-      </div>
-    </Box>
+          //className="list--container"
+        >
+          <div>
+            <Typography gutterBottom variant="h5" component="div">
+              {t(`${listTPrefix}label`)}
+            </Typography>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              localeText={
+                language.includes("hu")
+                  ? huHU.components.MuiDataGrid.defaultProps.localeText
+                  : undefined
+              }
+              autoHeight={true}
+              //autoPageSize={true} // doesn't work well with filtering
+              disableColumnMenu={true}
+              ignoreDiacritics={true}
+              editMode="row"
+              slots={{
+                toolbar: GridToolbar,
+              }}
+              getCellClassName={(params: GridCellParams) => {
+                if (params.field !== "amount" || params.value == null) {
+                  return "";
+                }
+                return Number(params.value) > 0 ? "plus" : "minus";
+              }}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 10 },
+                },
+                columns: {
+                  columnVisibilityModel: {
+                    // Hide columns
+                    id: false,
+                  },
+                },
+                sorting: {
+                  sortModel: [{ field: "date", sort: "desc" }],
+                },
+              }}
+              pageSizeOptions={[5, 10, 20]}
+              checkboxSelection
+            />
+          </div>
+        </Box>
+      </PaperCard>
+    </Container>
   );
 }

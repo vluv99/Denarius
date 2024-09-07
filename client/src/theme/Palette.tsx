@@ -76,7 +76,7 @@ export const lightTheme = createTheme({
       //hint: "#22194D",
     },
     error: {
-      main: "#d32f2f",
+      main: "#ec3636",
       light: "#ef5350",
       dark: "#c62828",
       contrastText: "#fff",
@@ -94,7 +94,7 @@ export const lightTheme = createTheme({
       contrastText: "#fff",
     },
     success: {
-      main: "#2e7d32",
+      main: "#46b14a",
       light: "#4caf50",
       dark: "#1b5e20",
       contrastText: "#fff",
@@ -102,7 +102,7 @@ export const lightTheme = createTheme({
     divider: "#8b9fb9",
     background: {
       default: "#f5f9f7",
-      paper: "#edf4f1",
+      paper: "#d2dcdc",
     },
   },
 });
