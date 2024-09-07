@@ -9,7 +9,7 @@ import {
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import { db } from "../config/firebase";
 import { Transaction } from "../models/Transaction";
 import { User } from "../models/UserModel";
 import { useUserContext } from "../contexts/DBContexts";

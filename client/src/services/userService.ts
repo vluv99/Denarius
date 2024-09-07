@@ -1,5 +1,5 @@
 import { setDoc, doc, getDoc } from "firebase/firestore";
-import {db, provider, USER_COLLECTION_NAME} from "../utils/firebase";
+import { db, provider, USER_COLLECTION_NAME } from "../config/firebase";
 import { User } from "../models/UserModel";
 import {
   createUserWithEmailAndPassword,
@@ -13,7 +13,6 @@ import {
   setPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
-
 
 export async function registerUser(
   email: string,

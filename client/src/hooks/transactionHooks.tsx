@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore";
-import {db, TRANSACTION_COLLECTION_NAME} from "../utils/firebase";
+import { db, TRANSACTION_COLLECTION_NAME } from "../config/firebase";
 import { Dispatch, SetStateAction, useEffect } from "react";
 
 type Transaction = {
@@ -14,7 +14,6 @@ type Transaction = {
   cardType: string;
   creationDate?: Date | null;
 };
-
 
 export async function useAddTransactionData(
   t: Transaction,

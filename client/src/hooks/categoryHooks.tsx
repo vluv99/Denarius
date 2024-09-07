@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { CATEGORY_COLLECTION_NAME, db } from "../utils/firebase";
+import { CATEGORY_COLLECTION_NAME, db } from "../config/firebase";
 import { Category } from "../models/CategoryModel";
 
 export function useGetCategoryData() {
