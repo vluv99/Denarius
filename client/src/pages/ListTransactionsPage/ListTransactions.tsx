@@ -183,7 +183,7 @@ function ListTransactionsTable({
             if (params.field !== "amount" || params.value == null) {
               return "";
             }
-            return params.value > 0 ? "plus" : "minus";
+            return Number(params.value) > 0 ? "plus" : "minus";
           }}
           initialState={{
             pagination: {

@@ -6,7 +6,10 @@
 
     "view": {
       "dasboard": {
-        "label": "Dashboard"
+        "label": "Dashboard",
+        "grid_1": {
+          "label": "Last 30 days Expense"
+        }
       },
       "addTransaction": {
         "label": "New Transaction",

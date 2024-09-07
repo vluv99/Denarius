@@ -6,7 +6,10 @@
 
     "view": {
       "dasboard": {
-        "label": "Kezdőképernyő"
+        "label": "Kezdőképernyő",
+        "grid_1": {
+          "label": "Utolsó 30 napi költségek"
+        }
       },
       "addTransaction": {
         "label": "Új Tranzakció",

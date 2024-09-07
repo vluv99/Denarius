@@ -12,13 +12,20 @@ interface DashboardCardProps {
 export const PaperCard = ({ label, children }: DashboardCardProps) => {
   return (
     <>
-      <Paper elevation={4} sx={{ padding: { xs: "20px 5px", sm: "20px" } }}>
-        <Container>
+      <Paper
+        elevation={4}
+        sx={{
+          padding: { xs: "10px", sm: "10px", lg: "20px" },
+          height: "100%",
+        }}
+      >
+        <Container sx={{ padding: { xs: "10px", sm: "10px" } }}>
           <Typography
             className="card-label"
             gutterBottom
-            variant="h5"
+            //variant="h5"
             component="div"
+            sx={{ typography: { xs: "h6", sm: "h6", lg: "h5" } }}
           >
             {label}
           </Typography>
