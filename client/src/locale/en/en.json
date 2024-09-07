@@ -34,6 +34,7 @@
           "negativeNumberMsg": "Amount must be Negative"
         },
         "optionalFieldSubText": "Optional",
+        "todayTransactionsLabel": "Added today",
         "noTransactionsTodayText": "There are no new transaction added today yet!"
       },
       "listTransaction": {

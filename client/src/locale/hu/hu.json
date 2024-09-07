@@ -34,6 +34,7 @@
           "negativeNumberMsg": "Az összegnek negatívnak kell lennie"
         },
         "optionalFieldSubText": "Opcionális",
+        "todayTransactionsLabel": "Ma hozzáadva",
         "noTransactionsTodayText": "A mai napon még nincs új tranzakció!"
       },
       "listTransaction": {

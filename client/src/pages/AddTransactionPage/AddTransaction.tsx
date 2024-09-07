@@ -8,7 +8,12 @@ import {
   useTheme,
 } from "@mui/material";
 import { PaperCard } from "../../components/PaperCard";
-import { AddCircleOutline, Close, DoneOutline } from "@mui/icons-material";
+import {
+  AddCircleOutline,
+  Close,
+  DoneOutline,
+  SentimentDissatisfied,
+} from "@mui/icons-material";
 import {
   useCategoryContext,
   usePaymentMethodContext,
@@ -234,6 +239,9 @@ function AddTransactionForm({
                   width: "min-content",
                 }}
               >
+                <Typography variant={"h6"}>
+                  {t(`${addTPrefix}todayTransactionsLabel`)}:
+                </Typography>
                 <ListTodaysTransactions
                   categories={categories}
                   paymentMethods={paymentMethods}
@@ -330,7 +338,7 @@ export function ListTodaysTransactions({
       </Box>
       {rows.length > 0 ? (
         rows.map((row, i) => (
-          <Box sx={getSx(i)}>
+          <Box sx={getSx(i)} key={row.id}>
             <Box className={row.amount > 0 ? "plus" : "minus"}>
               {formatToCurrency(row.amount)}
             </Box>
@@ -348,14 +356,21 @@ export function ListTodaysTransactions({
           </Box>
         ))
       ) : (
-        <Typography
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
           sx={{
             padding: "8px",
             backgroundColor: `rgb( from ${theme.palette.primary.main} r g b / 0.21)`,
           }}
         >
-          {t(`${addTPrefix}noTransactionsTodayText`)}
-        </Typography>
+          <SentimentDissatisfied />
+          <Box sx={{ width: "5px" }} />
+          <Typography variant={"subtitle1"}>
+            {t(`${addTPrefix}noTransactionsTodayText`)}
+          </Typography>
+        </Box>
       )}
     </Box>
   );
