@@ -9,6 +9,16 @@
         "label": "Kezdőképernyő",
         "grid_1": {
           "label": "Utolsó 30 napi költségek"
+        },
+        "grid_2": {
+          "label": "Múlt havi bevétel"
+        },
+        "grid_3": {
+          "label": "Múlt havi bérleti díj/rezsi"
+        },
+        "grid_4": {
+          "label": "Utolsó 30 nap rekordszáma",
+          "countSuffix": "db"
         }
       },
       "addTransaction": {

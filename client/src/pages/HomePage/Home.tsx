@@ -18,6 +18,8 @@ import {
 import { Loading } from "../LoadingPage/Loading";
 import { useTranslation } from "react-i18next";
 import { LastMonthIncome } from "./components/LastMonthIncome";
+import { LastMonthUtilsNRent } from "./components/LastMonthUtilsNRent";
+import { Last30daysCount } from "./components/Last30daysCount";
 //import { TransactionContext } from "../../contex/GlobalState";
 
 //TODO: get a currencyformatter set by the account type
@@ -60,24 +62,26 @@ export const Home = () => {
     <Container sx={{ margin: "3% auto" }}>
       <Grid container spacing={2} columns={colCount} alignItems={"stretch"}>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label={t(`${homePrefix}grid_1.label`)}>
+          <Item label={t(`${homePrefix}grid_1.label`) + ":"}>
             <Last30DaysExpense transactions={transactions} />
           </Item>
         </Grid>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label="Last month's Income:">
-            {/*<div>xs=2</div>*/}
+          <Item label={t(`${homePrefix}grid_2.label`) + ":"}>
             <LastMonthIncome transactions={transactions} />
           </Item>
         </Grid>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label="Last month's Rent/Utils:">
-            <div>xs=2</div>
+          <Item label={t(`${homePrefix}grid_3.label`) + ":"}>
+            <LastMonthUtilsNRent
+              transactions={transactions}
+              categories={categories!}
+            />
           </Item>
         </Grid>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label="Last 30 days Transaction count:">
-            <div>xs=2</div>
+          <Item label={t(`${homePrefix}grid_4.label`) + ":"}>
+            <Last30daysCount transactions={transactions} />
           </Item>
         </Grid>
         <Grid item sm={colCount * 0.5} xs={colCount}>

@@ -9,6 +9,16 @@
         "label": "Dashboard",
         "grid_1": {
           "label": "Last 30 days Expense"
+        },
+        "grid_2": {
+          "label": "Last month's Income"
+        },
+        "grid_3": {
+          "label": "Last month's Rent/Utils"
+        },
+        "grid_4": {
+          "label": "Last 30 days record count",
+          "countSuffix": "pcs"
         }
       },
       "addTransaction": {
