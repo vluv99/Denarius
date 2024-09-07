@@ -34,11 +34,12 @@ After you have the access to Firebase Dashboard use the following steps:
        "id": "gcmBNKez4RZldbyVprLl",
        "name":"Category 1",
        "priority":1,
-       "expenseType": "Expense", // or "Income" or "Neutral"
+       "expenseType": "Expense",
        "color": "blue"
     }
     ```
-   - _Note:_ You can customize collection names in the .env file
+    - Possible types for `expenseType` are **'Expense'**, **'Income'**, or **'Neutral'**.
+    - _Note:_ You can customize collection names in the .env file
 
 ### Install NodeJS Project
 
