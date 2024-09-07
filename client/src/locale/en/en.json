@@ -19,7 +19,8 @@
           "paymentMethodLabel": "Payment Method",
           "descriptionLabel": "Description",
           "userLabel": "Users",
-          "isCommonLabel": "Is common expense?"
+          "isCommonLabel": "Is common expense?",
+          "isCommonShort": "Common"
         },
         "validationMsg": {
           "errorMsg": "Failed to save transaction!",

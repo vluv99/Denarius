@@ -19,7 +19,8 @@
           "paymentMethodLabel": "Fizetési mód",
           "descriptionLabel": "Egyéb megjegyzés",
           "userLabel": "Felhasználók",
-          "isCommonLabel": "Közös költség?"
+          "isCommonLabel": "Közös költség?",
+          "isCommonShort": "Közös"
         },
         "validationMsg": {
           "errorMsg": "Nem sikerult elmenteni a tranzakciót!",

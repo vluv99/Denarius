@@ -323,10 +323,10 @@ export function ListTodaysTransactions({
       }}
     >
       <Box sx={{ ...getSx(1), fontWeight: "bold", padding: "8px" }}>
-        <Box>Amount</Box>
-        <Box>Payee</Box>
-        <Box>Category</Box>
-        <Box>Common</Box>
+        <Box>{t(`${addTPrefix}fields.amountLabel`)}</Box>
+        <Box>{t(`${addTPrefix}fields.payeeLabel`)}</Box>
+        <Box>{t(`${addTPrefix}fields.categoryLabel`)}</Box>
+        <Box>{t(`${addTPrefix}fields.isCommonShort`)}</Box>
       </Box>
       {rows.length > 0 ? (
         rows.map((row, i) => (
