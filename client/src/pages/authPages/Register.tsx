@@ -4,6 +4,8 @@ import { loginUser, registerUser } from "../../services/userService";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { CustomTextField } from "../../components/formComponents/CustomTextField";
 import { useTranslation } from "react-i18next";
+import { Simulate } from "react-dom/test-utils";
+import error = Simulate.error;
 
 // list inputs in form
 type Inputs = {
@@ -159,6 +161,7 @@ export const Register = () => {
         variant="contained"
         color="secondary"
         type="submit"
+        disabled={!(process.env.NODE_ENV === "development")}
         sx={{ flexGrow: "1" }}
       >
         {t("view.auth.register.registerButtonLabel")}
