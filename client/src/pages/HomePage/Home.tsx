@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import { LastMonthIncome } from "./components/LastMonthIncome";
 import { LastMonthUtilsNRent } from "./components/LastMonthUtilsNRent";
 import { Last30daysCount } from "./components/Last30daysCount";
+import { CompareLast30DaysExpense } from "./components/CompareLast30DaysExpense";
 //import { TransactionContext } from "../../contex/GlobalState";
 
 //TODO: get a currencyformatter set by the account type
@@ -86,7 +87,10 @@ export const Home = () => {
         </Grid>
         <Grid item sm={colCount * 0.5} xs={colCount}>
           <Item label="Compare last 30 days Expenses:">
-            <div>xs=8</div>
+            <CompareLast30DaysExpense
+              transactions={transactions}
+              currentUser={currentUser!}
+            />
           </Item>
         </Grid>
         <Grid item sm={colCount * 0.5} xs={colCount}>

@@ -86,7 +86,7 @@ export const MonoStackerBar = ({
             const proportion = (getSectionValue(section) * 100) / sumValues;
             return (
               <Grow
-                key={index}
+                key={`bar-animation-${index}`}
                 in={true}
                 style={{ transformOrigin: "left" /*"0 0 0"*/ }}
                 {...(index > 0 ? { timeout: 1000 } : { timeout: 200 })}
@@ -112,7 +112,7 @@ export const MonoStackerBar = ({
                   }}
                   className={styles.section}
                 >
-                  {displayLabels && proportion > 10 && (
+                  {displayLabels && proportion > 5 && (
                     <span
                       style={{
                         fontSize: height - height / 2,
@@ -122,7 +122,9 @@ export const MonoStackerBar = ({
                       }}
                       className={styles.sectionLabel}
                     >
-                      {`${Math.round(getSectionValue(section))}${unit}`}
+                      {`${
+                        /*Math.round(*/ getSectionValue(section) /*)*/
+                      }${unit}`}
                     </span>
                   )}
                 </div>
@@ -134,18 +136,20 @@ export const MonoStackerBar = ({
         {isBarDataValues(data) &&
           data.filter((section) => section.caption).length > 0 &&
           data.map((section, index) => {
-            if (!section.caption) return <React.Fragment />;
+            if (!section.caption)
+              return <React.Fragment key={`caption-animation-${index}`} />;
             const proportion = (getSectionValue(section) * 100) / sumValues;
-            if (proportion < 10) return <React.Fragment />;
+            // if (proportion < 10)
+            //   return <React.Fragment key={`caption-animation-${index}`} />;
             return (
               <Grow
-                key={index}
+                key={`caption-animation-${index}`}
                 in={true}
                 style={{ transformOrigin: "left" /*"0 0 0"*/ }}
                 {...(index > 0 ? { timeout: 1000 } : { timeout: 200 })}
               >
                 <div
-                  key={index}
+                  key={`caption-${index}`}
                   style={{
                     width: `${proportion}%`,
                     fontSize: height - height / 2,
