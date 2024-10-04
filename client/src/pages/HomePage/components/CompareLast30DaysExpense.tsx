@@ -4,6 +4,7 @@ import { useGetUserBrowserTheme } from "../../../theme/themeHooks";
 import { MonoStackerBar } from "../../../components/charts/stackedBar/MonoStackerBar";
 import { Container, Typography, useTheme } from "@mui/material";
 import { formatToCurrency, isDateIn30Days } from "../../../utils/utils";
+import { useTranslation } from "react-i18next";
 
 export function CompareLast30DaysExpense({
   transactions,
@@ -13,6 +14,8 @@ export function CompareLast30DaysExpense({
   currentUser: User;
 }) {
   const theme = useTheme();
+  const { t } = useTranslation();
+  const homeGridPrefix = "view.dasboard.grid_5.";
 
   const expense = Math.abs(
     transactions
@@ -35,16 +38,16 @@ export function CompareLast30DaysExpense({
 
     a.percentage = 0.09; //Math.round((expense / income) * 100) / 100;
     b.percentage = 1 - a.percentage;
-    a.caption = "Expense";
-    b.caption = "Income";
+    a.caption = t(`${homeGridPrefix}expenseCaption`);
+    b.caption = t(`${homeGridPrefix}incomeCaption`);
   } else {
     b.color = theme.palette.secondary.dark;
     a.color = theme.palette.secondary.light;
     b.percentage = expense - income;
     sum = expense;
 
-    a.caption = "Income";
-    b.caption = "Expense";
+    a.caption = t(`${homeGridPrefix}incomeCaption`);
+    b.caption = t(`${homeGridPrefix}expenseCaption`);
   }
 
   return (

@@ -19,6 +19,10 @@
         "grid_4": {
           "label": "Utolsó 30 nap rekordszáma",
           "countSuffix": "db"
+        },
+        "grid_5": {
+          "incomeCaption": "Jövedelem",
+          "expenseCaption": "Kiadás"
         }
       },
       "addTransaction": {
