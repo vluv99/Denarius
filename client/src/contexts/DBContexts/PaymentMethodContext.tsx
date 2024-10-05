@@ -5,9 +5,9 @@ import { useGetPaymentMethodData } from "../../hooks/paymentMethodHooks";
 
 export type PaymentMethodCtx = {
   paymentMethods: PaymentMethod[] | undefined;
-  payMethLoading: boolean;
+  paymentLoading: boolean;
 };
-const defPaymentMethodCtx = { paymentMethods: undefined, payMethLoading: true };
+const defPaymentMethodCtx = { paymentMethods: undefined, paymentLoading: true };
 
 // create context
 const PaymentMethodContext =
@@ -32,7 +32,7 @@ export function PaymentMethodContextProvider({ children }: ChildrenProp) {
 
   return (
     <PaymentMethodContext.Provider
-      value={{ paymentMethods, payMethLoading: loading }}
+      value={{ paymentMethods, paymentLoading: loading }}
     >
       {children}
     </PaymentMethodContext.Provider>
