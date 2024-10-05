@@ -1,8 +1,11 @@
 import { Transaction } from "../../../models/Transaction";
 import { useEffect, useState } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import { formatToCurrency, isDateFromLastMonth } from "../../../utils/utils";
 import { Category } from "../../../models/CategoryModel";
+import { GridNumberItem } from "../../../components/dashboard/gridNumberItem";
+import { useTranslation } from "react-i18next";
+import { House } from "@mui/icons-material";
 
 export function LastMonthUtilsNRent({
   transactions,
@@ -11,8 +14,11 @@ export function LastMonthUtilsNRent({
   transactions: Transaction[];
   categories: Category[];
 }) {
-  const [sum, setSum] = useState(0);
+  const { t } = useTranslation();
+  const homePrefix = "view.dasboard.";
   const theme = useTheme();
+
+  const [sum, setSum] = useState(0);
 
   useEffect(() => {
     setSum(0);
@@ -36,14 +42,11 @@ export function LastMonthUtilsNRent({
   }, [transactions]);
 
   return (
-    <Box display={"flex"}>
-      <Typography
-        color={theme.palette.warning.main}
-        component="div"
-        sx={{ typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" } }}
-      >
-        {formatToCurrency(sum)}
-      </Typography>
-    </Box>
+    <GridNumberItem
+      value={formatToCurrency(sum)}
+      title={t(`${homePrefix}grid_3.label`)}
+      color={theme.palette.warning.main}
+      icon={<House />}
+    />
   );
 }

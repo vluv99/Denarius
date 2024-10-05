@@ -1,8 +1,10 @@
 import { Transaction } from "../../../models/Transaction";
 import { useEffect, useState } from "react";
-import { formatToCurrency, isDateIn30Days } from "../../../utils/utils";
-import { Box, Typography, useTheme } from "@mui/material";
+import { isDateIn30Days } from "../../../utils/utils";
+import { useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { GridNumberItem } from "../../../components/dashboard/gridNumberItem";
+import { Addchart } from "@mui/icons-material";
 
 export function Last30daysCount({
   transactions,
@@ -11,9 +13,9 @@ export function Last30daysCount({
 }) {
   const { t } = useTranslation();
   const homeGridPrefix = "view.dasboard.grid_4.";
+  const theme = useTheme();
 
   const [sum, setSum] = useState(0);
-  const theme = useTheme();
 
   useEffect(() => {
     setSum(0);
@@ -32,14 +34,11 @@ export function Last30daysCount({
   }, [transactions]);
 
   return (
-    <Box display={"flex"}>
-      <Typography
-        color={theme.palette.info.main}
-        component="div"
-        sx={{ typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" } }}
-      >
-        {sum + " " + t(`${homeGridPrefix}countSuffix`)}
-      </Typography>
-    </Box>
+    <GridNumberItem
+      value={sum + " " + t(`${homeGridPrefix}countSuffix`)}
+      title={t(`${homeGridPrefix}label`)}
+      color={theme.palette.info.main}
+      icon={<Addchart />}
+    />
   );
 }

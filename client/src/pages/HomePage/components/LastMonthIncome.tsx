@@ -1,19 +1,21 @@
 import { Transaction } from "../../../models/Transaction";
 import { useEffect, useState } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
-import {
-  formatToCurrency,
-  isDateFromLastMonth,
-  isDateIn30Days,
-} from "../../../utils/utils";
+import { useTheme } from "@mui/material";
+import { formatToCurrency, isDateFromLastMonth } from "../../../utils/utils";
+import { GridNumberItem } from "../../../components/dashboard/gridNumberItem";
+import { useTranslation } from "react-i18next";
+import { Savings } from "@mui/icons-material";
 
 export function LastMonthIncome({
   transactions,
 }: {
   transactions: Transaction[];
 }) {
-  const [sum, setSum] = useState(0);
+  const { t } = useTranslation();
+  const homePrefix = "view.dasboard.";
   const theme = useTheme();
+
+  const [sum, setSum] = useState(0);
 
   useEffect(() => {
     setSum(0);
@@ -36,14 +38,11 @@ export function LastMonthIncome({
   }, [transactions]);
 
   return (
-    <Box display={"flex"}>
-      <Typography
-        color={theme.palette.success.main}
-        component="div"
-        sx={{ typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" } }}
-      >
-        +{formatToCurrency(sum)}
-      </Typography>
-    </Box>
+    <GridNumberItem
+      value={`+${formatToCurrency(sum)}`}
+      title={t(`${homePrefix}grid_2.label`)}
+      color={theme.palette.success.main}
+      icon={<Savings />}
+    />
   );
 }

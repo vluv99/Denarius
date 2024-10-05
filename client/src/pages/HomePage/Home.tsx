@@ -87,11 +87,12 @@ export const Home = () => {
         </Grid>
         <Grid item sm={colCount * 0.5} xs={colCount}>
           <Item label="Compare last 30 days Expenses:">
-            <CompareLast30DaysExpense
-              transactions={transactions}
-              currentUser={currentUser!}
-            />
-          </Item>
+            <Container sx={{ padding: { xs: "10px", sm: "10px" } }}>
+              <CompareLast30DaysExpense
+                transactions={transactions}
+                currentUser={currentUser!}
+              />
+            </Container>
         </Grid>
         <Grid item sm={colCount * 0.5} xs={colCount}>
           <Item label="Last 5 common Expense:">

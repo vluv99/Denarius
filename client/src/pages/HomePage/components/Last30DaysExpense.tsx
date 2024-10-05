@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
-import { Box, Theme, Typography, useMediaQuery } from "@mui/material";
-import firebase from "firebase/compat";
+import { useTheme } from "@mui/material";
 import { Transaction } from "../../../models/Transaction";
 import { useTranslation } from "react-i18next";
 import { formatToCurrency, isDateIn30Days } from "../../../utils/utils";
+import { GridNumberItem } from "../../../components/dashboard/gridNumberItem";
+import { AttachMoney } from "@mui/icons-material";
 
 export function Last30DaysExpense({
   transactions,
 }: {
   transactions: Transaction[];
 }) {
+  const { t } = useTranslation();
+  const homePrefix = "view.dasboard.";
+  const theme = useTheme();
+
   const [sum, setSum] = useState(0);
 
   useEffect(() => {
@@ -33,14 +38,11 @@ export function Last30DaysExpense({
   }, [transactions]);
 
   return (
-    <Box display={"flex"}>
-      <Typography
-        color="error"
-        component="div"
-        sx={{ typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" } }}
-      >
-        {formatToCurrency(sum)}
-      </Typography>
-    </Box>
+    <GridNumberItem
+      value={formatToCurrency(sum)}
+      title={t(`${homePrefix}grid_1.label`)}
+      color={theme.palette.error.main}
+      icon={<AttachMoney />}
+    />
   );
 }
