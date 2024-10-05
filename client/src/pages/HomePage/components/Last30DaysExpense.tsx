@@ -41,7 +41,7 @@ export function Last30DaysExpense({
     <GridNumberItem
       value={formatToCurrency(sum)}
       title={t(`${homePrefix}grid_1.label`)}
-      color={theme.palette.error.main}
+      color={theme.palette.error}
       icon={<AttachMoney />}
     />
   );

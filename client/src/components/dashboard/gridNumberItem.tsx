@@ -1,4 +1,10 @@
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Container,
+  PaletteColor,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { ReactElement } from "react";
 
 export function GridNumberItem({
@@ -9,7 +15,7 @@ export function GridNumberItem({
 }: {
   value: string;
   title: string;
-  color: string;
+  color: PaletteColor;
   icon: ReactElement<any, any>;
 }) {
   const theme = useTheme();
@@ -20,9 +26,14 @@ export function GridNumberItem({
         sx={{ flexDirection: "column", alignItems: "flex-start" }}
       >
         <Typography
-          color={color}
           component="div"
-          sx={{ typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" } }}
+          sx={{
+            typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" },
+            background: `-webkit-linear-gradient(45deg, ${color.light} 20%, ${color.main} 45%, ${color.dark} 85%)`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontWeight: "bold!important",
+          }}
         >
           {value}
         </Typography>

@@ -41,7 +41,7 @@ export function LastMonthIncome({
     <GridNumberItem
       value={`+${formatToCurrency(sum)}`}
       title={t(`${homePrefix}grid_2.label`)}
-      color={theme.palette.success.main}
+      color={theme.palette.success}
       icon={<Savings />}
     />
   );

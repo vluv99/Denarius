@@ -45,7 +45,7 @@ export function LastMonthUtilsNRent({
     <GridNumberItem
       value={formatToCurrency(sum)}
       title={t(`${homePrefix}grid_3.label`)}
-      color={theme.palette.warning.main}
+      color={theme.palette.warning}
       icon={<House />}
     />
   );

@@ -37,7 +37,7 @@ export function Last30daysCount({
     <GridNumberItem
       value={sum + " " + t(`${homeGridPrefix}countSuffix`)}
       title={t(`${homeGridPrefix}label`)}
-      color={theme.palette.info.main}
+      color={theme.palette.info}
       icon={<Addchart />}
     />
   );
