@@ -5,7 +5,7 @@ import "../App.css";
 import { Padding } from "@mui/icons-material";
 
 interface DashboardCardProps {
-  label: string;
+  label?: string;
   children: ReactElement;
 }
 

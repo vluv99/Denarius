@@ -1,6 +1,8 @@
 import {
+  Box,
   Container,
   Grid,
+  Paper,
   styled,
   useMediaQuery,
   useTheme,
@@ -25,17 +27,16 @@ import { CompareLast30DaysExpense } from "./components/CompareLast30DaysExpense"
 
 //TODO: get a currencyformatter set by the account type
 
-const Item = styled(PaperCard)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
   ...theme.typography.body2,
-  padding: theme.spacing(1),
+  padding: "10px",
   textAlign: "center",
   color: theme.palette.text.secondary,
+  height: "100%",
 }));
 
 export const Home = () => {
-  const { t } = useTranslation();
-  const homePrefix = "view.dasboard.";
   const transactions = useTransactionContext();
   const { categories, catLoading } = useCategoryContext();
   const { paymentLoading } = usePaymentMethodContext();
@@ -63,53 +64,59 @@ export const Home = () => {
     <Container sx={{ margin: "3% auto" }}>
       <Grid container spacing={2} columns={colCount} alignItems={"stretch"}>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label={t(`${homePrefix}grid_1.label`) + ":"}>
+          <GridItem>
             <Last30DaysExpense transactions={transactions} />
-          </Item>
+          </GridItem>
         </Grid>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label={t(`${homePrefix}grid_2.label`) + ":"}>
+          <GridItem>
             <LastMonthIncome transactions={transactions} />
-          </Item>
+          </GridItem>
         </Grid>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label={t(`${homePrefix}grid_3.label`) + ":"}>
+          <GridItem>
             <LastMonthUtilsNRent
               transactions={transactions}
               categories={categories!}
             />
-          </Item>
+          </GridItem>
         </Grid>
         <Grid item sm={colCount * 0.25} xs={colCount * 0.5}>
-          <Item label={t(`${homePrefix}grid_4.label`) + ":"}>
+          <GridItem>
             <Last30daysCount transactions={transactions} />
-          </Item>
+          </GridItem>
         </Grid>
         <Grid item sm={colCount * 0.5} xs={colCount}>
-          <Item label="Compare last 30 days Expenses:">
+          <GridItem /*label="Compare last 30 days Expenses:"*/>
             <Container sx={{ padding: { xs: "10px", sm: "10px" } }}>
               <CompareLast30DaysExpense
                 transactions={transactions}
                 currentUser={currentUser!}
               />
             </Container>
+          </GridItem>
         </Grid>
         <Grid item sm={colCount * 0.5} xs={colCount}>
-          <Item label="Last 5 common Expense:">
+          <GridItem /*label="Last 5 common Expense:"*/>
             <div>xs=8</div>
-          </Item>
+          </GridItem>
         </Grid>
         <Grid item sm={colCount * 0.4} xs={colCount}>
-          <Item label="5 most expensive  Category (lost of categories):">
+          <GridItem /*label="5 most expensive  Category (lost of categories):"*/
+          >
             <div>xs=6</div>
-          </Item>
+          </GridItem>
         </Grid>
         <Grid item sm={colCount * 0.6} xs={colCount}>
-          <Item label="Last 30 days (tree map of expense categories):">
+          <GridItem /*label="Last 30 days (tree map of expense categories):"*/>
             <div>xs=10</div>
-          </Item>
+          </GridItem>
         </Grid>
       </Grid>
     </Container>
   );
 };
+
+export function GridItem({ children }: { children: React.ReactNode }) {
+  return <Item elevation={4}>{children}</Item>;
+}
