@@ -6,6 +6,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { ReactElement } from "react";
+import Grow from "@mui/material/Grow";
 
 export function GridNumberItem({
   value,
@@ -25,18 +26,24 @@ export function GridNumberItem({
         display={"flex"}
         sx={{ flexDirection: "column", alignItems: "flex-start" }}
       >
-        <Typography
-          component="div"
-          sx={{
-            typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" },
-            background: `-webkit-linear-gradient(45deg, ${color.light} 20%, ${color.main} 45%, ${color.dark} 85%)`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            fontWeight: "bold!important",
-          }}
+        <Grow
+          in={true}
+          style={{ transformOrigin: "left" }}
+          {...{ timeout: 1000 }}
         >
-          {value}
-        </Typography>
+          <Typography
+            component="div"
+            sx={{
+              typography: { xs: "h6", sm: "h5", lg: "h4", xl: "h4" },
+              background: `-webkit-linear-gradient(45deg, ${color.light} 20%, ${color.main} 45%, ${color.dark} 85%)`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              fontWeight: "bold!important",
+            }}
+          >
+            {value}
+          </Typography>
+        </Grow>
         <Typography
           color={theme.palette.text.disabled}
           component="div"

@@ -68,6 +68,7 @@ export function CompareLast30DaysExpense({
         radius={4}
         height={30}
         unit={"%"}
+        labelColor={theme.palette.text.primary}
       />
       <Container>
         {/*<Typography variant="body1" component="div">*/}
