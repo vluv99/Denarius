@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { Transaction } from "../../../models/Transaction";
 import { Category } from "../../../models/CategoryModel";
 import { isDateIn30Days } from "../../../utils/utils";
+import { useTranslation } from "react-i18next";
+import { TFunction } from "i18next";
 
 export function TreemapOfLast30Days({
   transactions,
@@ -17,6 +19,8 @@ export function TreemapOfLast30Days({
   transactions: Transaction[];
   categories: Category[];
 }) {
+  const { t } = useTranslation();
+
   const data: Tree = {
     type: "node",
     name: "boss",
@@ -24,11 +28,11 @@ export function TreemapOfLast30Days({
     children: [],
   };
 
-  data.children = [...setLeaves(categories, transactions)];
+  data.children = [...setLeaves(categories, transactions, t)];
 
   useEffect(() => {
     data.children = [];
-    data.children = [...setLeaves(categories, transactions)];
+    data.children = [...setLeaves(categories, transactions, t)];
   }, [transactions]);
 
   return (
@@ -45,6 +49,7 @@ export function TreemapOfLast30Days({
 function setLeaves(
   categories: Category[],
   transactions: Transaction[],
+  t: TFunction,
 ): Tree[] {
   const filtered = transactions
     .filter((t) => isDateIn30Days(t.date) && t.amount < 0)
@@ -56,8 +61,8 @@ function setLeaves(
     if (catCount.length > 0) {
       const leaf: TreeLeaf = {
         type: "leaf",
-        name: cat.name,
-        value: catCount.length,
+        name: t(`database.category.${cat.name}`),
+        value: (catCount.length / filtered.length) * 100,
         color: "",
       };
       tree.push(leaf);
