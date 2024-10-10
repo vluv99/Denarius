@@ -27,7 +27,7 @@ export const Treemap = ({ width, height, data }: TreemapProps) => {
           width={leaf.x1 - leaf.x0}
           height={leaf.y1 - leaf.y0}
           stroke="transparent"
-          fill={"#69b3a2"}
+          fill={leaf.data.color}
           className={"opacity-80 hover:opacity-100"}
         />
         <text

@@ -23,17 +23,13 @@ export function TreemapOfLast30Days({
 
   const data: Tree = {
     type: "node",
-    name: "boss",
+    name: "origin",
     value: 0,
+    color: "",
     children: [],
   };
 
   data.children = [...setLeaves(categories, transactions, t)];
-
-  useEffect(() => {
-    data.children = [];
-    data.children = [...setLeaves(categories, transactions, t)];
-  }, [transactions]);
 
   return (
     <Box id={"treemap-container"} sx={{ minHeight: 200 }}>
@@ -63,7 +59,7 @@ function setLeaves(
         type: "leaf",
         name: t(`database.category.${cat.name}`),
         value: (catCount.length / filtered.length) * 100,
-        color: "",
+        color: cat.color,
       };
       tree.push(leaf);
     }

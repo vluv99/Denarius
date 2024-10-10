@@ -2,6 +2,7 @@ export type TreeNode = {
   type: "node";
   value: number;
   name: string;
+  color: string;
   children: Tree[];
 };
 export type TreeLeaf = {
@@ -17,6 +18,7 @@ export const testData: Tree = {
   type: "node",
   name: "boss",
   value: 0,
+  color: "",
   children: [
     { type: "leaf", name: "Mark", value: 90, color: "#e0ac2b" },
     { type: "leaf", name: "Robert", value: 12, color: "#6689c6" },
