@@ -23,6 +23,7 @@ import { LastMonthIncome } from "./components/LastMonthIncome";
 import { LastMonthUtilsNRent } from "./components/LastMonthUtilsNRent";
 import { Last30daysCount } from "./components/Last30daysCount";
 import { CompareLast30DaysExpense } from "./components/CompareLast30DaysExpense";
+import { TreemapOfLast30Days } from "./components/TreemapOfLast30Days";
 //import { TransactionContext } from "../../contex/GlobalState";
 
 //TODO: get a currencyformatter set by the account type
@@ -109,7 +110,10 @@ export const Home = () => {
         </Grid>
         <Grid item sm={colCount * 0.6} xs={colCount}>
           <GridItem /*label="Last 30 days (tree map of expense categories):"*/>
-            <div>xs=10</div>
+            <TreemapOfLast30Days
+              transactions={transactions}
+              categories={categories!}
+            />
           </GridItem>
         </Grid>
       </Grid>
