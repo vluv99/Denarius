@@ -58,7 +58,7 @@ function setLeaves(
       const leaf: TreeLeaf = {
         type: "leaf",
         name: t(`database.category.${cat.name}`),
-        value: (catCount.length / filtered.length) * 100,
+        value: Math.round((catCount.length / filtered.length) * 100),
         color: cat.color,
       };
       tree.push(leaf);
