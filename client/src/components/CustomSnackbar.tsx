@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
+import { Alert, Snackbar, SnackbarCloseReason, useTheme } from "@mui/material";
 
 type Params = {
   severity: "success" | "info" | "warning" | "error" | undefined;
@@ -9,6 +9,7 @@ type Params = {
 };
 
 export function CustomSnackbar(params: Params) {
+  const theme = useTheme();
   const handleClose = (
     event?: React.SyntheticEvent | Event,
     reason?: SnackbarCloseReason,
@@ -25,7 +26,7 @@ export function CustomSnackbar(params: Params) {
         onClose={handleClose}
         severity={params.severity}
         variant="filled"
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", color: theme.palette.text.primary }}
       >
         {params.infoText}
       </Alert>
