@@ -21,8 +21,11 @@
           "countSuffix": "db"
         },
         "grid_5": {
+          "label": "Összehasonlítás az elmúlt 30 nap kiadásaiból",
           "incomeCaption": "Jövedelem",
-          "expenseCaption": "Kiadás"
+          "expenseCaption": "Kiadás",
+          "subtext_moreIncome": "A {{from}} és {{till}} között bevételének {{spentPercentage}}%-át költötted el. {{incomePercentage}}% van még hátra.",
+          "subtext_moreExpense": "A {{from}} és {{till}} között {{differencePercentage}}%-kal többet költöttél a bevételénél."
         }
       },
       "addTransaction": {

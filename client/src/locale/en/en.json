@@ -21,8 +21,11 @@
           "countSuffix": "pcs"
         },
         "grid_5": {
+          "label": "Compare last 30 days Expenses",
           "incomeCaption": "Income",
-          "expenseCaption": "Expense"
+          "expenseCaption": "Expense",
+          "subtext_moreIncome": "In between {{from}} - {{till}} you spent {{spentPercentage}}% of your income. {{incomePercentage}}% is remaining.",
+          "subtext_moreExpense": "In between {{from}} - {{till}} you spent {{differencePercentage}}% more than your income."
         }
       },
       "addTransaction": {

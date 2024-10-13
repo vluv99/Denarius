@@ -8,6 +8,13 @@ type TreemapProps = {
   data: Tree;
 };
 
+/**
+ * https://www.react-graph-gallery.com/treemap
+ * @param width {number}
+ * @param height {number}
+ * @param data {Tree}
+ * @constructor
+ */
 export const Treemap = ({ width, height, data }: TreemapProps) => {
   const hierarchy = useMemo(() => {
     return d3.hierarchy(data).sum((d) => d.value);
